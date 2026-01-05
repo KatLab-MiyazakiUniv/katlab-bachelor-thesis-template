@@ -1,16 +1,17 @@
-\chapter{試作したツールの実装}\label{cha:Implementation}
+% \chapter{試作したツールの実装}\label{cha:Implementation}
 
+\iffalse
 本章では、LaTeX でソースコードを挿入する方法について説明する。
 本テンプレートの実装方法については、文献\cite{kimura-automation}で詳しく述べられている。
 
-\section{listings パッケージ}
+% \section{listings パッケージ}
 
 本テンプレートでは、\verb|listings| パッケージを使用してソースコードを挿入できる。
 このパッケージは、paper.tex で既に読み込まれているため、すぐに使用できる。
 
-\section{基本的なコードの挿入}
+% \section{基本的なコードの挿入}
 
-\subsection{Python のコード例}
+% \subsection{Python のコード例}
 
 コード\ref{lst:python}に Python のコード例を示す。
 
@@ -24,7 +25,7 @@ if __name__ == "__main__":
 \end{lstlisting}
 \end{figure}
 
-\subsection{Java のコード例}
+% \subsection{Java のコード例}
 
 コード\ref{lst:java}に Java のコード例を示す。
 
@@ -38,7 +39,7 @@ public class HelloWorld {
 \end{lstlisting}
 \end{figure}
 
-\subsection{JavaScript のコード例}
+% \subsection{JavaScript のコード例}
 
 コード\ref{lst:javascript}に JavaScript のコード例を示す。
 
@@ -52,7 +53,7 @@ helloWorld();
 \end{lstlisting}
 \end{figure}
 
-\section{サポートされている言語}
+% \section{サポートされている言語}
 
 listings パッケージは、以下の言語をサポートしている：
 
@@ -68,7 +69,8 @@ listings パッケージは、以下の言語をサポートしている：
 
 言語の指定は、\verb|language=言語名| で行う。
 
-\section{コードの参照}
+% \section{コードの参照}
 
 コードを参照する場合は、図や表と同様に \verb|\ref{}| コマンドを使用する。
 例えば、コード\ref{lst:python}、コード\ref{lst:java}、コード\ref{lst:javascript}のように参照できる。
+\fi

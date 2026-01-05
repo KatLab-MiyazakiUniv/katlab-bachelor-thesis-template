@@ -1,13 +1,14 @@
 \chapter{適用例}\label{cha:Indication}
 
+\iffalse
 本章では、参考文献の引用方法について説明する。
 
-\section{参考文献の管理}
+% \section{参考文献の管理}
 
 本テンプレートでは、BibTeX を使用して参考文献を管理する。
 参考文献は \verb|paper.bib| ファイルに記述する。
 
-\section{BibTeX ファイルの書き方}
+% \section{BibTeX ファイルの書き方}
 
 \verb|paper.bib| ファイルには、以下のような形式で参考文献を記述する：
 
@@ -22,7 +23,7 @@
 }
 \end{verbatim}
 
-\subsection{文献の種類}
+% \subsection{文献の種類}
 
 以下のような文献の種類がある：
 
@@ -33,11 +34,11 @@
   \item \verb|@misc|: その他（Web サイトなど）
 \end{itemize}
 
-\section{参考文献の引用}
+% \section{参考文献の引用}
 
 文中で参考文献を引用するには、\verb|\cite{}| コマンドを使用する。
 
-\subsection{引用の例}
+% \subsection{引用の例}
 
 例えば、以下のように引用できる：
 
@@ -57,7 +58,7 @@
 文献\cite{kimura-github}で公開されている。
 \end{verbatim}
 
-\subsection{複数の文献を同時に引用}
+% \subsection{複数の文献を同時に引用}
 
 複数の文献を同時に引用することもできる。
 LaTeX とその周辺技術については、文献\cite{kimura-latex, kimura-docker, kimura-automation}を参照されたい。
@@ -66,12 +67,12 @@ LaTeX とその周辺技術については、文献\cite{kimura-latex, kimura-do
 文献\cite{kimura-latex, kimura-docker, kimura-automation}を参照されたい。
 \end{verbatim}
 
-\section{参考文献リストの生成}
+% \section{参考文献リストの生成}
 
 参考文献リストは、paper.tex の最後で自動的に生成される。
 引用した文献のみが参考文献リストに表示される。
 
-\subsection{コンパイルの注意点}
+% \subsection{コンパイルの注意点}
 
 参考文献を正しく表示するには、以下の順序でコンパイルが必要：
 
@@ -82,3 +83,4 @@ LaTeX とその周辺技術については、文献\cite{kimura-latex, kimura-do
 \end{enumerate}
 
 本テンプレートでは、\verb|make| コマンドを使用することで、これらの処理が自動的に行われる。
+\fi
