@@ -62,6 +62,10 @@
 \usepackage{pxjahyper}          % リンクを付けてくれる（日本語）
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
+\usepackage{caption}
+% \captionsetup{
+%   skip=0pt   % ← ここを小さくする（0pt〜6ptが実用的）
+% }
 %\RequirePackage[l2tabu, orthodox]{nag} % これを入れると、古いコマンドを警告してくれる！なお完全には消せなかった模様
 
 \lstset{
@@ -145,10 +149,9 @@
 %%
 % 参考文献
 %
-\iffalse
+\nocite{*}
 \bibliography{paper} %hoge.bibから拡張子を外した名前
 \bibliographystyle{junsrt} %参考文献出力スタイル
-\fi
 %%
 % 付録
 %
