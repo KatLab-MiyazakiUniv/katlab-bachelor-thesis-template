@@ -1,8 +1,17 @@
-\chapter{作成したプロンプトの構成}\label{cha:Function}
+\chapter{提案手法}\label{cha:Proposal}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/prompt_figure.pdf}
+  \caption{プロンプト作成の全体像と構成要素}
+  \label{fig:prompt_structure}
+\end{figure}
+
 本研究では、LLMに対してシステム仕様書の章立てを作成させるためのプロンプトを作成した。
 本プロンプトの作成には、Jules Whiteらによるプロンプトパターンカタログ\cite{prompt-engineering}を参考にした。
-本プロンプトは、役割付与、ベース章立て、システム情報、システム仕様書の定義、出力指示の５つの要素から構成されている。\\
-プロンプトの全文を以下に示す。
+本プロンプトは、図\ref{fig:prompt_structure}のように、役割付与、ベース章立て、システム情報、システム仕様書の定義、出力指示の５つの要素から構成されている。\\
+プロンプトの全文を図\ref{fig:prompt_full_text}に示す。
+
 \section{プロンプト全文}
 
 \begin{tcolorbox}[
@@ -102,8 +111,8 @@
 \end{verbatim}
 \end{tcolorbox}
 \par\vspace{-20pt}
-\captionof{figure}{プロンプトの開発するシステム情報部分}
-\label{fig:development_system_info_overview}
+\captionof{figure}{作成したプロンプトの全文}
+\label{fig:prompt_full_text}
 
 それぞれの要素の役割と目的を以下に述べる。
 

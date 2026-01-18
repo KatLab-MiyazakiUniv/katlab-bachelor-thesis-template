@@ -42,6 +42,9 @@
 %
 \documentclass[uplatex, report, a4j, 10pt, dvipdfmx]{jsbook}
 
+\raggedbottom % ページ下部を揃えようとして隙間が広がるのを防ぐ
+
+
 
 %%
 % パッケージ群
@@ -60,6 +63,7 @@
 \usepackage[hdivide={21mm, , 21mm}, vdivide={30mm, , 25mm}]{geometry} % スタイルを少し変えたくても\hoffset, \voffsetは使わないでね
 \usepackage[dvipdfmx, hidelinks]{hyperref} % リンクを付けてくれる。
 \usepackage{pxjahyper}          % リンクを付けてくれる（日本語）
+\usepackage{multicol} % 2段組み用
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
 \usepackage{caption}
@@ -117,19 +121,20 @@
 % 本文
 %
 % はじめに
+% はじめに
 \input{chapters/01-introduction.tex}
 
 % 研究の準備
 \input{chapters/02-preparation.tex}
 
-% 機能
-\input{chapters/03-function.tex}
-
-% 実装
-\input{chapters/04-implementation.tex}
+% 提案手法
+\input{chapters/03-proposal.tex}
 
 % 適用例
-\input{chapters/05-indication.tex}
+\input{chapters/04-application.tex}
+
+% 評価
+\input{chapters/05-evaluation.tex}
 
 % 考察
 \input{chapters/06-discussion.tex}
