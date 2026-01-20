@@ -46,14 +46,14 @@ Chain of Thought (CoT) は、モデルに対して「段階的に考えさせる
 \label{sec:prompt_patterns}
 
 プロンプトデザインパターンとは、プロンプトエンジニアリングにおける知見をパターン化し、再利用可能な形に体系化したものである。
-本研究では、Jules Whiteらが提案するプロンプトパターンカタログ\cite{prompt-engineering}を参考に、以下のパターンを適用した。
+本研究で作成したプロンプトでは、Jules Whiteらが提案するプロンプトパターンカタログ\cite{prompt-engineering}を参考に、以下のパターンを適用した。
 
 \subsection{Persona Pattern}
 \label{subsec:persona_pattern}
 
 Persona Pattern（ペルソナパターン）は、LLMに対して特定の役割（ペルソナ）を与えることで、その役割に適した振る舞いや回答を促すパターンである。
 例えば、「あなたは教師です」と指示すれば、解説調の丁寧な回答が得られやすくなる。
-本研究では、プロンプトの冒頭で「あなたはシステム仕様書作成の専門アシスタントです」と役割を定義することで、専門的かつ実務的なドキュメント出力を誘導している。
+本研究では、プロンプトの冒頭で「あなたはシステム仕様書作成の専門アシスタントです」と役割を定義することで、専門的かつ実務的な章立ての出力を誘導している。
 
 \subsection{Template Pattern}
 \label{subsec:template_pattern}
