@@ -18,21 +18,22 @@ ChatGPT 5.2は、複雑な文脈の理解や、長文の生成において優れ
 プロンプトエンジニアリングとは、LLMから望ましい出力を得るために、入力する指示文（プロンプト）を設計・最適化する技術のことである。
 LLMの性能を最大限に引き出すためには、モデルの特性を理解し、適切な指示を与える必要がある。以下に、本研究に関連する主要な手法について述べる。
 
-\subsection{Zero-shot / Few-shot Learning}
+\subsection{Zero-shot / Few-shot Prompting}
 \label{subsec:zero_few_shot}
 
-Zero-shot Learningは、モデルに対してタスクの具体的な回答例（Example）を与えずに、指示のみでタスクを実行させる手法である。
-一方、Few-shot Learningは、いくつかの入出力ペア（例題）を提示することで、モデルにタスクの実行方法を学習させる手法である。
-一般に、Few-shot Learningの方が精度が高いとされるが、タスクが複雑すぎる場合や、例題の作成が困難な場合はZero-shot Learningが用いられる。
+Zero-shot Prompting\cite{zeroshot}は、モデルに対してタスクの具体的な回答例（Example）を与えずに、指示のみでタスクを実行させる手法である。
+一方、Few-shot Prompting\cite{fewshot}は、いくつかの入出力ペア（例題）を提示することで、モデルにタスクの実行方法を学習させる手法である。
+一般に、Few-shot Promptingの方が精度が高いとされるが、タスクが複雑すぎる場合や、例題の作成が困難な場合はZero-shot Promptingが用いられる。
 
 本研究では、作成するシステム仕様書章立てのためのプロンプトがあらゆるシステムに対応できる汎用性を持つ必要があるため、特定のシステムに依存した「正解の章立て例」を与えることが困難である。
-そのため、基本的には\textbf{Zero-shot Prompting}の手法を採用している。
-ただし、出力形式（フォーマット）に関しては、LLMが安定して出力できるように、フォーマットの例を1つ提示するアプローチ（One-shot Prompting）を取り入れている。
+そのため、基本的には\textbf{Zero-shot Prompting}の手法をベースとしている。
+ただし、完全にゼロから生成させるのではなく、\textbf{One-shot Prompting}\cite{oneshot}の要素を効果的に取り入れている。
+具体的には、標準的な章立ての構成を「ベース章立て」として提示することで構造の指針を与え（詳細は第\ref{cha:Proposal}章で後述）、さらに出力形式（フォーマット）についても具体例を1つ提示することで、LLMが安定して出力できるようにしている。
 
 \subsection{Chain of Thought (CoT)}
 \label{subsec:cot}
 
-Chain of Thought (CoT) は、モデルに対して「段階的に考えさせる」ことで、複雑な推論タスクの精度を向上させる手法である\cite{cot}。
+Chain of Thought (CoT) は、モデルに対して「段階的に考えさせる」ことで、複雑な推論タスクの精度を向上させる手法である\cite{chainofthought}。
 答えを直接出力させるのではなく、思考過程を出力させることで、論理的な整合性を保ちやすくなる。
 
 本研究では、このCoTの概念を応用し、システム仕様書の作成という複雑なタスクを、以下の2段階に分解して実行させている。
