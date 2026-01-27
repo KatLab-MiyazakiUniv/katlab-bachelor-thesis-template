@@ -58,6 +58,7 @@
 \usepackage{txfonts}            % フォントといえばやっぱりtxfonts、今はnewtxってのもあるらしい（amsmathと競合するためコメントアウト）
 \usepackage{multirow}           % 表で複数行をまとめるために必須
 \usepackage{url}                % URLを表示するために必要
+% \usepackage{xurl}
 \usepackage{verbatim}           % コメントアウトしてくれる便利なプリアンブルが使える \begin{comment} ... \end{comment}
 \usepackage[htt]{hyphenat}      % textttをハイフネーションしてくれる。
 \usepackage[hdivide={21mm, , 21mm}, vdivide={30mm, , 25mm}]{geometry} % スタイルを少し変えたくても\hoffset, \voffsetは使わないでね
@@ -73,18 +74,41 @@
 % }
 %\RequirePackage[l2tabu, orthodox]{nag} % これを入れると、古いコマンドを警告してくれる！なお完全には消せなかった模様
 
+% \lstset{
+%   breaklines = true,%自動で折り返す
+%   basicstyle={\footnotesize\ttfamily},
+%   numberstyle={\scriptsize},
+%   stepnumber=1,
+%   numbersep=1zw,
+%   lineskip=-0.5ex,
+%   frame=single,
+%   numbers=left,%行番号を左に
+%   framexleftmargin=6mm,%行番号をフレーム内に
+%   numberstyle=\scriptsize,%行番号のサイズ
+%   stepnumber=1%1行おきに行番号を
+% }
+
+%プロンプト用のlstset
 \lstset{
-  breaklines = true,%自動で折り返す
-  basicstyle={\footnotesize\ttfamily},
-  numberstyle={\scriptsize},
-  stepnumber=1,
-  numbersep=1zw,
-  lineskip=-0.5ex,
+  basicstyle=\ttfamily\footnotesize,
+  columns=fullflexible,
+  keepspaces=true,
+  breaklines=true,
+  breakatwhitespace=false,
+  breakautoindent=true,
   frame=single,
-  numbers=left,%行番号を左に
-  framexleftmargin=6mm,%行番号をフレーム内に
-  numberstyle=\scriptsize,%行番号のサイズ
-  stepnumber=1%1行おきに行番号を
+  framerule=0.4pt,
+  framesep=6pt,
+  showstringspaces=false,
+  showtabs=false,
+  showspaces=false,
+  tabsize=2,
+  captionpos=b,
+  abovecaptionskip=6pt,
+  belowcaptionskip=0pt,
+  xleftmargin=1.5em,
+  xrightmargin=1.5em,
+  numbers=none
 }
 
 
@@ -93,6 +117,7 @@
 %
 \newcommand{\tool}{TOOL}
 \newcommand{\toolFullName}{TOOL: Optimize Operation Language}
+\newcommand{\forceindent}{\hspace*{1zw}}
 
 \usepackage{languages}   % 言語設定ファイル
 

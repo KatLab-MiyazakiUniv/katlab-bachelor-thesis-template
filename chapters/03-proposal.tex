@@ -1,22 +1,45 @@
-\chapter{作成したプロンプト}\label{cha:Proposal}
+\chapter{提案するシステム仕様書章立て生成プロンプト}\label{cha:Proposal}
 
-本章では、第1章で述べた課題を解決するために本研究で作成した、システム仕様書章立て生成プロンプトについて述べる。
+本章では、第1章で述べた課題を解決するために、本研究で提案するシステム仕様書章立て生成プロンプトについて述べる。
 
-\section{プロンプトの構成}
+\section{プロンプトの利用手順}
+\label{sec:process}
 
-\begin{figure}[H]
+提案するシステム仕様書章立て生成プロンプトの利用手順は、以下の2ステップである。
+また、提案するシステム仕様書章立て生成プロンプトの構成を図\ref{fig:prompt_structure}に示す。
+
+\begin{enumerate}
+    \item \textbf{システム情報の入力}:
+    ユーザー（仕様書作成者）は、図\ref{fig:prompt_structure}の「開発するシステム情報」部分に、対象システムのシステム名と概要を記述する。
+    % また必要に応じて「システム仕様書の定義」の微調整を行う。
+
+    \item \textbf{章立ての生成}:
+    情報を入力したプロンプトをGPT-5.2に入力し、システム仕様書の章立てを生成させる。出力結果として、章立て(章・節・項の構造)を得る。
+\end{enumerate}
+
+\newpage
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.9\linewidth]{images/prompt_figure.pdf}
-  \caption{プロンプト作成の全体像と構成要素}
+  \caption{提案するプロンプトの構成}
   \label{fig:prompt_structure}
 \end{figure}
 
 
-本プロンプトの作成には、Jules Whiteらによるプロンプトパターンカタログ\cite{prompt-engineering}を参考にした。
-本プロンプトは、図\ref{fig:prompt_structure}のように、役割付与、ベース章立て、システム情報、システム仕様書の定義、出力指示の５つの要素から構成している。
+\section{プロンプトの構成}
 
-プロンプトの全文を図\ref{fig:prompt_full_text}に示す。
+提案するプロンプトの構成要素を、図\ref{fig:prompt_structure}に示す。
+本プロンプトの作成には、Jules Whiteらによるプロンプトパターンカタログ\cite{prompt-patterns}を参考にした。
+本プロンプトは、以下の5つの要素で構成する。
+\begin{itemize}
+  \item 役割付与
+  \item ベースの章立て  
+  \item 開発するシステム情報
+  \item システム仕様書の定義
+  \item 章立て出力指示
+\end{itemize}
 
+\clearpage
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -26,7 +49,7 @@
 ]
 \footnotesize
 \ttfamily
-\fontsize{8}{9}\selectfont
+\fontsize{7}{7}\selectfont
 \begin{verbatim}
 あなたはシステム仕様書作成の専門アシスタントです。
 
@@ -88,64 +111,45 @@
  ・非機能要件：パフォーマンス、セキュリティ 
 - 記述の粒度：
  ・画面レイアウトと操作フローのみ含める
-
 
 【出力指示】
 ・上記情報に基づき、開発するシステムのシステム仕様書に必要な章立てを出力してください。
 ・ここでいう章立ては、以下の内容を含みます。
-　・章と節、章タイトル、節タイトル、項、項タイトル
-・あなたが出力するものは以下の2つです。
-1. 章立てのみ
-2. 章立てと章ごとに何を書くべきかを一文で簡潔に示したもの
-
-【出力1に対する指示】 
+　・章と節、章タイトル、節タイトル、項、項タイトル 
 ・出力形式は**マークダウンの番号付きリスト**としてください。 
 ・章名以外（目的・記述のポイントなど）は一切書かないでください。 
 ・章の追加や削除、順序の変更は自由に行って構いません。
 ・人間が考慮し忘れるような章立ても考えるのがあなたの役目です。考慮漏れが無いように、網羅性を高めてください。
-【出力2に対する指示】
-・出力１の章立てに対し、その章、節、項に何を書くべきか、仕様書作成者が分かりやすいように説明文を書いてください。
-・説明文は一文の簡潔なものとする。
-・出力は以下のように行い、それ以外の文字は何も書かない。
- [出力例]
- 章番号.章タイトル：説明文
- 節番号.節タイトル：説明文
- 項番号.項タイトル：説明文
 \end{verbatim}
 \end{tcolorbox}
 \par\vspace{-20pt}
-\captionof{figure}{作成したプロンプトの全文}
+\captionof{figure}{提案するプロンプトの全文の例}
 \label{fig:prompt_full_text}
 
-それぞれの要素の役割と目的を以下に述べる。
+提案するプロンプトの全文の例を図\ref{fig:prompt_full_text}に示す。
 
-\subsection{プロンプト構成要素}
-
-本項では、作成したプロンプトを構成する5つの要素について説明する。
-表\ref{tb:prompt_elements_summary}に、各要素の役割と、関連するプロンプトエンジニアリング技術（第\ref{cha:Preparation}章参照）の対応を示す。
-
-\begin{table}[htbp]
-  \caption{プロンプト構成要素と対応する技術・目的}
+\newpage
+% \begin{minipage}{\textwidth}
+\begin{table}[H]
+  \caption{提案するプロンプト構成要素と対応する技術と目的}
   \label{tb:prompt_elements_summary}
   \centering
   \begin{tabular}{|l|p{8cm}|l|} % 幅を調整
     \hline
-    \textbf{構成要素} & \textbf{目的・解決する課題} & \textbf{関連技術} \\
+    \textbf{構成要素} & \textbf{目的と解決する課題} & \textbf{関連技術} \\
     \hline
     役割付与 & 専門的な文体と観点の固定 & Persona Pattern \\
     \hline
-    ベース章立て & 構造の欠落防止、標準的な形式の担保 & One-shot Prompting \\
+    ベースの章立て & 構造の欠落防止、標準的な形式の担保 & One-shot Prompting \\
     \hline
-    システム情報 & 生成内容の具体化（ハルシネーション抑制） & Context Manager Pattern \\
+    開発するシステム情報 & 生成内容の具体化（ハルシネーション抑制） & Context Manager Pattern \\
     \hline
     仕様書の定義 & 記述粒度の制御、不必要な内部情報の排除 & Context Manager Pattern \\
     \hline
-    出力指示 & 論理的整合性の確保、機械可読性の担保 & \begin{tabular}[t]{@{}l@{}} CoT, Template Pattern, \\ One-shot Prompting \end{tabular} \\
+    章立て出力指示 & 論理的整合性の確保、機械可読性の担保 & Template Pattern \\
     \hline
   \end{tabular}
 \end{table}
-
-\subsubsection{役割付与}
 
 \begin{tcolorbox}[
   colback=white,
@@ -160,20 +164,24 @@
 あなたはシステム仕様書作成の専門アシスタントです。
 \end{verbatim}
 \end{tcolorbox}
-\par\vspace{-20pt}
-\captionof{figure}{プロンプトの"役割付与"部分}
+% \par\vspace{-20pt}
+% \captionof{figure}{プロンプトの"役割付与"部分}
+\captionof{figure}{"役割付与"部分のプロンプト}
 \label{fig:role_assignment}
-プロンプトの冒頭で「あなたはシステム仕様書作成の専門アシスタントです」と宣言し、LLMに特定の役割を与えている。
-これは、第\ref{subsec:persona_pattern}節で述べた\textbf{Persona Pattern（ペルソナパターン）}の適用である。
 
-\textbf{この要素で解決すべき課題：}
-LLMは一般的な応答を行う傾向があり、システム仕様書のような専門文書に求める厳格な文体や、専門的な観点（例：開発者の視点）が欠落する場合がある。
+\subsection{プロンプト構成要素}
 
-\textbf{解決策と期待する効果：}
-「システム仕様書作成の専門アシスタント」というペルソナを与えることで、LLMの出力モードを専門文書作成に適したものに切り替える。
-これにより、砕けた表現を避け、実務的なドキュメントとして適切なトーン＆マナーを維持することを目的としている。
+\forceindent 本項では、提案するプロンプトを構成する5つの要素について説明する。
+表\ref{tb:prompt_elements_summary}に、各要素の役割と関連するプロンプトエンジニアリング技術(第\ref{cha:Preparation}章参照)の対応を示す。
 
-\subsubsection{ベース章立て}
+\forceindent 図\ref{fig:prompt_full_text}における「役割付与」を担っている箇所を、図\ref{fig:role_assignment}に示す。
+プロンプトの文頭で「あなたはシステム仕様書作成の専門アシスタントです」と書くことで、LLMに特定の役割を与えている。
+これは、\ref{subsec:persona_pattern}節で述べたPersona Pattern(ペルソナパターン)の適用である。
+% Aobo Kongらの研究により、LLMに適切な役割を与えることで、回答の精度が向上することが示されている\cite{role_assignment}。
+本プロンプトでは、「システム仕様書作成の専門アシスタント」という役割を与えることで、LLMの返答をシステム仕様書作成に適したものにする。
+
+
+\clearpage
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -182,7 +190,7 @@ LLMは一般的な応答を行う傾向があり、システム仕様書のよ�
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{10}{11}\selectfont
 \begin{verbatim}
 【ベース章立てテンプレート（参考）】
 1. 概要
@@ -220,19 +228,36 @@ LLMは一般的な応答を行う傾向があり、システム仕様書のよ�
 \end{verbatim}
 \end{tcolorbox}
 \par\vspace{-20pt}
-\captionof{figure}{プロンプトの"ベース章立て"部分}
+\captionof{figure}{"ベースの章立て"部分のプロンプト}
 \label{fig:base_outline}
-実際の開発現場で使用されている章立てのテンプレートを「ベース章立てテンプレート」として提示している。
-これは、第\ref{subsec:zero_few_shot}節で触れた\textbf{One-shot Prompting}の一種（構造の例示）である。
 
-\textbf{この要素で解決すべき課題：}
-ゼロから章立てを生成させると、章の順序が不自然になったり、重要な章（例：セキュリティや運用）が抜け落ちたりする「構造的な欠陥」が生じるリスクがある。
+\forceindent 図\ref{fig:prompt_full_text}における「ベース章立て」を担っている箇所を、図\ref{fig:base_outline}に示す。
+実際の開発現場で使用されている章立てのテンプレートを「ベース章立てテンプレート」として提示する。
+これは、\ref{subsec:one_shot}節で触れたOne-shot Promptingの技術を用いて、構造の例示を行っている。
 
-\textbf{解決策と期待する効果：}
-信頼できる既存のテンプレートを初期値（ベース）として与えることで、LLMは「何を書くべきか」の探索範囲を絞り込むことができる。
-これにより、標準的な構成を維持しつつ、対象システム特有の要素を追加・調整するという、現実的かつ高品質な生成を可能にすることを意図している。
+\forceindent LLMにテンプレートを与えず、ゼロから章立てを生成させると、章の順序が不自然になる、重要な章(例：セキュリティや運用)が抜け落ちるといった「構造的な欠陥」が生じるリスクがある。
+既存のテンプレートを初期値(ベース)として与えることで、LLMは「何を書くべきか」の探索範囲を絞り込むことができる。
+これにより、章立ての標準的な構成を維持する。
 
-\subsubsection{開発するシステム情報}
+\clearpage
+\begin{tcolorbox}[
+  colback=white,
+  colframe=black,
+  fonttitle=\bfseries,
+  breakable
+]
+\footnotesize
+\ttfamily
+\fontsize{11}{12}\selectfont
+\begin{verbatim}
+【開発するシステム情報】
+- システム名：
+- 概要：
+\end{verbatim}
+\end{tcolorbox}
+\par\vspace{-20pt}
+\captionof{figure}{"開発するシステム情報"部分のプロンプトテンプレート}
+\label{fig:development_system_info_template}
 
 \begin{tcolorbox}[
   colback=white,
@@ -250,21 +275,20 @@ LLMは一般的な応答を行う傾向があり、システム仕様書のよ�
 \end{verbatim}
 \end{tcolorbox}
 \par\vspace{-20pt}
-\captionof{figure}{プロンプトの"開発するシステム情報"部分}
+\captionof{figure}{"開発するシステム情報"部分の記入例}
 \label{fig:development_system_info}
 
-開発対象となるシステムの名称と概要を記述する箇所であり、プロンプトへの入力値となる。
-これは、第\ref{subsec:context_manager_pattern}節で述べた\textbf{Context Manager Pattern}における「考慮事項の指定（Please consider Y）」に相当する。
+\forceindent 図\ref{fig:prompt_full_text}における「開発するシステム情報」を担っている箇所のプロンプトテンプレートを、図\ref{fig:development_system_info_template}に示す。
+図\ref{fig:development_system_info_template}に示した「開発するシステム情報」を、このテンプレートに代入することで、プロンプトを生成する。
+これは、開発対象となるシステム名と概要を記述する箇所であり、プロンプトへの入力値となる。
+また、これは、\ref{subsec:context_manager_pattern}節で述べたContext Manager Patternにおける「考慮事項の指定」に相当する。
 
-\textbf{この要素で解決すべき課題：}
-対象とするシステムの情報がないまま章立てを行わせると、どのシステムにも当てはまるような具体的でない記述や、事実に基づかない内容（ハルシネーション）を生成する恐れがある。
+\forceindent 対象とするシステムの情報がないまま章立てを行わせると、どのシステムにも当てはまるような抽象的な記述を生成するリスクがある。
+そこで、対象システムの具体的なコンテキスト(考慮すべき事実)を提供することで、LLMの推論をシステム固有の情報に基づいて制御する。
+図\ref{fig:development_system_info}に例として示した「BMP画像分割アプリ」のようなシステム情報に関する入力があることで、LLMに「画像処理に関連する機能要件が必要ではないか？」「ファイル入出力の章が必要ではないか？」といった推論を促す。
 
-\textbf{解決策と期待する効果：}
-対象システムの具体的なコンテキスト（考慮すべき事実）を提供することで、LLMの推論をシステム固有の情報に基づいて制御する。
-例として示した「BMP画像分割アプリ」のような具体的な入力があることで、LLMは「画像処理に関連する機能要件が必要ではないか？」「ファイル入出力の章が必要ではないか？」といった連想を働かせることを促す。
 
-\subsubsection{システム仕様書の定義}
-
+\clearpage
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -298,12 +322,12 @@ LLMは一般的な応答を行う傾向があり、システム仕様書のよ�
 \end{verbatim}
 \end{tcolorbox}
 \par\vspace{-20pt}
-\captionof{figure}{プロンプトの"システム仕様書の定義"部分}
+\captionof{figure}{"システム仕様書の定義"部分のプロンプト}
 \label{fig:definition_of_system_specification}
 
-
-本要素では、システム仕様書がどういうものであるかをLLMに説明する。
-具体的には、以下の観点を定義する。
+\forceindent 図\ref{fig:prompt_full_text}における「システム仕様書の定義」を担っている箇所を、図\ref{fig:definition_of_system_specification}に示す。
+本要素では、システム仕様書がどういう役割の文書であるかをLLMに説明する。
+具体的には、以下を定義する。
 \begin{itemize}
   \item システム仕様書の目的
   \item 対象読者
@@ -312,18 +336,58 @@ LLMは一般的な応答を行う傾向があり、システム仕様書のよ�
   \item 記述の粒度
 \end{itemize}
 
-生成するドキュメントの目的、対象読者、記述粒度などを定義している。
-これは、\textbf{Context Manager Pattern}における「範囲の指定（Within scope X）」および「除外事項の指定（Please ignore Z）」に相当する。
+\forceindent これは、Context Manager Patternにおける「範囲の指定」および「除外事項の指定」に相当する。
 
-\textbf{この要素で解決すべき課題：}
-「システム仕様書」という言葉の定義は曖昧であり、要件定義レベルの粗い内容から、内部設計レベルの詳細な内容まで解釈の幅が広い。
-指示が曖昧な場合、内部アルゴリズム（クラス設計など）を含んでしまったり、逆にユーザー操作フローを省略したりと、粒度の不一致が発生する。
+「システム仕様書」という言葉の定義は曖昧であり、要件定義レベルの粗い内容を含む場合や、内部設計レベルの詳細な内容までを含む場合もある。
+したがって、LLMへの指示が曖昧な場合、内部アルゴリズム(クラス設計など)を含んでしまったり、逆にユーザー操作フローを省略したりと、粒度の不一致が発生する。
 
-\textbf{解決策と期待する効果：}
-「内部構造は書かない」「外部仕様のみ記載する」と明示的な範囲指定と除外指定を行うことで、第\ref{subsec:system_spec_position}節で定義した本研究におけるシステム仕様書（外部設計書相当）の範囲に内容を限定する。
-また、対象読者を「新人」と設定することで、暗黙知を許さず、細部まで明文化した丁寧な記述を促す効果を狙っている。
+そこで、「外部仕様のみ記載する」「内部構造は書かない」と明示的な範囲指定と除外指定を行うことで、\ref{subsec:system_spec_position}節で定義した本研究におけるシステム仕様書の範囲に内容を限定する。
+また、対象読者を「新人」と設定することで、細部まで明文化した丁寧な記述を促す効果を狙っている。
 
-\subsubsection{出力の指示}
+% \clearpage
+% \begin{figure}[H]
+%   \centering
+%   \fbox{
+%   \includegraphics[width=0.8\textwidth]{images/正しい出力.png}
+%   }
+%   \captionof{figure}{フォーマット指定ありの出力指示での出力例の一部}
+%   \label{fig:output_instruction_correct}
+% \end{figure}
+
+% \begin{figure}[H]
+%   \centering
+%   \fbox{
+%   \includegraphics[width=0.8\textwidth]{images/出力指示不適切な例.pdf}
+%   }
+%   \captionof{figure}{フォーマット指定なしの出力指示での出力例の一部}
+%   \label{fig:output_instruction_no_format}
+% \end{figure}
+
+\clearpage
+\begin{tcolorbox}[
+  colback=white,
+  colframe=black,
+  fonttitle=\bfseries,
+  breakable
+]
+\footnotesize
+\ttfamily
+\fontsize{11}{12}\selectfont
+\begin{verbatim}
+【出力指示】
+・上記情報に基づき、開発するシステムのシステム仕様書に必要な章立てを出力してください。
+・ここでいう章立ては、以下の内容を含みます。
+　・章と節、章タイトル、節タイトル、項、項タイトル 
+・出力形式は**マークダウンの番号付きリスト**としてください。 
+・章名以外（目的・記述のポイントなど）は一切書かないでください。 
+・章の追加や削除、順序の変更は自由に行って構いません。
+・人間が考慮し忘れるような章立ても考えるのがあなたの役目です。考慮漏れが無いように、網羅性を高めてください。
+\end{verbatim}
+\end{tcolorbox}
+\par\vspace{-20pt}
+\captionof{figure}{"出力指示"部分のプロンプト}
+\label{fig:output_instruction}
+
 
 \begin{tcolorbox}[
   colback=white,
@@ -339,76 +403,49 @@ LLMは一般的な応答を行う傾向があり、システム仕様書のよ�
 ・上記情報に基づき、開発するシステムのシステム仕様書に必要な章立てを出力してください。
 ・ここでいう章立ては、以下の内容を含みます。
 　・章と節、章タイトル、節タイトル、項、項タイトル
-・あなたが出力するものは以下の2つです。
-1. 章立てのみ
-2. 章立てと章ごとに何を書くべきかを一文で簡潔に示したもの
-
-【出力1に対する指示】 
-・出力形式は**マークダウンの番号付きリスト**としてください。 
-・章名以外（目的・記述のポイントなど）は一切書かないでください。 
 ・章の追加や削除、順序の変更は自由に行って構いません。
 ・人間が考慮し忘れるような章立ても考えるのがあなたの役目です。考慮漏れが無いように、網羅性を高めてください。
-【出力2に対する指示】
-・出力１の章立てに対し、その章、節、項に何を書くべきか、仕様書作成者が分かりやすいように説明文を書いてください。
-・説明文は一文の簡潔なものとする。
-・出力は以下のように行い、それ以外の文字は何も書かない。
- [出力例]
- 章番号.章タイトル：説明文
- 節番号.節タイトル：説明文
- 項番号.項タイトル：説明文
 \end{verbatim}
 \end{tcolorbox}
 \par\vspace{-20pt}
-\captionof{figure}{プロンプトの"出力指示"部分}
-\label{fig:output_instruction}
+\captionof{figure}{フォーマット指定なしの出力指示}
+\label{fig:no_format}
 
+\forceindent 図\ref{fig:prompt_full_text}における「出力指示」を担っている箇所を、図\ref{fig:output_instruction}に示す。
+本要素では、システム仕様書の章立てを生成する際の出力形式をLLMに指示する。
 
+\forceindent ここでは、出力に対する明確なフォーマット指定を指示している。
+具体的には、「マークダウンの番号付きリスト」での出力を強制している。
+これは、\ref{subsec:template_pattern}節で触れたTemplate Patternである。
 
-明確なフォーマット指定と、段階的な出力を指示している。
-ここでは、第\ref{sec:prompt_patterns}節で述べた主要なテクニックを複合的に適用している。
+\clearpage
+\begin{figure}[H]
+  \centering
+  \fbox{
+  \includegraphics[width=0.8\textwidth]{images/正しい出力.png}
+  }
+  \captionof{figure}{フォーマット指定ありの出力指示での出力例の一部}
+  \label{fig:output_instruction_correct}
+\end{figure}
 
-\textbf{1. Chain of Thought (CoT) の応用}\\
-第\ref{subsec:cot}節で述べたCoTの考え方を応用し、タスクを以下の2段階に分解して指示している。
-\begin{enumerate}
-  \item まず「章立て（構造）」のみを作成する。
-  \item その構造に基づいて「各章の説明（詳細）」を記述する。
-\end{enumerate}
+\begin{figure}[H]
+  \centering
+  \fbox{
+  \includegraphics[width=0.8\textwidth]{images/出力指示不適切な例.pdf}
+  }
+  \captionof{figure}{フォーマット指定なしの出力指示での出力例の一部}
+  \label{fig:output_instruction_no_format}
+\end{figure}
 
-\textbf{2. Template Pattern と One-shot Prompting の適用}
-「マークダウンの番号付きリスト」や「指定された区切り形式」での出力を強制している（第\ref{subsec:template_pattern}節参照）。
-また、具体的な[出力例]を提示することは、第\ref{subsec:zero_few_shot}節で述べた\textbf{One-shot Prompting}（フォーマットの例示）に相当する。
+\clearpage
+\forceindent 図\ref{fig:output_instruction}の出力指示における出力例を、図\ref{fig:output_instruction_correct}に示す。\\
+また、図\ref{fig:no_format}に示すフォーマット指定なしの出力指示での出力を、図\ref{fig:output_instruction_no_format}に示す。
 
-\textbf{この要素で解決すべき課題：}
-LLMが生成する長文のテキストは、構造の妥当性と内容の正しさが混在しており、人間がその品質を網羅的に検証するには多大な認知的負荷がかかる。
-また、自由記述形式では可読性が低く、重要な項目の見落としや確認漏れが発生しやすい。
+図\ref{fig:output_instruction_no_format}の赤枠で囲った部分を見てわかるように、フォーマット指定のない出力指示では、LLMは章立てそのものだけでなく、章立てに関係のないものまで出力してしまうことが分かる。
+しかし、図\ref{fig:output_instruction_correct}のようにフォーマット指定をすることで、LLMは階層化された章立てのみを出力する。
+したがって、フォーマット指定をすることで、LLMの出力を構造化し、可読性を向上させ、人間が目視で章立てを確認する際の認知的負荷を軽減できる。
 
-\textbf{解決策と期待する効果：}
-構造決定（出力1）と詳細記述（出力2）を分離することで、人間はまず全体構成の整合性を確認し、その後に各論を検証するという段階的な確認が可能となる。
-また、テンプレートパターンにより出力形式を統一することで、可読性を最大化し、人間による検証を効率的かつ確実に行えるようにすることを目的としている。
-
-\section{プロンプトの利用手順}
-\label{sec:process}
-
-本プロンプトを用いた章立て生成の利用手順は、以下の2ステップで行う。
-
-% \begin{figure}[htbp]
-%   \centering
-%   \includegraphics[width=0.8\linewidth]{./images/proposal_process_flow.png}
-%   \caption{プロンプトの利用フロー}
-%   \label{fig:process_flow}
-% \end{figure}
-
-\begin{enumerate}
-    \item \textbf{システム情報の入力}:
-    ユーザー（仕様書作成者）は、本プロンプトの「開発するシステム情報」欄に、対象システムの概要を記述する。また必要に応じて「システム仕様書の定義」の微調整を行う。
-
-    \item \textbf{章立ての生成}:
-    情報を入力したプロンプトをLLMに入力し、システム仕様書の章立てを生成させる。出力結果として、章・節・項の構造と、各章に記述すべき内容の指針を得ることが出来る。
-\end{enumerate}
-
-本研究では、このプロセスによってLLMが出力した章立てが、実用的なシステム仕様書の骨子として十分に機能するかを特に重視している。
-
-次章以降では、本プロンプトを用いて実際に章立てを生成し、その網羅性や妥当性について評価を行う。
+% 次章以降では、本プロンプトを用いて実際に章立てを生成し、その網羅性や妥当性について評価を行う。
 
 
 \iffalse

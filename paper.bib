@@ -9,7 +9,8 @@
 %   misc         : その他（Web サイトなど、howpublished を使用）
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-@article{prompt-engineering,
+%プロンプトパターンサーベイ
+@article{prompt-patternss,
   author  = {White, Jules and Fu, Quchen and Hays, Sam and Sandborn, Michael
              and Olea, Carlos and Gilbert, Henry and Elnashar, Ashraf
              and Spencer-Smith, Jesse and Schmidt, Douglas C.},
@@ -18,6 +19,18 @@
   year    = {2023}
 }
 
+@inproceedings{prompt-patterns,
+  author = {White, Jules and Fu, Quchen and Hays, Sam and Sandborn, Michael
+             and Olea, Carlos and Gilbert, Henry and Elnashar, Ashraf
+             and Spencer-Smith, Jesse and Schmidt, Douglas C.},
+  title = {A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT},
+  booktitle = {PLoP '23: 30th Conference on Pattern Languages of Programs},
+  pages = {1-31},
+  year = {2023},
+  publisher = {The Hillside Group}
+}
+
+%役割付与の先行研究
 @article{role_assignment,
   author = {Kong, Aobo and Zhao, Shiwan and Chen, Hao and Li, Qicheng
           and Qin, Yong and Sun, Ruigi and Zhou, Xin
@@ -28,6 +41,7 @@
   year    = {2024}
 }
 
+%大規模言語モデルの説明文に使ってる
 @article{llm_survey,
   author = {Wayne Xin Zhao and Kun Zhou and Junyi Li and Tianyi Tang and Xiaolei Wang and Yupeng Hou and Yingqian Min and Beichen Zhang and Junjie Zhang and Zican Dong and Yifan Du and Chen Yang and Yushuo Chen and Zhipeng Chen and Jinhao Jiang and Ruiyang Ren and Yifan Li and Xinyu Tang and Zikang Liu and Peiyu Liu and Jian-Yun Nie and Ji-Rong Wen},
   title   = {A Survey of Large Language Models},
@@ -35,23 +49,23 @@
   year    = {2025}
 }
 
+%fewshotの方が精度が良いことをいうための論文
+@article{fewwin,
+  author = {Sivarajkumar, Sonish and Kelley, Mark and Samolyk-Mazzanti, Alyssa and Visweswaran, Shyam and Wang, Yanshan},
+  title   = {An Empirical Evaluation of Prompting Strategies for Large Language Models in Zero-Shot Clinical Natural Language Processing: Algorithm Development and Validation Study},
+  journal = {JMIR Med Inform},
+  volume = {12},
+  pages = {e55318},
+  year    = {2024}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LLM関連の基礎文献 (TODO: 引用する際に中身を確認すること)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% TODO: 後で調べる: LLMの基礎（Transformerモデル）について言及する場合の引用元
-% "Attention Is All You Need" (2017)
-@article{vaswani2017attention,
-  title={Attention is all you need},
-  author={Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, {\L}ukasz and Polosukhin, Illia},
-  journal={Advances in neural information processing systems},
-  volume={30},
-  year={2017}
-}
-
 % TODO: 後で調べる: GPT-3（Few-shot学習の能力）について言及する場合の引用元
 % "Language Models are Few-Shot Learners" (2020)
-@article{brown2020language,
+article{zeroonefew,
   title={Language models are few-shot learners},
   author={Brown, Tom and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared D and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and others},
   journal={Advances in neural information processing systems},
@@ -60,9 +74,21 @@
   year={2020}
 }
 
+@inproceedings{zeroonefew,
+ author = {Brown, Tom and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared D and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and Agarwal, Sandhini and Herbert-Voss, Ariel and Krueger, Gretchen and Henighan, Tom and Child, Rewon and Ramesh, Aditya and Ziegler, Daniel and Wu, Jeffrey and Winter, Clemens and Hesse, Chris and Chen, Mark and Sigler, Eric and Litwin, Mateusz and Gray, Scott and Chess, Benjamin and Clark, Jack and Berner, Christopher and McCandlish, Sam and Radford, Alec and Sutskever, Ilya and Amodei, Dario},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin},
+ pages = {1877--1901},
+ publisher = {Curran Associates, Inc.},
+ title = {Language Models are Few-Shot Learners},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf},
+ volume = {33},
+ year = {2020}
+}
+
 % TODO: 後で調べる: ChatGPT（指示に従う能力・RLHF）について言及する場合の引用元
 % "Training language models to follow instructions with human feedback" (2022)
-@article{ouyang2022training,
+article{ouyang2022training,
   title={Training language models to follow instructions with human feedback},
   author={Ouyang, Long and Wu, Jeffrey and Jiang, Xu and Almeida, Diogo and Wainwright, Carroll and Mishkin, Pamela and Zhang, Chong and Agarwal, Sandhini and Slama, Katarina and Ray, Alex and others},
   journal={Advances in neural information processing systems},
@@ -82,6 +108,36 @@
   note = {IEEE Std 830-1998}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Webサイト
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@misc{whatllm,
+  title = {LLM(大規模言語モデルとは?)},
+  author = {NECソリューションイノベータ},
+  howpublished = {\url{https://openai.com/what-is-a-large-language-model/}},
+  note = {Accessed: 2026-01-25}
+}
+
+@misc{openai,
+  title = {OpenAI},
+  howpublished = {\url{https://openai.com/ja-JP/}},
+  note = {Accessed: 2026-01-25}
+}
+
+@misc{gpt52,
+  title = {Introducing GPT-5.2},
+  author = {OpenAI},
+  howpublished = {\url{https://openai.com/ja-JP/index/introducing-gpt-5-2/}},
+  note = {Accessed: 2026-01-26}
+}
+
+@misc{prompt_engineering,
+  title = {プロンプトエンジニアリング|用語解説},
+  author = {NRI},
+  howpublished = {\url{https://www.nri.com/jp/knowledge/glossary/prompt_engineering.html}},
+  note = {Accessed: 2026-01-25}
+}
 @misc{oneshot,
   title = {One-shotプロンプティングとは},
   author = {Vrunda Gadesha},
@@ -105,16 +161,43 @@
 }
 
 
-@misc{chainofthought,
+misc{chainofthought,
   title = {思考の連鎖(CoT)プロンプティングとは},
   author = {Gadesha, Vrunda and Kavlakoglu, Eda and Winland, Vanna},
   howpublished = {\url{https://www.ibm.com/jp-ja/think/topics/chain-of-thoughts}},
   note = {Accessed: 2026-01-22}
 }
-  
 
 @misc{skycom,
  title = {スカイコム},
  howpublished = {\url{https://www.skycom.jp/}},
  note = {Accessed: 2026-01-22}
+}
+
+@misc{nishino,
+  title = {プロンプトパターンを学ぶ},
+  author = {竜太郎, 西野},
+  howpublished = {\url{https://nishinos.com/articles/2023/prompt-patterns/}},
+  note = {Accessed: 2026-01-23}
+}
+
+misc{sisutemukaihatu,
+  title = {システム開発の工程、流れを図解},
+  author = {株式会社第一コンピューターリソース},
+  howpublished = {\url{https://www.dcr.co.jp/column/system-development-process/}},
+  note = {Accessed: 2026-01-22}
+}
+
+misc{kihonsyousaisekkei,
+  title = {システム設計における2つの設計書とは? 概要や書き方、注意点を解説},
+  author = {CMC JAPAN},
+  howpublished = {\url{https://cmc-japan.co.jp/software_development/uncategorized-ja/design-documents/}},
+  note = {Accessed: 2026-01-26}
+}
+
+@misc{likert,
+  title = {リッカート尺度とは? メリットと設問作成時の注意点を解説},
+  author = {GMOリサーチ＆AI株式会社},
+  howpublished = {\url{https://gmo-research.ai/research-column/likert-scale}},
+  note = {Accessed: 2026-01-26}
 }

@@ -1,136 +1,237 @@
 \chapter{研究の準備}\label{cha:Preparation}
 
-本章では、本研究で提案するプロンプト作成手法の基礎となる技術的要素、および実験の基準となるシステム仕様書について述べる。
+本章では、本研究で提案するシステム仕様書生成プロンプトの基礎となる技術的要素、および実験の基準となるシステム仕様書について述べる。
 
 \section{Large Language Models (LLM)}
 \label{sec:llm}
 
-大規模言語モデル（Large Language Models: LLM）は、大量のテキストデータを学習し、人間のような自然な文章を生成したり、質問に応答したりすることができる人工知能モデルである\cite{llm_survey}。
-LLMは、Transformerと呼ばれるニューラルネットワークアーキテクチャを基盤としており、文脈理解、文章要約、翻訳、コード生成など、多岐にわたるタスクを高い精度で実行可能である。
-従来の自然言語処理手法と比較して、LLMは明示的な学習データを与えなくても、プロンプト（指示文）による制御のみで多様なタスクに対応できる「Zero-shot」や「Few-shot」の能力に優れている点が特徴である。
+Large Language Models(大規模言語モデル)は、膨大なテキストデータと高度なディープラーニング技術を用いて構築された、自然言語処理(NLP：Natural Language Processing)と呼ばれる分野における技術である\cite{whatllm}。
+LLMは、Transformerと呼ばれるニューラルネットワークアーキテクチャを基盤としており、文脈理解、文章要約、翻訳およびコード生成など、多岐にわたるタスクを高い精度で実行可能である\cite{llm_survey}。
+% 従来の自然言語処理を用いたドキュメント自動生成手法と比較して、
+% また、LLMは明示的な学習データを与えなくても、プロンプト(指示文)による制御のみで多様なタスクに対応できるFew-shot Prompting\cite{fewshot}やOne-shot Prompting\cite{oneshot}、Zero-shot Prompting\cite{zeroshot}の能力に優れている。
+また、LLMにタスクの実行を命令する際のプロンプトエンジニアリングの手法として、Few-shot Prompting\cite{fewshot}、One-shot Prompting\cite{oneshot}、Zero-shot Prompting\cite{zeroshot}(\ref{subsec:prompt_engineering}で後述)が存在する。
 
-本研究では、OpenAI社が提供する対話型AIサービスであるGPT-5.2(ChatGPT-5.2)、その中でも特に高度な推論能力と指示追従能力を持つモデルである\textbf{GPT-5.2}を用いた。
-GPT-5.2は、複雑な文脈の理解や、長文の生成において優れた性能を示しており、システム仕様書のような構造的かつ整合性が求められるドキュメントの生成に適していると考える。
-本論文では、GPT-5.2をLLMと表す。
+本研究では、OpenAI\cite{openai}社が提供する対話型AIサービスであるGPT-5.2\cite{gpt52}を用いた。
+% 何でGPT-5.2を選んだのか説明するのがベスト。
+
 
 \section{プロンプトエンジニアリング}
 \label{sec:prompt_engineering}
 
-プロンプトエンジニアリングとは、LLMから望ましい出力を得るために、入力する指示文（プロンプト）を設計・最適化する技術のことである。
-LLMの性能を最大限に引き出すためには、モデルの特性を理解し、適切な指示を与える必要がある。以下に、本研究に関連する主要な手法について述べる。
+プロンプトエンジニアリングとは、LLMにタスクの実行を命令する際、LLMから望ましい出力を得るために、入力するプロンプトを設計・最適化する技術のことである\cite{prompt_engineering}。
+LLMの性能を最大限に引き出すためには、モデルの特性を理解し、適切なプロンプトを与える必要がある。以下に、本研究で用いるプロンプトエンジニアリングに関連する主要な手法について述べる。
 
-\subsection{Zero-shot / Few-shot Prompting}
-\label{subsec:zero_few_shot}
+\clearpage
+\begin{tcolorbox}[
+  colback=white,
+  colframe=black,
+  fonttitle=\bfseries,
+  breakable
+]
+\footnotesize
+\ttfamily
+\fontsize{11}{12}\selectfont
+\begin{verbatim}
+フランスの首都：パリ
+日本の首都：東京
+アメリカの首都：ワシントンD.C.
+イギリスの首都：ロンドン
+では、ブラジルの首都は？
+\end{verbatim}
+\end{tcolorbox}
+% \par\vspace{-20pt}
+% \captionof{figure}{プロンプトの"役割付与"部分}
+\captionof{figure}{Few-shotプロンプトの例}
+\label{fig:few}
 
-Zero-shot Prompting\cite{zeroshot}は、モデルに対してタスクの具体的な回答例（Example）を与えずに、指示のみでタスクを実行させる手法である。
-一方、Few-shot Prompting\cite{fewshot}は、いくつかの入出力ペア（例題）を提示することで、モデルにタスクの実行方法を学習させる手法である。
-一般に、Few-shot Promptingの方が精度が高いとされるが、タスクが複雑すぎる場合や、例題の作成が困難な場合はZero-shot Promptingが用いられる。
+\begin{tcolorbox}[
+  colback=white,
+  colframe=black,
+  fonttitle=\bfseries,
+  breakable
+]
+\footnotesize
+\ttfamily
+\fontsize{11}{12}\selectfont
+\begin{verbatim}
+日本の首都：東京。
+では、ブラジルの首都は？
+\end{verbatim}
+\end{tcolorbox}
+% \par\vspace{-20pt}
+% \captionof{figure}{プロンプトの"役割付与"部分}
+\captionof{figure}{One-shotプロンプトの例}
+\label{fig:one}
 
-本研究では、作成するシステム仕様書章立てのためのプロンプトがあらゆるシステムに対応できる汎用性を持つ必要があるため、特定のシステムに依存した「正解の章立て例」を与えることが困難である。
-そのため、基本的には\textbf{Zero-shot Prompting}の手法をベースとしている。
-ただし、完全にゼロから生成させるのではなく、\textbf{One-shot Prompting}\cite{oneshot}の要素を効果的に取り入れている。
-具体的には、標準的な章立ての構成を「ベース章立て」として提示することで構造の指針を与え（詳細は第\ref{cha:Proposal}章で後述）、さらに出力形式（フォーマット）についても具体例を1つ提示することで、LLMが安定して出力できるようにしている。
+\begin{tcolorbox}[
+  colback=white,
+  colframe=black,
+  fonttitle=\bfseries,
+  breakable
+]
+\footnotesize
+\ttfamily
+\fontsize{11}{12}\selectfont
+\begin{verbatim}
+ブラジルの首都は？
+\end{verbatim}
+\end{tcolorbox}
+% \par\vspace{-20pt}
+% \captionof{figure}{プロンプトの"役割付与"部分}
+\captionof{figure}{Zero-shotプロンプトの例}
+\label{fig:zero}
 
-\subsection{Chain of Thought (CoT)}
-\label{subsec:cot}
+\subsection{Few-shot Prompting}
+\label{subsec:few_shot}
+Few-shot Promptingは、いくつかの入力例と出力例のペアを提示することで、LLMにタスクの実行方法を学習させる手法である\cite{fewshot}。
+図\ref{fig:few}に、Few-shot Promptingの具体例を示す。図\ref{fig:few}のプロンプト例における、入力例と出力例を表\ref{tb:inoutexample}に示す。
 
-Chain of Thought (CoT) は、モデルに対して「段階的に考えさせる」ことで、複雑な推論タスクの精度を向上させる手法である\cite{chainofthought}。
-答えを直接出力させるのではなく、思考過程を出力させることで、論理的な整合性を保ちやすくなる。
+\begin{table}[h]
+  \caption{図\ref{fig:few}における入力例と出力例}
+  \label{tb:inoutexample}
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{入力例} & \textbf{出力例} \\
+    \hline\hline
+    フランスの首都 & パリ \\
+    \hline
+    日本の首都 & 東京 \\
+    \hline
+    アメリカの首都 & ワシントンD.C. \\
+    \hline
+    イギリスの首都 & ロンドン \\
+    \hline
+  \end{tabular}
+\end{table}
 
-本研究では、このCoTの概念を応用し、システム仕様書の作成という複雑なタスクを、以下の2段階に分解して実行させている。
-\begin{enumerate}
-    \item 骨子となる「章立てのみ」を作成する（構造の決定）
-    \item その章立てに基づいて「各項目の説明」を作成する（詳細の記述）
-\end{enumerate}
-このように、一度に全てを出力させるのではなく、構造決定から詳細記述へと段階を踏ませることで、論理の飛躍や記述の矛盾を防ぐ設計としている。
 
-\section{プロンプトデザインパターン}
+\subsection{One-shot Prompting}
+\label{subsec:one_shot}
+One-shot Promptingは、1つの入力例と出力例のペアを提示することで、LLMにタスクの実行方法を学習させる手法である\cite{oneshot}。
+図\ref{one}に、One-shot Promptingの具体例を示す。この例では、「日本の首都」が入力例、「東京」が出力例となる。
+\subsection{Zero-shot Prompting}
+Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与えずに、指示のみでタスクを実行させる手法である\cite{zeroshot}。
+図\ref{zero}に、Zero-shot Promptingの具体例を示す。
+\label{subsec:zero_shot}
+
+
+% 一方、Zero-shot Prompting\cite{zeroshot}は、LLMに対してタスクの具体的な回答例を与えずに、指示のみでタスクを実行させる手法である。
+Tom Brownらの研究によると、Few-shot、One-shot PromptingはZero-shot Promptingと比較して、出力の精度が高いとされる\cite{zeroonefew}。しかし、入力例と出力例のペアの作成が困難な場合はZero-shot Prompting\cite{zeroshot}が用いられる。
+
+本研究では、作成するシステム仕様書章立て生成プロンプトに、多様なシステムに対応できる汎用性を持たせる必要があるため、特定のシステムに依存した入力例と出力例(正解の章立て例)のペアを作成することが困難である。
+そのため、本研究で提案するシステム仕様書章立て生成プロンプトは、Zero-shot Prompting\cite{zeroshot}の手法をベースとする。
+ただし、LLMが生成する章立てが意図するものとかけ離れたものにならないように、出力例として実際の開発現場で用いられている章立てのテンプレートをLLMに与えている(詳細は第\ref{cha:Proposal}章で後述)。
+したがって、本研究で提案するシステム仕様書章立て生成プロンプトは、入力例は与えていないが、出力例は与えているため、One-shot Prompting\cite{oneshot}を部分的に取り入れたプロンプトになっている。
+% 具体的には、標準的な章立ての構成を「ベース章立て」として提示することで章立ての指針を与える(詳細は第\ref{cha:Proposal}章で後述)。
+
+\section{プロンプトパターン}
 \label{sec:prompt_patterns}
 
-プロンプトデザインパターンとは、プロンプトエンジニアリングにおける知見をパターン化し、再利用可能な形に体系化したものである。
-本研究で作成したプロンプトでは、Jules Whiteらが提案するプロンプトパターンカタログ\cite{prompt-engineering}を参考に、以下のパターンを適用した。
+プロンプトパターンとは、特定の状況で課題解決に有効なプロンプトのパターンのことである\cite{nishino}。
+本研究で提案するシステム仕様書章立て生成プロンプトでは、Jules Whiteらが提案するプロンプトパターンカタログ\cite{prompt-patterns}を参考に、以下の3つパターンを適用する。
 
 \subsection{Persona Pattern}
 \label{subsec:persona_pattern}
 
-Persona Pattern（ペルソナパターン）は、LLMに対して特定の役割（ペルソナ）を与えることで、その役割に適した振る舞いや回答を促すパターンである。
+Persona Pattern (ペルソナパターン)は、LLMに対して特定の役割(ペルソナ)を与えることで、その役割に適した振る舞いや回答を促すパターンである\cite{prompt-patterns}。
 Aobo Kongらの研究により、LLMに適切な役割を与えることで、回答の精度が向上することが示されている\cite{role_assignment}。
-本研究では、プロンプトの冒頭で「あなたはシステム仕様書作成の専門アシスタントです」と役割を定義することで、専門的かつ実務的な章立ての出力を誘導している。
+本研究で提案するシステム仕様書章立て生成プロンプトでは、文頭で「あなたはシステム仕様書作成の専門アシスタントです」と役割を定義することで、専門的かつ実務的な章立ての出力を誘導している(詳細は第\ref{cha:Proposal}章で後述)。
 
 \subsection{Template Pattern}
 \label{subsec:template_pattern}
 
-Template Pattern（テンプレートパターン）は、LLMに対して出力の形式を具体的かつ厳密に指定するパターンである。
-LLMは自然言語で自由な回答を生成する傾向があるため、後続のプログラムで処理したり、人間が比較検討したりするためには、出力形式の統一が不可欠である。
-本研究では、マークダウン形式の番号付きリストや、特定の区切り文字の使用を強制することで、可読性と再利用性の高い出力を実現している。
+Template Pattern (テンプレートパターン)は、LLMに対して出力の形式を具体的かつ厳密に指定するパターンである\cite{prompt-patterns}。
+本研究で提案するシステム仕様書章立て生成プロンプトでは、マークダウン形式の番号付きリストや、特定の区切り文字の使用を強制することで、可読性の高い出力を実現している(詳細は第\ref{cha:Proposal}章で後述)。
 
 \subsection{Context Manager Pattern}
 \label{subsec:context_manager_pattern}
 
-Context Manager Pattern（コンテキストマネージャパターン）は、LLMに対して考慮すべき情報の範囲（コンテキスト）を明示的に指定、あるいは除外することで、生成内容の焦点や関連性を制御するパターンである。
+Context Manager Pattern (コンテキストマネージャパターン)は、LLMが、タスクの実行時に対話の履歴や曖昧な指示に含まれる無関係な情報に影響され、意図しない回答を生成する場合があるため、LLMに対して考慮すべき情報の範囲(コンテキスト)を明示的に指定、あるいは除外することで、生成内容の焦点や関連性を制御するパターンである\cite{prompt-patterns}。
 
-LLMは、対話の履歴や曖昧な指示に含まれる無関係な情報に影響され、意図しない回答を生成する場合がある。
-これに対し、本パターンでは以下のような明示的な指示（Contextual Statements）を与えることで、LLMの思考の範囲を制御する。
+% LLMは、対話の履歴や曖昧な指示に含まれる無関係な情報に影響され、意図しない回答を生成する場合がある。
+% これに対し、本パターンでは、以下のような明示的な指示を与えることで、LLMの出力を制御する。
+本パターンは、以下の指示を与えることで、LLMの出力を制御することを目的とする。
+
+% \begin{itemize}
+%     \item \textbf{範囲の指定 (Within scope X)}: 特定のトピックや条件下でのみ回答するように制限する。
+%     \item \textbf{考慮事項の指定 (Please consider Y)}: 重要な概念や事実を明示し、それに基づいた回答を促す。
+%     \item \textbf{除外事項の指定 (Please ignore Z)}: フォーマットや特定のトピックなど、考慮すべきでない要素を明示的に排除する。
+% \end{itemize}
 
 \begin{itemize}
-    \item \textbf{範囲の指定 (Within scope X)}: 特定のトピックや条件下でのみ回答するように制限する。
-    \item \textbf{考慮事項の指定 (Please consider Y)}: 重要な概念や事実を明示し、それに基づいた回答を促す。
-    \item \textbf{除外事項の指定 (Please ignore Z)}: フォーマットや特定のトピックなど、考慮すべきでない要素を明示的に排除する。
+    \item \textbf{範囲の指定}: 特定のトピックや条件下でのみ回答するように制限する。
+    \item \textbf{考慮事項の指定}: 重要な概念や事実を明示し、それに基づいた回答を促す。
+    \item \textbf{除外事項の指定}: フォーマットや特定のトピックなど、考慮すべきでない要素を明示的に排除する。
 \end{itemize}
 
-本研究では、システム仕様書の生成において、対象とするシステムの具体的な情報（考慮事項）を与えたり、記述すべき仕様の粒度や範囲（除外事項）を厳密に定義したりするために、このパターンの概念を適用している。
+本研究で提案するシステム仕様書章立て生成プロンプトでは、対象とするシステムの情報(考慮事項)を与えたり、記述すべきでない事項(除外事項)や記述の範囲を厳密に定義したりするために、このパターンを利用する。
+
+\clearpage
+\begin{figure}[H]
+  \centering
+  % \fbox{
+  \includegraphics[width=0.95\textwidth]{images/vmodel.pdf}
+  % }
+  \captionof{figure}{システム開発の流れ}
+  \label{fig:system_development_process}
+\end{figure}
 
 \section{システム仕様書}
 \label{sec:system_spec}
 
 \subsection{本研究におけるシステム仕様書の位置づけ}
 \label{subsec:system_spec_position}
+% 図\ref{fig:system_development_process}に、一般的なシステム開発の流れと本研究でモデルケースとする株式会社スカイコム\cite{skycom}のシステム開発の流れを示す。
+% 一般に、システム開発では、顧客の要望をまとめた要件定義書の作成から始まり、設計、実装へと進むプロセスが標準的である\cite{sisutemukaihatu}。
+% 一方、本研究でモデルケースとする株式会社スカイコム\cite{skycom}のシステム開発プロセスにおいては、要件定義書は作成せず、システム仕様書がシステム開発における最初の成果物となる。
+本研究でモデルケースとする株式会社スカイコム\cite{skycom}のシステム開発の流れを図\ref{fig:system_development_process}に示す。
 
-一般にソフトウェア開発においては、顧客の要望をまとめた「要件定義書」から始まり、設計、実装へと進むプロセスが標準的である。
-しかし、本研究でモデルケースとする株式会社スカイコム\cite{skycom}の開発プロセスにおいては、独立した「要件定義書」は作成されず、「システム仕様書」が開発における最初の公式ドキュメントとなる。
+本研究におけるシステム仕様書は、顧客の要望や口頭での指示といった曖昧な情報を初めて具体的な要件および設計情報として文書化する役割を担い、システム開発における最初の成果物として位置付けている。
 
-すなわち、本研究における「システム仕様書」は、顧客の要望や口頭での指示といった曖昧な情報を、初めて具体的な要件および設計情報として文書化する役割を担う。
-これを踏まえ、本研究では以下の2段階のドキュメント構成を前提とする。
+% これを踏まえ、本研究では以下の2段階のドキュメント構成を前提とする。
 
-\begin{enumerate}
-  \item \textbf{システム仕様書（本研究の対象）}: 
-  開発の起点となる文書。顧客の要望（定性的な要件）を整理し、それをシステムとして「何を作るべきか」という具体的な外部仕様に落とし込んだもの。一般的な「要件定義書」と「基本設計書（外部設計書）」の役割を兼ねる。
-  \item \textbf{プログラム設計書}: 
-  システム仕様書を実現するために、具体的に「どう作るか」を記述した文書。使用するクラス、メソッド、処理手順などの内部構造が含まれる。
-\end{enumerate}
+% \begin{enumerate}
+%   \item \textbf{システム仕様書(本研究の対象)}: 
+%   開発の起点となる文書。顧客の要望(定性的な要件)を整理し、それをシステムとして「何を作るべきか」という具体的な外部仕様に落とし込んだもの。一般的な要件定義書と基本設計書(外部設計書)\cite{kihonsyousaisekkei}の役割を兼ねる。
+%   \item \textbf{プログラム設計書}: 
+%   システム仕様書を実現するために、具体的に「どう作るか」を記述した文書。使用するクラス、メソッド、処理手順などの内部構造が含まれる。
+% \end{enumerate}
 
-すなわち、本研究におけるシステム仕様書は、要件定義を含内包した「外部設計書」に相当する。
-このドキュメントは、以下の2つの目的を達成するために作成する。
+% すなわち、本研究におけるシステム仕様書は、要件定義を含内包した基本設計書に相当する。
+% このドキュメントは、以下の2つの目的を達成するために作成する。
 
 \begin{itemize}
-  \item \textbf{実装者（プログラマ）への指針}:
-  新人プログラマであっても、仕様書を読み込むことでシステムの挙動を正しく理解し、迷いなく設計・実装に着手できること。
+  \item \textbf{実装者(プログラマ)への指針}:
+  システム開発の経験の少ない新人プログラマであっても、仕様書を読むことでシステムの挙動を正しく理解し、迷いなく設計・実装に着手できること。
   \item \textbf{テスト担当者への基準}:
-  システムの内部構造（コード）を知らないテスト担当者が、仕様書に記載された正常系・異常系の条件に従って、ブラックボックステストの項目を作成できること。
+  システムの内部構造(コード)を知らないテスト担当者が、仕様書に記載された正常系・異常系の条件に従って、ブラックボックステストの項目を作成できること。
 \end{itemize}
 
-したがって、記述スタイルとしては、専門用語や初出単語の丁寧な説明が求められ、特にシステムの概要や振る舞いについては、テキストだけでなく図（ユースケース図や簡易図）を用いて視覚的に説明することが不可欠である。
-また、記述の粒度としては、画面レイアウトや操作フローといった「外部仕様（ユーザーから見える振る舞い）」に焦点を当て、データ型や制約条件は網羅するものの、クラス図や具体的なアルゴリズムといった「内部仕様」は含まないこととする。
+したがって、システム仕様書の記述スタイルとしては、新人プログラマであっても仕様書を理解できるように、専門用語や初出単語の丁寧な説明が求められ、特にシステムの概要や振る舞いについては、テキストだけでなく図(ユースケース図や簡易図)を用いて視覚的に説明することが不可欠である。
+また、記述の粒度としては、画面レイアウトや操作フローといった「外部仕様(ユーザーから見える振る舞い)」に焦点を当て、データ型や制約条件は網羅するものの、クラス図や具体的なアルゴリズムといった「内部仕様」は含まないこととする。
 
 
-\subsection{一般的なシステム仕様書の構成}
+\subsection{システム仕様書の章立て}
 \label{subsec:general_spec}
 
-システム仕様書の構成は、プロジェクトの特性や組織の標準により異なるが、一般的に「外部設計書」や「基本設計書」として作成される文書には、システムが提供する機能や振る舞いを網羅的に記述することが求められる。
+システム仕様書の章立ては、プロジェクトの特性や組織の標準により異なるが、システム仕様書として作成される文書には、システムが提供する機能や振る舞いを網羅的に記述することが求められる。
 国際的な標準としては、IEEE 830 (Recommended Practice for Software Requirements Specifications)\cite{ieee830} が広く知られており、機能要件、外部インターフェース、パフォーマンスなどの非機能要件を記述することが推奨されている。
 
-これらを踏まえ、一般的なシステム仕様書（外部設計書）は、主に以下の要素で構成することが多い。
+これらを踏まえ、一般的なシステム仕様書の章立てには、主に以下の要素で構成することが多い。
+% これらを踏まえ、システム仕様書の章立てには、主に以下の要素を含むことが望まれる。
 
 \begin{enumerate}
-    \item \textbf{システム概要}: システムの目的、背景、全体像（コンテキスト図など）。
-    \item \textbf{機能要件}: システムが提供する機能の一覧と、各機能の詳細な振る舞い（入力・処理・出力）。
+    \item \textbf{システム概要}: システムの目的、背景、全体像(コンテキスト図など)。
+    \item \textbf{機能要件}: システムが提供する機能の一覧と、各機能の詳細な振る舞い(入力・処理・出力)。
     \item \textbf{ユーザーインターフェース (UI)}: 画面レイアウト、画面遷移図、操作フロー。
-    \item \textbf{データ要件}: 扱うデータの定義（ER図やデータディクショナリ）。
+    \item \textbf{データ要件}: 扱うデータの定義(ER図やデータディクショナリ)。
     \item \textbf{外部インターフェース}: 外部システムとの連携仕様、API定義。
     \item \textbf{非機能要件}: セキュリティ、性能、信頼性、制約事項など。
 \end{enumerate}
 
 本研究で対象とするシステム仕様書も、これらの標準的な構成要素を網羅しつつ、実装者が迷わずに開発を行える粒度での記述を目指している。
+
 
 
 \iffalse
