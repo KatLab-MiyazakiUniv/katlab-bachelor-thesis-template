@@ -14,7 +14,7 @@
     % また必要に応じて「システム仕様書の定義」の微調整を行う。
 
     \item \textbf{章立ての生成}:
-    情報を入力したプロンプトをGPT-5.2に入力し、システム仕様書の章立てを生成させる。出力結果として、章立て(章・節・項の構造)を得る。
+    情報を入力したプロンプトをLLM(GPT-5.2)に入力し、システム仕様書の章立てを生成させる。出力結果として、章立て(章・節・項の構造)を得る。
 \end{enumerate}
 
 \newpage
@@ -174,7 +174,7 @@
 \forceindent 本項では、提案するプロンプトを構成する5つの要素について説明する。
 表\ref{tb:prompt_elements_summary}に、各要素の役割と関連するプロンプトエンジニアリング技術(第\ref{cha:Preparation}章参照)の対応を示す。
 
-\forceindent 図\ref{fig:prompt_full_text}における「役割付与」を担っている箇所を、図\ref{fig:role_assignment}に示す。
+\forceindent 図\ref{fig:prompt_full_text}における「役割付与」部分のプロンプトを、図\ref{fig:role_assignment}に示す。
 プロンプトの文頭で「あなたはシステム仕様書作成の専門アシスタントです」と書くことで、LLMに特定の役割を与えている。
 これは、\ref{subsec:persona_pattern}節で述べたPersona Pattern(ペルソナパターン)の適用である。
 % Aobo Kongらの研究により、LLMに適切な役割を与えることで、回答の精度が向上することが示されている\cite{role_assignment}。
@@ -231,9 +231,9 @@
 \captionof{figure}{"ベースの章立て"部分のプロンプト}
 \label{fig:base_outline}
 
-\forceindent 図\ref{fig:prompt_full_text}における「ベース章立て」を担っている箇所を、図\ref{fig:base_outline}に示す。
+\forceindent 図\ref{fig:prompt_full_text}における「ベースの章立て」部分のプロンプトを、図\ref{fig:base_outline}に示す。
 実際の開発現場で使用されている章立てのテンプレートを「ベース章立てテンプレート」として提示する。
-これは、\ref{subsec:one_shot}節で触れたOne-shot Promptingの技術を用いて、構造の例示を行っている。
+これは、\ref{subsec:one_shot}節で述べたOne-shot Promptingの技術を用いて、出力する章立て構造の例示を行っている。
 
 \forceindent LLMにテンプレートを与えず、ゼロから章立てを生成させると、章の順序が不自然になる、重要な章(例：セキュリティや運用)が抜け落ちるといった「構造的な欠陥」が生じるリスクがある。
 既存のテンプレートを初期値(ベース)として与えることで、LLMは「何を書くべきか」の探索範囲を絞り込むことができる。
@@ -278,13 +278,16 @@
 \captionof{figure}{"開発するシステム情報"部分の記入例}
 \label{fig:development_system_info}
 
-\forceindent 図\ref{fig:prompt_full_text}における「開発するシステム情報」を担っている箇所のプロンプトテンプレートを、図\ref{fig:development_system_info_template}に示す。
-図\ref{fig:development_system_info_template}に示した「開発するシステム情報」を、このテンプレートに代入することで、プロンプトを生成する。
+\forceindent 図\ref{fig:prompt_full_text}における「開発するシステム情報」部分のプロンプトテンプレートを、図\ref{fig:development_system_info_template}に示す。
 これは、開発対象となるシステム名と概要を記述する箇所であり、プロンプトへの入力値となる。
+
+\forceindent 図\ref{fig:development_system_info_template}に例として、BMP画像分割アプリというシステムの情報を入力したものを示す。
+
 また、これは、\ref{subsec:context_manager_pattern}節で述べたContext Manager Patternにおける「考慮事項の指定」に相当する。
 
 \forceindent 対象とするシステムの情報がないまま章立てを行わせると、どのシステムにも当てはまるような抽象的な記述を生成するリスクがある。
-そこで、対象システムの具体的なコンテキスト(考慮すべき事実)を提供することで、LLMの推論をシステム固有の情報に基づいて制御する。
+% そこで、対象システムの具体的なコンテキスト(考慮すべき事実)を提供することで、LLMの推論をシステム固有の情報に基づいて制御する。
+そこで、対象システムの具体的なコンテキスト(考慮すべき事実)を提供することで、LLMがシステム固有の情報に基づいた章立てを生成するよう誘導する。
 図\ref{fig:development_system_info}に例として示した「BMP画像分割アプリ」のようなシステム情報に関する入力があることで、LLMに「画像処理に関連する機能要件が必要ではないか？」「ファイル入出力の章が必要ではないか？」といった推論を促す。
 
 
@@ -339,10 +342,12 @@
 \forceindent これは、Context Manager Patternにおける「範囲の指定」および「除外事項の指定」に相当する。
 
 「システム仕様書」という言葉の定義は曖昧であり、要件定義レベルの粗い内容を含む場合や、内部設計レベルの詳細な内容までを含む場合もある。
-したがって、LLMへの指示が曖昧な場合、内部アルゴリズム(クラス設計など)を含んでしまったり、逆にユーザー操作フローを省略したりと、粒度の不一致が発生する。
+% したがって、LLMへの指示が曖昧な場合、内部アルゴリズム(クラス設計など)を含んでしまったり、逆にユーザー操作フローを省略したりと、粒度の不一致が発生する。
+したがって、LLMへの指示が曖昧な場合、本研究で想定するシステム仕様書には含むべきでない内容(内部構造)を含んでしまったり、逆に含むべき内容(外部仕様)を省略したりと、粒度の不一致が発生する。
 
 そこで、「外部仕様のみ記載する」「内部構造は書かない」と明示的な範囲指定と除外指定を行うことで、\ref{subsec:system_spec_position}節で定義した本研究におけるシステム仕様書の範囲に内容を限定する。
-また、対象読者を「新人」と設定することで、細部まで明文化した丁寧な記述を促す効果を狙っている。
+また、対象読者を新人想定のプログラム作成者、およびシステムテスト担当者と設定することで、細部まで明文化した丁寧な記述を促す効果を狙っている。
+
 
 % \clearpage
 % \begin{figure}[H]
@@ -413,10 +418,23 @@
 
 \forceindent 図\ref{fig:prompt_full_text}における「出力指示」を担っている箇所を、図\ref{fig:output_instruction}に示す。
 本要素では、システム仕様書の章立てを生成する際の出力形式をLLMに指示する。
+出力指示には以下の内容を含める。
+\begin{itemize}
+  \item 章立てを生成させる指示
+  \item 章立ての定義
+  \item 章立ての出力形式を「マークダウンの番号付きリスト」に制限する指示
+  \item 章立てに関係のない内容は出力しないよう促す指示
+  \item 自由な章立てを促す指示
+  \item 章立ての網羅性を高める指示
+\end{itemize}
 
-\forceindent ここでは、出力に対する明確なフォーマット指定を指示している。
-具体的には、「マークダウンの番号付きリスト」での出力を強制している。
-これは、\ref{subsec:template_pattern}節で触れたTemplate Patternである。
+\forceindent 出力形式を「マークダウンの番号付きリスト」に制限する指示と章立てに関係のない内容は出力しないよう促す指示により、出力結果の可読性を高めることを目的とする。
+また、「マークダウンの番号付きリスト」に制限する指示は、\ref{subsec:template_pattern}節で述べたTemplate Patternである。
+
+
+% \forceindent ここでは、出力に対する明確なフォーマット指定を指示している。
+% 具体的には、「マークダウンの番号付きリスト」での出力を強制している。
+% これは、\ref{subsec:template_pattern}節で触れたTemplate Patternである。
 
 \clearpage
 \begin{figure}[H]
