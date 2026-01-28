@@ -328,7 +328,7 @@
 \captionof{figure}{"システム仕様書の定義"部分のプロンプト}
 \label{fig:definition_of_system_specification}
 
-\forceindent 図\ref{fig:prompt_full_text}における「システム仕様書の定義」を担っている箇所を、図\ref{fig:definition_of_system_specification}に示す。
+\forceindent 図\ref{fig:prompt_full_text}における「システム仕様書の定義」部分のプロンプトを、図\ref{fig:definition_of_system_specification}に示す。
 本要素では、システム仕様書がどういう役割の文書であるかをLLMに説明する。
 具体的には、以下を定義する。
 \begin{itemize}
@@ -341,7 +341,7 @@
 
 \forceindent これは、Context Manager Patternにおける「範囲の指定」および「除外事項の指定」に相当する。
 
-\forceindent 「システム仕様書」という言葉の定義は曖昧であり、要件定義レベルの粗い内容を含む場合や、内部設計レベルの詳細な内容までを含む場合もある。
+\forceindent 「システム仕様書」という言葉の定義は曖昧であり、要件定義レベルの粗い内容を含む場合や、内部設計レベルの詳細な内容までを含む場合もある\cite{software_engineering}。
 % したがって、LLMへの指示が曖昧な場合、内部アルゴリズム(クラス設計など)を含んでしまったり、逆にユーザー操作フローを省略したりと、粒度の不一致が発生する。
 したがって、LLMへの指示が曖昧な場合、本研究で想定するシステム仕様書には含むべきでない内容(内部構造)を含んでしまったり、逆に含むべき内容(外部仕様)を省略したりと、粒度の不一致が発生する。
 そこで、「外部仕様のみ記載する」「内部構造は書かない」と明示的な範囲指定と除外指定を行うことで、\ref{subsec:system_spec_position}節で定義した本研究におけるシステム仕様書の範囲に内容を限定する。
@@ -415,7 +415,7 @@
 \captionof{figure}{フォーマット指定なしの出力指示}
 \label{fig:no_format}
 
-\forceindent 図\ref{fig:prompt_full_text}における「出力指示」を担っている箇所を、図\ref{fig:output_instruction}に示す。
+\forceindent 図\ref{fig:prompt_full_text}における「出力指示」部分のプロンプトを、図\ref{fig:output_instruction}に示す。
 本要素では、システム仕様書の章立てを生成する際の出力形式をLLMに指示する。
 出力指示には以下の内容を含める。
 \begin{itemize}
@@ -428,7 +428,7 @@
 \end{itemize}
 
 \forceindent 出力形式を「マークダウンの番号付きリスト」に制限する指示と章立てに関係のない内容は出力しないよう促す指示により、出力結果の可読性を高めることを目的とする。
-また、「マークダウンの番号付きリスト」に制限する指示は、\ref{subsec:template_pattern}節で述べたTemplate Patternである。
+また、「マークダウンの番号付きリスト」に制限する指示は、\ref{subsec:template_pattern}節で述べたTemplate Patternの適用である。
 
 
 % \forceindent ここでは、出力に対する明確なフォーマット指定を指示している。
