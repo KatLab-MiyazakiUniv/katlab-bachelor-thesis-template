@@ -23,10 +23,7 @@
 % 一方、本研究でモデルケースとする株式会社スカイコム\cite{skycom}のシステム開発プロセスにおいては、要件定義書は作成せず、システム仕様書がシステム開発における最初の成果物となる。
 本研究でモデルケースとするシステム開発の流れを、図\ref{fig:system_development_process}に示す。
 
-本研究におけるシステム仕様書は、顧客の要望や口頭での指示といった曖昧な情報を、初めて具体的な要件および設計情報として文書化する役割を担い、システム開発における最初の成果物として位置付けている。
-
-\clearpage
-\begin{figure}[h]
+\begin{figure}[tp]
   \centering
   % \fbox{
   \includegraphics[width=0.95\textwidth]{images/vmodel.pdf}
@@ -34,6 +31,10 @@
   \captionof{figure}{本研究でモデルケースとするシステム開発の流れ}
   \label{fig:system_development_process}
 \end{figure}
+
+本研究におけるシステム仕様書は、顧客の要望や口頭での指示といった曖昧な情報を、初めて具体的な要件および設計情報として文書化する役割を担い、システム開発における最初の成果物として位置付けている。
+
+
 
 
 
@@ -84,8 +85,7 @@
 図\ref{fig:outline_example}に、システム仕様書の章立ての例を示す。
 これはBMP画像分割アプリケーションのシステム仕様書の章立てである。
 
-\clearpage
-\begin{figure}[H]
+\begin{figure}[tp]
   \centering
   \fbox{
     \includegraphics[width=0.95\textwidth]{images/システム仕様書章立ての例.png}
@@ -233,30 +233,15 @@ LLMの性能を最大限に引き出すためには、モデルの特性を理�
 \label{subsec:few_shot}
 
 Few-shot Promptingは、いくつかの入力例と出力例のペアを提示することで、LLMがタスクの意図を汲み取り、望ましい形式、内容で出力を生成できるよう誘導する手法である\cite{fewshot}。
-図\ref{fig:few}に、Few-shot Promptingの具体例を示す。図\ref{fig:few}のプロンプト例における、入力例と出力例を表\ref{tb:inoutexample}に示す。
+図\ref{fig:few}に、Few-shot Promptingの具体例を示す。
+% 図\ref{fig:few}のプロンプト例における、入力例と出力例を表\ref{tb:inoutexample}に示す。
+図\ref{fig:few}のプロンプト例における、入力例は、「フランスの首都」、「日本の首都」、「アメリカの首都」、「イギリスの首都」であり、出力例は、「パリ」、「東京」、「ワシントンD.C」、「ロンドン」である。
 
-\subsection{One-shot Prompting}
-\label{subsec:one_shot}
-
-One-shot Promptingは、1つの入力例と出力例のペアを提示することで、LLMがタスクの意図を汲み取り、望ましい形式、内容で出力を生成できるよう誘導する手法である\cite{oneshot}。
-また、図\ref{fig:one}に、One-shot Promptingの具体例を示す。この例では、「日本の首都」が入力例、「東京」が出力例となる。
-
-\subsection{Zero-shot Prompting}
-\label{subsec:zero_shot}
-
-Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与えずに、指示のみでタスクを実行させる手法である\cite{zeroshot}。
-また、図\ref{fig:zero}に、Zero-shot Promptingの具体例を示す。
-
-
-
-% 一方、Zero-shot Prompting\cite{zeroshot}は、LLMに対してタスクの具体的な回答例を与えずに、指示のみでタスクを実行させる手法である。
-
-\clearpage
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
   fonttitle=\bfseries,
-  breakable
 ]
 \footnotesize
 \ttfamily
@@ -273,12 +258,39 @@ Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与�
 % \captionof{figure}{プロンプトの"役割付与"部分}
 \captionof{figure}{Few-shot Promptingの例}
 \label{fig:few}
+\end{figure}
 
+% \begin{table}[tp]
+%   \caption{図\ref{fig:few}における入力例と出力例}
+%   \label{tb:inoutexample}
+%   \centering
+%   \begin{tabular}{|c|c|}
+%     \hline
+%     \textbf{入力例} & \textbf{出力例} \\
+%     \hline\hline
+%     フランスの首都 & パリ \\
+%     \hline
+%     日本の首都 & 東京 \\
+%     \hline
+%     アメリカの首都 & ワシントンD.C. \\
+%     \hline
+%     イギリスの首都 & ロンドン \\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+
+\subsection{One-shot Prompting}
+\label{subsec:one_shot}
+
+One-shot Promptingは、1つの入力例と出力例のペアを提示することで、LLMがタスクの意図を汲み取り、望ましい形式、内容で出力を生成できるよう誘導する手法である\cite{oneshot}。
+また、図\ref{fig:one}に、One-shot Promptingの具体例を示す。この例では、「日本の首都」が入力例、「東京」が出力例となる。
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
   fonttitle=\bfseries,
-  breakable
 ]
 \footnotesize
 \ttfamily
@@ -288,16 +300,22 @@ Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与�
 では、ブラジルの首都は？
 \end{verbatim}
 \end{tcolorbox}
-% \par\vspace{-20pt}
-% \captionof{figure}{プロンプトの"役割付与"部分}
 \captionof{figure}{One-shot Promptingの例}
 \label{fig:one}
+\end{figure}
 
+\subsection{Zero-shot Prompting}
+\label{subsec:zero_shot}
+
+Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与えずに、指示のみでタスクを実行させる手法である\cite{zeroshot}。
+また、図\ref{fig:zero}に、Zero-shot Promptingの具体例を示す。
+
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
   fonttitle=\bfseries,
-  breakable
 ]
 \footnotesize
 \ttfamily
@@ -310,6 +328,11 @@ Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与�
 % \captionof{figure}{プロンプトの"役割付与"部分}
 \captionof{figure}{Zero-shot Promptingの例}
 \label{fig:zero}
+\end{figure}
+
+
+% 一方、Zero-shot Prompting\cite{zeroshot}は、LLMに対してタスクの具体的な回答例を与えずに、指示のみでタスクを実行させる手法である。
+
 
 
 % \section{プロンプトエンジニアリング}
@@ -324,24 +347,6 @@ Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与�
 % \forceindent Few-shot Promptingは、いくつかの入力例と出力例のペアを提示することで、人間が期待する出力をLLMが推論しやすくさせる手法である\cite{fewshot}。
 % 図\ref{fig:few}に、Few-shot Promptingの具体例を示す。図\ref{fig:few}のプロンプト例における、入力例と出力例を表\ref{tb:inoutexample}に示す。
 
-\begin{table}[h]
-  \caption{図\ref{fig:few}における入力例と出力例}
-  \label{tb:inoutexample}
-  \centering
-  \begin{tabular}{|c|c|}
-    \hline
-    \textbf{入力例} & \textbf{出力例} \\
-    \hline\hline
-    フランスの首都 & パリ \\
-    \hline
-    日本の首都 & 東京 \\
-    \hline
-    アメリカの首都 & ワシントンD.C. \\
-    \hline
-    イギリスの首都 & ロンドン \\
-    \hline
-  \end{tabular}
-\end{table}
 
 
 \forceindent Tom Brownらの研究によると、Few-shot、One-shot PromptingはZero-shot Promptingと比較して、出力の精度が高いとされる\cite{zeroonefew}。一方で、入力例と出力例のペアの作成が困難な場合はZero-shot Prompting\cite{zeroshot}が用いられる。
