@@ -1,7 +1,7 @@
 \chapter{研究の準備}\label{cha:Preparation}
 
 % 本章では、本研究で提案するシステム仕様書生成プロンプトの基礎となる技術的要素、および実験の基準となるシステム仕様書について述べる。
-本章では、本研究におけるシステム仕様書と章立ての位置づけ、および本研究で提案するシステム仕様書生成プロンプトの基礎となる技術的要素について述べる。
+本章では、本研究におけるシステム仕様書と章立ての位置づけ、および本研究で提案するシステム仕様書章立て生成プロンプトの基礎となる技術的要素について述べる。
 
 % \clearpage
 % \begin{figure}[tb]
@@ -21,7 +21,7 @@
 % 図\ref{fig:system_development_process}に、一般的なシステム開発の流れと本研究でモデルケースとする株式会社スカイコム\cite{skycom}のシステム開発の流れを示す。
 % 一般に、システム開発では、顧客の要望をまとめた要件定義書の作成から始まり、設計、実装へと進むプロセスが標準的である\cite{sisutemukaihatu}。
 % 一方、本研究でモデルケースとする株式会社スカイコム\cite{skycom}のシステム開発プロセスにおいては、要件定義書は作成せず、システム仕様書がシステム開発における最初の成果物となる。
-本研究でモデルケースとする、株式会社スカイコム\cite{skycom}のシステム開発の流れを図\ref{fig:system_development_process}に示す。
+本研究でモデルケースとするシステム開発の流れを、図\ref{fig:system_development_process}に示す。
 
 本研究におけるシステム仕様書は、顧客の要望や口頭での指示といった曖昧な情報を、初めて具体的な要件および設計情報として文書化する役割を担い、システム開発における最初の成果物として位置付けている。
 
@@ -31,7 +31,7 @@
   % \fbox{
   \includegraphics[width=0.95\textwidth]{images/vmodel.pdf}
   % }
-  \captionof{figure}{株式会社スカイコムのシステム開発の流れ}
+  \captionof{figure}{本研究でモデルケースとするシステム開発の流れ}
   \label{fig:system_development_process}
 \end{figure}
 
@@ -100,8 +100,9 @@
 システム仕様書の章立ては、プロジェクトの特性や組織の標準により異なるが、システム仕様書として作成される文書には、システムが提供する機能や振る舞いを網羅的に記述することが求められる。
 国際的な標準としては、IEEE 830 (Recommended Practice for Software Requirements Specifications)\cite{ieee830} が広く知られており、機能要件、外部インターフェース、パフォーマンスなどの非機能要件を記述することが推奨されている。
 
-これらを踏まえ、一般的なシステム仕様書の章立ては、主に以下の要素で構成することが多い。
 % これらを踏まえ、システム仕様書の章立てには、主に以下の要素を含むことが望まれる。
+% これらを踏まえ、一般的なシステム仕様書の章立ては、主に以下の要素で構成することが多い。
+IEEE 830\cite{ieee830}によると、システム仕様書には主に以下の要素を含むことが望まれる。
 
 \begin{enumerate}
     \item \textbf{システム概要}
@@ -219,7 +220,7 @@ LLMは、Transformerと呼ばれるニューラルネットワークアーキテ
 % また、LLMは明示的な学習データを与えなくても、プロンプト(指示文)による制御のみで多様なタスクに対応できるFew-shot Prompting\cite{fewshot}やOne-shot Prompting\cite{oneshot}、Zero-shot Prompting\cite{zeroshot}の能力に優れている。
 また、LLMにタスクの実行を命令する際のプロンプトエンジニアリングの手法として、Few-shot Prompting\cite{fewshot}、One-shot Prompting\cite{oneshot}、Zero-shot Prompting\cite{zeroshot} (\ref{sec:prompt_engineering}節で後述)が存在する。
 
-本研究では、OpenAI\cite{openai}社が提供する対話型AIサービスであるGPT-5.2\cite{gpt52}を用いる。
+本研究では、OpenAI\cite{openai}社が提供する対話型AIサービスのLLMであるGPT-5.2\cite{gpt52}をシステム仕様書章立ての作成に用いる。
 % 何でGPT-5.2を選んだのか説明するのがベスト。
 
 \section{プロンプトエンジニアリング}
@@ -346,9 +347,9 @@ Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与�
 \forceindent Tom Brownらの研究によると、Few-shot、One-shot PromptingはZero-shot Promptingと比較して、出力の精度が高いとされる\cite{zeroonefew}。一方で、入力例と出力例のペアの作成が困難な場合はZero-shot Prompting\cite{zeroshot}が用いられる。
 
 \forceindent 本研究では、作成するシステム仕様書章立て生成プロンプトに、多様なシステムに対応できる汎用性を持たせる必要があるため、特定のシステムに依存した入力例と出力例(正解の章立て例)のペアを作成することは目的に沿わない。
-そのため、本研究で提案するシステム仕様書章立て生成プロンプトは、Zero-shot Prompting\cite{zeroshot}の手法をベースとする。
+そのため、本研究で提案するシステム仕様書章立て生成プロンプトは、Zero-shot Promptingの手法をベースとする。
 ただし、LLMが生成する章立てが意図する章立ての構造とかけ離れたものにならないように、出力例として実際の開発現場で用いられている章立てのテンプレートをLLMに与える(詳細は第\ref{cha:Proposal}章で後述)。
-したがって、本研究で提案するシステム仕様書章立て生成プロンプトは、入力例は与えていないが、出力例は与えているため、One-shot Prompting\cite{oneshot}を部分的に取り入れたプロンプトになっている。
+したがって、本研究で提案するシステム仕様書章立て生成プロンプトは、具体的な入力例は与えていないが、出力例は与えているため、One-shot Promptingを部分的に取り入れたプロンプトになっていると言える。
 
 
 % \subsection{One-shot Prompting}
@@ -388,19 +389,19 @@ Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与�
 \forceindent Persona Pattern (ペルソナパターン)は、LLMに対して特定の役割(ペルソナ)を与えることで、その役割に適した振る舞いや回答を促すパターンである\cite{prompt-patterns}。
 Aobo Kongらの研究により、LLMに適切な役割を与えることで、回答の精度が向上することが示されている\cite{role_assignment}。
 
-\forceindent 本研究で提案するシステム仕様書章立て生成プロンプトでは、文頭で「あなたはシステム仕様書作成の専門アシスタントです」と役割を定義することで、専門的かつ実務的な章立ての出力を誘導する(詳細は第\ref{cha:Proposal}章で後述)。
+\forceindent 本研究で提案するシステム仕様書章立て生成プロンプトでは、文頭で「あなたはシステム仕様書作成の専門アシスタントです」と役割を与えることで、専門的かつ実務的な章立ての出力を誘導する(詳細は第\ref{cha:Proposal}章で後述)。
 
 \subsection{Template Pattern}
 \label{subsec:template_pattern}
 
 \forceindent Template Pattern (テンプレートパターン)は、LLMに対して出力の形式を具体的かつ厳密に指定するパターンである\cite{prompt-patterns}。
 
-\forceindent 本研究で提案するシステム仕様書章立て生成プロンプトでは、マークダウン形式の番号付きリストや、特定の区切り文字の使用を強制することで、可読性の高い出力を目指す(詳細は第\ref{cha:Proposal}章で後述)。
+\forceindent 本研究で提案するシステム仕様書章立て生成プロンプトでは、マークダウン形式の番号付きリストを出力形式として、強制することで、可読性の高い出力を目指す(詳細は第\ref{cha:Proposal}章で後述)。
 
 \subsection{Context Manager Pattern}
 \label{subsec:context_manager_pattern}
 
-\forceindent Context Manager Pattern (コンテキストマネージャパターン)は、LLMが、タスクの実行時に対話の履歴や曖昧な指示に含まれる無関係な情報に影響され、意図しない回答を生成する場合があるため、LLMに対して考慮すべき情報の範囲(コンテキスト)を明示的に指定、あるいは除外することで、生成内容の焦点や関連性を制御するパターンである\cite{prompt-patterns}。
+\forceindent Context Manager Pattern (コンテキストマネージャパターン)は、LLMが、タスクの実行時に対話の履歴や曖昧な指示に含まれる無関係な情報に影響され、意図しない回答を生成する場合があるため、LLMに対して考慮すべき情報の範囲(コンテキスト)を明示的に指定、あるいは除外することで、回答内容の焦点や関連性を制御するパターンである\cite{prompt-patterns}。
 
 % LLMは、対話の履歴や曖昧な指示に含まれる無関係な情報に影響され、意図しない回答を生成する場合がある。
 % これに対し、本パターンでは、以下のような明示的な指示を与えることで、LLMの出力を制御する。
@@ -415,7 +416,7 @@ Aobo Kongらの研究により、LLMに適切な役割を与えることで、�
 \begin{itemize}
     \item \textbf{範囲の指定}: 特定のトピックや条件下でのみ回答するように制限する。
     \item \textbf{考慮事項の指定}: 重要な概念や事実を明示し、それに基づいた回答を促す。
-    \item \textbf{除外事項の指定}: フォーマットや特定のトピックなど、考慮すべきでない要素を明示的に排除する。
+    \item \textbf{除外事項の指定}: フォーマットや特定のトピックなど、考慮すべきでない要素を回答から排除する。
 \end{itemize}
 
 \forceindent 本研究で提案するシステム仕様書章立て生成プロンプトでは、対象とするシステムの情報(考慮事項)を与えたり、記述すべきでない事項(除外事項)や記述の範囲を厳密に定義したりするために、このパターンを利用する(詳細は第\ref{cha:Proposal}章で後述)。
