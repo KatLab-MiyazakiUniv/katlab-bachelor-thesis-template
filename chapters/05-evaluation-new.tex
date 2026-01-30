@@ -22,13 +22,15 @@
     \item \textbf{手法C（本プロンプト）}: 被験者はLLM(GPT-5.2)を使用し、本研究で作成したプロンプトを用いて章立てを作成する。
 \end{itemize}
 
+手法Aと手法Bにおいて、被験者には、対象とするシステムの情報と、図\ref{fig:base_outline}に示す章立てのテンプレートを与えた。
+
 \subsection{被験者と実験の割り当て}
 % 4名の被験者（A, B, C, D）に対し、システムと手法の組み合わせを以下の表\ref{tb:experiment_allocation}のように割り当てた。
 % クロス集計的な評価が可能になるように、被験者ごとに異なる組み合わせを設定している。
 
 表\ref{tb:experiment_allocation}に、被験者ごとの対象システムと手法の割り当てを示す。
 
-\begin{table}[H]
+\begin{table}[tp]
   \caption{被験者ごとの対象システムと手法の割り当て}
   \label{tb:experiment_allocation}
   \centering
@@ -51,91 +53,338 @@
 
 \section{評価基準}
 作成した章立ては、株式会社スカイコムにて5年以上のシステム仕様書作成経験を持つ専門家によって評価された。
-評価は以下の8項目について行い、それぞれ5段階のリッカート尺度\cite{likert}（5: 非常に良い 〜 1: 非常に悪い）で採点された。
+評価は以下の9項目について行い、それぞれ5段階のリッカート尺度\cite{likert}(5:非常に良い, 4:良い, 3:普通, 2:悪い, 1:非常に悪い)で採点された。
 
 \begin{enumerate}
-    \item 最低限含むべき章を含んでいるか（網羅性）
-    \item 章の順序は適切か（論理性）
-    \item 章タイトルは適切か（命名の適切さ）
-    \item 章立て全体として理解しやすいか（可読性）
-    \item 章の粒度は適切か（詳細度）
-    \item 想定読者（新人プログラマ等）に適した章立てか（適合性）
-    \item 将来的な拡張に対応しやすい章立てか（拡張性）
-    \item 章、節、項の包含関係は適切か（構造的整合性）
-    \item システム独自の章立てになっているか（独自性）
+  \item 最低限含むべき章を含んでいるか（網羅性）
+  \item 章の順序は適切か（論理性）
+  \item 章タイトルは適切か（命名の適切さ）
+  \item 章立て全体として理解しやすいか（可読性）
+  \item 章の粒度は適切か（詳細度）
+  \item 想定読者に適した章立てか（適合性）
+  \item 将来的な拡張に対応しやすい章立てか（拡張性）
+  \item 章、節、項の包含関係は適切か（構造的整合性）
+  \item 章立てがシステム独自の章立てになっているか（独自性）
 \end{enumerate}
+
+
+
+% \begin{enumerate}
+%     \item 最低限含むべき章を含んでいるか（網羅性）
+%     \begin{itemize}
+%         \item 5: すべて含まれている
+%         \item 4: 軽微な不足がある
+%         \item 3: 一部重要な章が不足している
+%         \item 2: 多くの重要な章が不足している
+%         \item 1: 最低限必要な章が1つも含まれていない
+%     \end{itemize}
+%     \item 章の順序は適切か（論理性）
+%     \begin{itemize}
+%         \item 5: 非常に適切
+%         \item 4: 概ね適切
+%         \item 3: 一部不適切
+%         \item 2: 不適切な章順序が多い
+%         \item 1: 全体的に不適切
+%     \end{itemize}
+%     \item 章タイトルは適切か（命名の適切さ）
+%     \begin{itemize}
+%         \item 5: 非常に適切
+%         \item 4: 概ね適切
+%         \item 3: 一部不適切
+%         \item 2: 不適切な章タイトルが多い
+%         \item 1: 全体的に不適切
+%     \end{itemize}
+%     \item 章立て全体として理解しやすいか（可読性）
+%     \begin{itemize}
+%         \item 5: 非常に理解しやすい
+%         \item 4: 理解しやすい
+%         \item 3: 普通
+%         \item 2: 理解しにくい
+%         \item 1: 非常に理解しにくい
+%     \end{itemize}
+%     \item 章の粒度は適切か（詳細度）
+%     \begin{itemize}
+%         \item 5: 非常に適切
+%         \item 4: 概ね適切
+%         \item 3: 普通
+%         \item 2: 過不足が多い
+%         \item 1: 非常に過不足が多い
+%     \end{itemize}
+%     \item 想定読者に適した章立てか（適合性）
+%     \begin{itemize}
+%         \item 5: 非常に適切
+%         \item 4: 概ね適切
+%         \item 3: 一部不適切
+%         \item 2: 不適切な章が多い
+%         \item 1: 全体的に不適切
+%     \end{itemize}
+%     \item 将来的な拡張に対応しやすい章立てか（拡張性）
+%     \begin{itemize}
+%         \item 5: 非常に拡張しやすい
+%         \item 4: 拡張しやすい
+%         \item 3: 普通
+%         \item 2: 拡張しにくい
+%         \item 1: 非常に拡張しにくい
+%     \end{itemize}
+%     \item 章、節、項の包含関係は適切か（構造的整合性）
+%     \begin{itemize}
+%         \item 5: 非常に適切
+%         \item 4: 概ね適切
+%         \item 3: 一部不適切
+%         \item 2: 不適切な包含関係が多い
+%         \item 1: 全体的に不適切
+%     \end{itemize}
+%     \item 章立てがシステム独自の章立てになっているか（独自性）
+%     \begin{itemize}
+%         \item 5: システム固有の機能や特性が章立てに十分に反映されており、独自性が高い
+%         \item 4: システム固有の要素が概ね反映されている
+%         \item 3: 一部システム固有の要素があるが、汎用的な構成に近い
+%         \item 2: 汎用的なテンプレートに近く、システム固有の要素が少ない
+%         \item 1: 完全に汎用的なテンプレートであり、システム固有の要素がない
+%     \end{itemize}
+% \end{enumerate}
 
 \section{評価結果}
 \subsection{概要}
 %評価結果のまとめを書く。
 %BMPの平均の表(行が評価項目、列が手法)、クラウドの平均の表(行が評価項目、列が手法)
 
-\begin{table}[H]
-  \caption{BMP画像分割アプリの評価結果}
-  \label{tb:bmp}
+
+
+% \begin{table}[H]
+%   \caption{BMP画像分割アプリの評価結果}
+%   \label{tb:bmp}
+%   \centering
+%   \begin{tabular}{|l|c|c|c|}
+%     \hline
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
+%     \hline\hline
+%     1. 網羅性 & 3.6 & 4.8 & 4.3 \\
+%     \hline
+%     2. 論理性 & 4 & 3.8 & 4.0 \\
+%     \hline
+%     3. 命名の適切さ & 3.6 & 4.2 & 4.1 \\
+%     \hline
+%     4. 可読性 & 3.4 & 3.4 & 4.2 \\
+%     \hline
+%     5. 詳細度 & 3.4 & 3.6 & 4.2 \\
+%     \hline
+%     6. 適合性 & 3.4 & 3.8 & 4.2 \\
+%     \hline
+%     7. 拡張性 & 3.8 & 2.8 & 3.8 \\
+%     \hline
+%     8. 構造的整合性 & 3.8 & 3.6 & 3.8 \\
+%     \hline
+%     9. 独自性 & 3.2 & 4.2 & 3.6 \\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+% \begin{table}[H]
+%   \caption{クラウド型電子契約サービスの評価結果}
+%   \label{tb:cloud}
+%   \centering
+%   \begin{tabular}{|l|c|c|c|}
+%     \hline
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
+%     \hline\hline
+%     1. 網羅性 & 3.4 & 4.6 & 4.1 \\
+%     \hline
+%     2. 論理性 & 3.8 & 4 & 3.7 \\
+%     \hline
+%     3. 命名の適切さ & 3.8 & 4 & 3.9 \\
+%     \hline
+%     4. 可読性 & 3.6 & 4 & 3.8 \\
+%     \hline
+%     5. 詳細度 & 3 & 4.8 & 3.4 \\
+%     \hline
+%     6. 適合性 & 3.6 & 4 & 3.9 \\
+%     \hline
+%     7. 拡張性 & 3.2 & 4 & 3.7 \\
+%     \hline
+%     8. 構造的整合性 & 3.6 & 4 & 3.7 \\
+%     \hline
+%     9. 独自性 & 2.8 & 4.6 & 3.7 \\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+
+表\ref{tb:bmp}に、BMP画像分割アプリにおける評価結果を示す。表\ref{tb:bmp}内の数値は、評価者5人の平均点である。
+
+表\ref{tb:cloud}に、クラウド型電子契約サービスにおける評価結果を示す。表\ref{tb:cloud}内の数値は、評価者5人の平均点である。
+
+BMP画像分割アプリにおいては、手法Cにより作成された章立ての平均点が最も高いという結果になった。一方で、クラウド型電子契約サービスにおいては、手法Bにより作成された章立ての平均点が最も高いという結果になった。
+
+
+\begin{table}[tp]
   \centering
-  \begin{tabular}{|l|c|c|c|c|}
+  \begin{minipage}{0.48\textwidth}
+    \caption{BMP画像分割アプリの章立ての評価結果}
+    \label{tb:bmp}
+    \centering
+    \begin{tabular}{|l|c|c|c|}
     \hline
-    \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{被験者Bによる手法C} & \textbf{被験者Dによる手法C} \\
+    \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
     \hline\hline
-    1. 網羅性 & 3.6 & 4.8 & 4.4 & 4.2  \\
+    1. 網羅性 & 3.6 & 4.8 & 4.3 \\
     \hline
-    2. 論理性 & 4 & 3.8 & 4.2 & 3.8 \\
+    2. 論理性 & 4 & 3.8 & 4.0 \\
     \hline
-    3. 命名の適切さ & 3.6 & 4.2 & 4.2 & 4  \\
+    3. 命名の適切さ & 3.6 & 4.2 & 4.1 \\
     \hline
-    4. 可読性 & 3.4 & 3.4 & 4.4 & 4  \\
+    4. 可読性 & 3.4 & 3.4 & 4.2 \\
     \hline
-    5. 詳細度 & 3.4 & 3.6 & 4.2 & 4.2 \\
+    5. 詳細度 & 3.4 & 3.6 & 4.2 \\
     \hline
-    6. 適合性 & 3.4 & 3.8 & 4.4 & 4 \\
+    6. 適合性 & 3.4 & 3.8 & 4.2 \\
     \hline
-    7. 拡張性 & 3.8 & 2.8 & 4 & 3.6 \\
+    7. 拡張性 & 3.8 & 2.8 & 3.8 \\
     \hline
-    8. 構造的整合性 & 3.8 & 3.6 & 3 & 4 \\
+    8. 構造的整合性 & 3.8 & 3.6 & 3.8 \\
     \hline
-    9. 独自性 & 3.2 & 4.2 & 3.6 & 3.6 \\
+    9. 独自性 & 3.2 & 4.2 & 3.6 \\
     \hline
-  \end{tabular}
+    合計 & 33.2 & 34.2 & 36.2 \\
+    \hline
+    \end{tabular}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \caption{クラウド型電子契約サービスの章立ての評価結果}
+    \label{tb:cloud}
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
+    \hline\hline
+    1. 網羅性 & 3.4 & 4.6 & 4.1 \\
+    \hline
+    2. 論理性 & 3.8 & 4 & 3.7 \\
+    \hline
+    3. 命名の適切さ & 3.8 & 4 & 3.9 \\
+    \hline
+    4. 可読性 & 3.6 & 4 & 3.8 \\
+    \hline
+    5. 詳細度 & 3 & 4.8 & 3.4 \\
+    \hline
+    6. 適合性 & 3.6 & 4 & 3.9 \\
+    \hline
+    7. 拡張性 & 3.2 & 4 & 3.7 \\
+    \hline
+    8. 構造的整合性 & 3.6 & 4 & 3.7 \\
+    \hline
+    9. 独自性 & 2.8 & 4.6 & 3.7 \\
+    \hline
+    合計 & 31.2 & 38 & 33.9 \\
+    \hline
+    \end{tabular}
+  \end{minipage}
 \end{table}
 
-\begin{table}[H]
-  \caption{クラウド型電子契約サービスの評価結果}
-  \label{tb:cloud}
+
+図\ref{fig:bmpchart}にBMP画像分割アプリの評価結果のレーダーチャートを示す。
+
+図\ref{fig:cloudchart}にクラウド型電子契約サービスの評価結果のレーダーチャートを示す。
+
+2つのシステムに共通して、手法Bは、網羅性と独自性が高く、手法Cは、命名の適切さ、可読性、適合性が高いという結果になった。
+
+
+
+\begin{figure}[tp]
   \centering
-  \begin{tabular}{|l|c|c|c|c|}
-    \hline
-    \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{被験者Aによる手法C} & \textbf{被験者Cによる手法C} \\
-    \hline\hline
-    1. 網羅性 & 3.4 & 4.6 & 4 & 4.2  \\
-    \hline
-    2. 論理性 & 3.8 & 4 & 3.6 & 3.8  \\
-    \hline
-    3. 命名の適切さ & 3.8 & 4 & 4 & 3.8  \\
-    \hline
-    4. 可読性 & 3.6 & 4 & 3.8 & 3.8  \\
-    \hline
-    5. 詳細度 & 3 & 4.8 & 2.8 & 4  \\
-    \hline
-    6. 適合性 & 3.6 & 4 & 3.8 & 4  \\
-    \hline
-    7. 拡張性 & 3.2 & 4 & 4 & 3.4 \\
-    \hline
-    8. 構造的整合性 & 3.6 & 4 & 3.8 & 3.6 \\
-    \hline
-    9. 独自性 & 2.8 & 4.6 & 3.8 & 3.6 \\
-    \hline
-  \end{tabular}
-\end{table}
+  \includegraphics[width=0.8\textwidth]{images/BMPレーダーチャート.png}
+  \caption{BMP画像分割アプリの評価結果のレーダーチャート}
+  \label{fig:bmpchart}
+\end{figure}
+
+\begin{figure}[tp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/クラウドレーダーチャート.png}
+  \caption{クラウド型電子契約サービスの評価結果のレーダーチャート}
+  \label{fig:cloudchart}
+\end{figure}
+
+
+
+
+
+% \begin{table}[H]
+%   \caption{BMP画像分割アプリの評価結果}
+%   \label{tb:bmp}
+%   \centering
+%   \begin{tabular}{|l|c|c|c|c|}
+%     \hline
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{被験者Bによる手法C} & \textbf{被験者Dによる手法C} \\
+%     \hline\hline
+%     1. 網羅性 & 3.6 & 4.8 & 4.4 & 4.2  \\
+%     \hline
+%     2. 論理性 & 4 & 3.8 & 4.2 & 3.8 \\
+%     \hline
+%     3. 命名の適切さ & 3.6 & 4.2 & 4.2 & 4  \\
+%     \hline
+%     4. 可読性 & 3.4 & 3.4 & 4.4 & 4  \\
+%     \hline
+%     5. 詳細度 & 3.4 & 3.6 & 4.2 & 4.2 \\
+%     \hline
+%     6. 適合性 & 3.4 & 3.8 & 4.4 & 4 \\
+%     \hline
+%     7. 拡張性 & 3.8 & 2.8 & 4 & 3.6 \\
+%     \hline
+%     8. 構造的整合性 & 3.8 & 3.6 & 3 & 4 \\
+%     \hline
+%     9. 独自性 & 3.2 & 4.2 & 3.6 & 3.6 \\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+% \begin{table}[H]
+%   \caption{クラウド型電子契約サービスの評価結果}
+%   \label{tb:cloud}
+%   \centering
+%   \begin{tabular}{|l|c|c|c|c|}
+%     \hline
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{被験者Aによる手法C} & \textbf{被験者Cによる手法C} \\
+%     \hline\hline
+%     1. 網羅性 & 3.4 & 4.6 & 4 & 4.2  \\
+%     \hline
+%     2. 論理性 & 3.8 & 4 & 3.6 & 3.8  \\
+%     \hline
+%     3. 命名の適切さ & 3.8 & 4 & 4 & 3.8  \\
+%     \hline
+%     4. 可読性 & 3.6 & 4 & 3.8 & 3.8  \\
+%     \hline
+%     5. 詳細度 & 3 & 4.8 & 2.8 & 4  \\
+%     \hline
+%     6. 適合性 & 3.6 & 4 & 3.8 & 4  \\
+%     \hline
+%     7. 拡張性 & 3.2 & 4 & 4 & 3.4 \\
+%     \hline
+%     8. 構造的整合性 & 3.6 & 4 & 3.8 & 3.6 \\
+%     \hline
+%     9. 独自性 & 2.8 & 4.6 & 3.8 & 3.6 \\
+%     \hline
+%   \end{tabular}
+% \end{table}
 
 \subsection{BMP画像分割アプリ}
+本節では、実験において作成されたBMP画像分割アプリの章立てについて述べる。
 \subsubsection{手法A（手動作成）}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
 
+図\ref{fig:A_chapter_structure_of_bmp_app}に手法Aにより作成されたBMP画像分割アプリの章立てを示す。
+また、表\ref{tb:detailed_evaluation_results_A}に手法Aで作成されたBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
 
-\begin{figure}[H]
+
+
+\noindent\textbf{評価者のコメント}\\
+評価者A：微妙\\
+評価者C：書くべきことが書けていない。\\
+評価者E：シンプル\\
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -179,7 +428,7 @@
 \end{figure}
 
 
-\begin{table}[H]
+\begin{table}[tp]
   \caption{手法A（手動作成）の評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_A}
   \centering
@@ -212,8 +461,17 @@
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
+図\ref{fig: B_chapter_structure_of_bmp_app}に手法Bにより作成されたBMP画像分割アプリの章立てを示す。
+また、表\ref{tb:detailed_evaluation_results_B}に手法Bで作成されたBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
 
-\begin{figure}[H]
+\noindent\textbf{評価者のコメント}\\
+評価者A：冗長\\
+評価者B：冗長\\
+評価者C：書きたいことが網羅されているが、拡張性は低い。\\
+評価者D：独自性があるが、独自性があると拡張性や想定読者(初心者)への適切さは下がるので検討の余地あり。\\
+評価者E：冗長\\
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -308,7 +566,7 @@
 \end{figure}
 
 
-\begin{table}[H]
+\begin{table}[tp]
   \caption{手法B（LLMのみ）の評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_B}
   \centering
@@ -342,7 +600,16 @@
 %章立て
 %傾向の分析
 
-\begin{figure}[H]
+図\ref{fig:C_chapter_structure_of_bmp_app_1}に被験者Bによる手法Cで作成されたBMP画像分割アプリの章立てを示す。
+また、表\ref{tb:detailed_evaluation_results_C}に被験者Bによる手法Cで作成されたBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+
+\noindent\textbf{評価者のコメント}\\
+評価者A：一番バランスが良い\\
+評価者B：一番整理されている\\
+評価者C：一番拡張性は高く使い勝手は一番よさそう。\\
+評価者E：構成が分かりやすくていい\\
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -404,7 +671,7 @@
 \end{figure}
 
 
-\begin{table}[H]
+\begin{table}[tp]
   \caption{手法C（本プロンプト）の評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_C}
   \centering
@@ -438,7 +705,15 @@
 %章立て
 %傾向の分析
 
-\begin{figure}[H]
+図\ref{fig:C_chapter_structure_of_bmp_app_2}に被験者Dによる手法Cで作成されたBMP画像分割アプリの章立てを示す。
+また、表\ref{tb:detailed_evaluation_results_C2}に被験者Dによる手法Cで作成されたBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+
+\noindent\textbf{評価者のコメント}\\
+評価者A：概ね良い\\
+評価者C：書くべきことが網羅されているが、拡張性は低い\\
+評価者E：構成が分かりやすくていい\\
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -498,9 +773,9 @@
 \end{figure}
 
 
-\begin{table}[H]
+\begin{table}[tp]
   \caption{手法C（本プロンプト）の評価者別詳細評価結果}
-  \label{tb:detailed_evaluation_results_C}
+  \label{tb:detailed_evaluation_results_C2}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
     \hline
@@ -534,7 +809,15 @@
 %章立て
 %傾向の分析
 
-\begin{figure}[H]
+図\ref{fig:A_chapter_structure_of_cloud_contract_system}に、手法Aで作成されたクラウド型電子契約サービスの章立てを示す。
+また、表\ref{tb:cloud_detailed_evaluation_results_A}に、手法Aで作成されたクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+
+\noindent\textbf{評価者のコメント}\\
+評価者C：粒度が荒すぎる上に項目として不足箇所が多い\\
+評価者E：章立てが荒く、記載が不足している\\
+
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -587,9 +870,9 @@
 \end{figure}
 
 
-\begin{table}[H]
+\begin{table}[tp]
   \caption{手法A（手動作成）の評価者別詳細評価結果}
-  \label{tb:detailed_evaluation_results_A}
+  \label{tb:cloud_detailed_evaluation_results_A}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
     \hline
@@ -622,7 +905,16 @@
 %章立て
 %傾向の分析
 
-\begin{figure}[H]
+図\ref{fig:B_chapter_structure_of_cloud_contract_system}に、手法Bで作成されたクラウド型電子契約サービスの章立てを示す。
+また、表\ref{tb:cloud_detailed_evaluation_results_B}に、手法Bで作成されたクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+
+\noindent\textbf{評価者のコメント}\\
+評価者A：冗長に見えるが、必要な章分けがされている。\\
+評価者C：冗長で、拡張性が低い\\
+評価者D：独自性がある\\
+評価者E：良い\\
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -715,9 +1007,9 @@
 \end{figure}
 
 
-\begin{table}[H]
+\begin{table}[tp]
   \caption{手法B（LLMのみ）の評価者別詳細評価結果}
-  \label{tb:detailed_evaluation_results_B}
+  \label{tb:cloud_detailed_evaluation_results_B}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
     \hline
@@ -750,7 +1042,15 @@
 %章立て
 %傾向の分析
 
-\begin{figure}[H]
+図\ref{fig:C_chapter_structure_of_cloud_contract_system_1}に、被験者Aにより手法Cで作成されたクラウド型電子契約サービスの章立てを示す。
+また、表\ref{tb:cloud_detailed_evaluation_results_C}に、被験者Aにより手法Cで作成されたクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+
+\noindent\textbf{評価者のコメント}\\
+評価者A：バランスよく見える\\
+評価者C：必要なことが書かれている上に拡張しやすそう\\
+評価者E：良い\\
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -832,7 +1132,7 @@
 \end{figure}
 
 
-\begin{table}[H]
+\begin{table}[tp]
   \caption{手法C（本プロンプト）の評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_C}
   \centering
@@ -867,8 +1167,13 @@
 %章立て
 %傾向の分析
 
+図\ref{fig:C_chapter_structure_of_cloud_contract_system_2}に、被験者Cにより手法Cで作成されたクラウド型電子契約サービスの章立てを示す。
+また、表\ref{tb:cloud_detailed_evaluation_results_C2}に、被験者Cにより手法Cで作成されたクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
 
-\begin{figure}[H]
+\noindent\textbf{評価者のコメント}\\
+評価者E：良い\\
+
+\begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
   colframe=black,
@@ -946,9 +1251,9 @@
 
 
 
-\begin{table}[H]
+\begin{table}[tp]
   \caption{手法C（本プロンプト）の評価者別詳細評価結果}
-  \label{tb:detailed_evaluation_results_C}
+  \label{tb:detailed_evaluation_results_C2}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
     \hline
