@@ -1,7 +1,7 @@
 \chapter{評価実験}\label{cha:Evaluation}
 
 本研究で提案するプロンプトの有用性を検証するため、実験を行った。本実験の被験者は、システム仕様書作成経験のない学生4人である。
-実験では、実際のシステム開発を想定した題材を用い、提案するプロンプトを用いた手法とその他の手法で作成した章立ての品質を、
+実験では、実際のシステム開発を想定した題材を用い、提案するプロンプトを用いた手法とその他の手法で、被験者が章立てを作成し、その章立ての品質を、
 株式会社スカイコム\cite{skycom}にて5年以上のシステム仕様書作成経験を持つ専門家5人が評価した。
 
 
@@ -13,10 +13,10 @@
 実験の題材として、以下の2つのシステムを選定した。
 \begin{enumerate}
     \item \textbf{BMP画像分割アプリ}: BMP画像を指定された数に分割し、保存するアプリケーション
-    \item \textbf{クラウド型電子契約サービス}: PDF技術を活かした電子契約／ワークフロー、それらに付随する文書管理、及びユーザー管理機能を持つクラウドサービス
+    \item \textbf{クラウド型電子契約サービス}: PDF技術を活かした電子契約/ワークフロー、それらに付随する文書管理、およびユーザー管理機能を持つクラウドサービス
 \end{enumerate}
 
-これらのシステムは、BMP画像分割アプリは機能の少ない単純なシステム、クラウド型電子契約サービスは機能が多い複雑なシステムである。
+BMP画像分割アプリは機能が少ない単純なシステムとして、クラウド型電子契約サービスは機能が多い複雑なシステムとして、実験対象とした。
 
 \subsection{比較手法}
 
@@ -27,7 +27,47 @@
     \item \textbf{手法C(提案するプロンプト)}: 被験者はLLM(GPT-5.2)を使用し、提案するプロンプトを用いて章立てを作成する。
 \end{itemize}
 
-% 手法Aと手法Bにおいて、被験者には、対象とするシステムの情報と、図\ref{fig:base_outline}に示す章立てのテンプレートを与えた。
+図\ref{fig:bmp}にBMP画像分割アプリを対象とした手法Cで用いるプロンプトの「開発するシステム情報」部分を示す。
+\begin{figure}[tp]
+\begin{tcolorbox}[
+  colback=white,
+  colframe=blue,
+  fonttitle=\bfseries,
+]
+\footnotesize
+\ttfamily
+\fontsize{10}{11}\selectfont
+\begin{verbatim}
+【開発するシステム情報】
+- システム名：BMP画像分割アプリ
+- 概要：指定されたBMP画像ファイルを指定された数に分割する。
+\end{verbatim}
+\end{tcolorbox}
+% \par\vspace{-20pt}
+\captionof{figure}{BMP画像分割アプリを対象とした手法Cで用いるプロンプトの「開発するシステム情報」部分}
+\label{fig:bmp}
+\end{figure}
+
+図\ref{fig:cloud}にクラウド型電子契約サービスを対象とした手法Cで用いるプロンプトの「開発するシステム情報」部分を示す。
+\begin{figure}[tp]
+\begin{tcolorbox}[
+  colback=white,
+  colframe=blue,
+  fonttitle=\bfseries,
+]
+\footnotesize
+\ttfamily
+\fontsize{10}{11}\selectfont
+\begin{verbatim}
+【開発するシステム情報】
+- システム名：クラウド型電子契約サービス
+- 概要：PDF技術を活かした電子契約/ワークフロー、それらに付随する文書管理、およびユーザー管理機能を持つクラウドサービス
+\end{verbatim}
+\end{tcolorbox}
+% \par\vspace{-20pt}
+\captionof{figure}{クラウド型電子契約サービスを対象とした手法Cで用いるプロンプトの「開発するシステム情報」部分}
+\label{fig:cloud}
+\end{figure}
 
 \subsection{被験者と実験の割り当て}
 
@@ -52,8 +92,6 @@
   \end{tabular}
 \end{table}
 
-なお、被験者CとDの手法Bにおいて、プロンプトの指定はないものとする。
-
 \subsection{評価方法}
 作成した章立ては、株式会社スカイコムにて5年以上のシステム仕様書作成経験を持つ専門家が評価した。
 評価は以下の9項目について行い、それぞれ5段階のリッカート尺度\cite{likert}(5:非常に良い, 4:良い, 3:普通, 2:悪い, 1:非常に悪い)で採点した。
@@ -71,7 +109,7 @@
 \end{enumerate}
 
 また、これら9項目の定量的な評価に加え、各対象システムに対して、評価者から全体的な所感や各手法に対する改善点を自由記述形式のコメントとして収集した。
-そのため、すべての章立てに対して個別のコメントが得られているわけではないが、得られたコメントについてはそれぞれの手法の評価結果の節において示す。
+そのため、すべての章立てに対して個別のコメントが得られているわけではないが、得られたコメントについては\ref{sec:evaluation_results}節において示す。
 
 
 
@@ -151,6 +189,7 @@
 % \end{enumerate}
 
 \section{評価結果}
+\label{sec:evaluation_results}
 
 \subsection{BMP画像分割アプリ}
 本節では、実験において被験者が作成したBMP画像分割アプリの章立ての評価結果について述べる。
@@ -178,7 +217,7 @@
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{9}{10}\selectfont
+\fontsize{8}{9}\selectfont
 \begin{verbatim}
 1. 概要
  1.1.目的
@@ -213,7 +252,7 @@
 \end{figure}
 
 
-\begin{table}[tp]
+\begin{table}[H]
   \caption{手法A(手動作成)の評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_A}
   \centering
@@ -266,7 +305,7 @@
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{9}{10}\selectfont
+\fontsize{8}{9}\selectfont
 \begin{verbatim}
 1. 概要
  1.1 目的
@@ -350,7 +389,7 @@
 \caption{手法BによるBMP画像分割アプリの章立て}
 \label{fig:B_chapter_structure_of_bmp_app}
 \end{figure}
-
+\FloatBarrier
 
 \begin{table}[tp]
   \caption{手法B(自由プロンプト)の評価者別詳細評価結果}
@@ -380,6 +419,7 @@
     \hline
   \end{tabular}
 \end{table}
+\FloatBarrier
 
 \subsubsection{被験者Bによる手法C(提案するプロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
@@ -405,7 +445,7 @@
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{9}{10}\selectfont
+\fontsize{8}{9}\selectfont
 \begin{verbatim}
 1. 概要
 　1.1. 目的
@@ -456,7 +496,7 @@
 \caption{被験者Bが手法C(提案するプロンプト)で作成した章立て}
 \label{fig:C_chapter_structure_of_bmp_app_1}
 \end{figure}
-
+\FloatBarrier
 
 \begin{table}[tp]
   \caption{被験者Bによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
@@ -486,6 +526,7 @@
     \hline
   \end{tabular}
 \end{table}
+\FloatBarrier
 
 \subsubsection{被験者Dによる手法C(提案するプロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
@@ -510,7 +551,7 @@
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{9}{10}\selectfont
+\fontsize{8}{9}\selectfont
 \begin{verbatim}
 1. 概要
  1.1. 目的
@@ -559,7 +600,7 @@
 \caption{被験者Dが手法C(提案するプロンプト)で作成した章立て}
 \label{fig:C_chapter_structure_of_bmp_app_2}
 \end{figure}
-
+\FloatBarrier
 
 \begin{table}[tp]
   \caption{被験者Dによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
@@ -589,7 +630,7 @@
     \hline
   \end{tabular}
 \end{table}
-
+\FloatBarrier
 
 \subsection{クラウド型電子契約サービス}
 \subsubsection{手法A(手動作成)}
@@ -615,7 +656,7 @@
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{9}{10}\selectfont
+\fontsize{8}{9}\selectfont
 \begin{verbatim}
 1. 概要
  1.1.目的
@@ -657,7 +698,7 @@
 \caption{手法Aによるクラウド型電子契約システムの章立て}
 \label{fig:A_chapter_structure_of_cloud_contract_system}
 \end{figure}
-
+\FloatBarrier
 
 \begin{table}[tp]
   \caption{手法A(手動作成)章立ての評価者別詳細評価結果}
@@ -687,6 +728,7 @@
     \hline
   \end{tabular}
 \end{table}
+\FloatBarrier
 
 
 \subsubsection{手法B(自由プロンプト)}
@@ -713,7 +755,7 @@
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{9}{10}\selectfont
+\fontsize{8}{9}\selectfont
 \begin{verbatim}
 1. 概要
  1.1 目的
@@ -795,7 +837,7 @@
 \caption{手法Bによるクラウド型電子契約システムの章立て}
 \label{fig:B_chapter_structure_of_cloud_contract_system}
 \end{figure}
-
+\FloatBarrier
 
 \begin{table}[tp]
   \caption{手法B(自由プロンプト)章立ての評価者別詳細評価結果}
@@ -825,7 +867,7 @@
     \hline
   \end{tabular}
 \end{table}
-
+\FloatBarrier
 
 \subsubsection{被験者Aによる手法C(提案するプロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
@@ -850,7 +892,7 @@
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{9}{10}\selectfont
+\fontsize{8}{9}\selectfont
 \begin{verbatim}
 1. 概要
  1.1. 目的
@@ -921,6 +963,7 @@
 \caption{被験者Aが手法Cを用いて作成したクラウド型電子契約システムの章立て}
 \label{fig:C_chapter_structure_of_cloud_contract_system_1}
 \end{figure}
+\FloatBarrier
 
 
 \begin{table}[tp]
@@ -951,6 +994,7 @@
     \hline
   \end{tabular}
 \end{table}
+\FloatBarrier
 
 
 \subsubsection{被験者Cによる手法C(提案するプロンプト)}
@@ -974,7 +1018,7 @@
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{9}{10}\selectfont
+\fontsize{8}{9}\selectfont
 \begin{verbatim}
 1. 概要
 　1.1. 目的
@@ -1040,7 +1084,7 @@
 \caption{被験者Cが手法Cを用いて作成したクラウド型電子契約システムの章立て}
 \label{fig:C_chapter_structure_of_cloud_contract_system_2}
 \end{figure}
-
+\FloatBarrier
 
 
 \begin{table}[tp]
@@ -1071,71 +1115,11 @@
     \hline
   \end{tabular}
 \end{table}
-
+\FloatBarrier
 
 \subsection{まとめ}
 %評価結果のまとめを書く。
 %BMPの平均の表(行が評価項目、列が手法)、クラウドの平均の表(行が評価項目、列が手法)
-
-
-
-% \begin{table}[H]
-%   \caption{BMP画像分割アプリの評価結果}
-%   \label{tb:bmp}
-%   \centering
-%   \begin{tabular}{|l|c|c|c|}
-%     \hline
-%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
-%     \hline\hline
-%     1. 網羅性 & 3.6 & 4.8 & 4.3 \\
-%     \hline
-%     2. 論理性 & 4 & 3.8 & 4.0 \\
-%     \hline
-%     3. 命名の適切さ & 3.6 & 4.2 & 4.1 \\
-%     \hline
-%     4. 可読性 & 3.4 & 3.4 & 4.2 \\
-%     \hline
-%     5. 粒度の適切さ & 3.4 & 3.6 & 4.2 \\
-%     \hline
-%     6. 適合性 & 3.4 & 3.8 & 4.2 \\
-%     \hline
-%     7. 拡張性 & 3.8 & 2.8 & 3.8 \\
-%     \hline
-%     8. 構造的整合性 & 3.8 & 3.6 & 3.8 \\
-%     \hline
-%     9. 独自性 & 3.2 & 4.2 & 3.6 \\
-%     \hline
-%   \end{tabular}
-% \end{table}
-
-% \begin{table}[H]
-%   \caption{クラウド型電子契約サービスの評価結果}
-%   \label{tb:cloud}
-%   \centering
-%   \begin{tabular}{|l|c|c|c|}
-%     \hline
-%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
-%     \hline\hline
-%     1. 網羅性 & 3.4 & 4.6 & 4.1 \\
-%     \hline
-%     2. 論理性 & 3.8 & 4 & 3.7 \\
-%     \hline
-%     3. 命名の適切さ & 3.8 & 4 & 3.9 \\
-%     \hline
-%     4. 可読性 & 3.6 & 4 & 3.8 \\
-%     \hline
-%     5. 粒度の適切さ & 3 & 4.8 & 3.4 \\
-%     \hline
-%     6. 適合性 & 3.6 & 4 & 3.9 \\
-%     \hline
-%     7. 拡張性 & 3.2 & 4 & 3.7 \\
-%     \hline
-%     8. 構造的整合性 & 3.6 & 4 & 3.7 \\
-%     \hline
-%     9. 独自性 & 2.8 & 4.6 & 3.7 \\
-%     \hline
-%   \end{tabular}
-% \end{table}
 
 
 表\ref{tb:bmp}に、BMP画像分割アプリにおける評価結果を示す。表\ref{tb:bmp}内の数値は、評価者5人の平均点である。
