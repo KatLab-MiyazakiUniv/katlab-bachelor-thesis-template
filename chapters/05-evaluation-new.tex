@@ -1,4 +1,4 @@
-\chapter{評価実験と考察}\label{cha:Evaluation}
+\chapter{評価実験}\label{cha:Evaluation}
 
 本研究で提案するプロンプトの有用性を検証するため、実験を行った。本実験の被験者は、システム仕様書作成経験のない学生4人である。
 実験では、実際のシステム開発を想定した題材を用い、提案するプロンプトを用いた手法とその他の手法で作成した章立ての品質を、
@@ -8,21 +8,26 @@
 \section{実験設定}
 
 \subsection{対象システム}
+\label{sec:target_system}
+
 実験の題材として、以下の2つのシステムを選定した。
 \begin{enumerate}
     \item \textbf{BMP画像分割アプリ}: BMP画像を指定された数に分割し、保存するアプリケーション
     \item \textbf{クラウド型電子契約サービス}: PDF技術を活かした電子契約／ワークフロー、それらに付随する文書管理、及びユーザー管理機能を持つクラウドサービス
 \end{enumerate}
 
+これらのシステムは、BMP画像分割アプリは機能の少ない単純なシステム、クラウド型電子契約サービスは機能が多い複雑なシステムである。
+
 \subsection{比較手法}
+
 システム仕様書章立ての作成手法として、以下の3パターンを設定した。
 \begin{itemize}
-    \item \textbf{手法A（手動作成）}: 被験者はLLMを用いず、章立てを作成する。
-    \item \textbf{手法B（LLMのみ）}: 被験者はLLM(GPT-5.2)を使用するが、本研究のプロンプトは使用せず、自由なプロンプトで章立てを作成する。
-    \item \textbf{手法C（提案するプロンプト）}: 被験者はLLM(GPT-5.2)を使用し、本研究で作成したプロンプトを用いて章立てを作成する。
+    \item \textbf{手法A(手動作成)}: 被験者はLLMを用いず、章立てを作成する。また、被験者には、対象とするシステムの情報(\ref{sec:target_system}節参照)と、ベースの章立て(図\ref{fig:base_outline}参照)を与える。
+    \item \textbf{手法B(自由プロンプト)}: 被験者はLLM(GPT-5.2)を使用して、章立てを作成する。この際、提案するプロンプトは使用せず、被験者自身による自由なプロンプトをLLM(GPT-5.2)に与える。また、被験者には、対象とするシステムの情報(\ref{sec:target_system}節参照)と、ベースの章立て(図\ref{fig:base_outline}参照)を与える。
+    \item \textbf{手法C(提案するプロンプト)}: 被験者はLLM(GPT-5.2)を使用し、提案するプロンプトを用いて章立てを作成する。
 \end{itemize}
 
-手法Aと手法Bにおいて、被験者には、対象とするシステムの情報と、図\ref{fig:base_outline}に示す章立てのテンプレートを与えた。
+% 手法Aと手法Bにおいて、被験者には、対象とするシステムの情報と、図\ref{fig:base_outline}に示す章立てのテンプレートを与えた。
 
 \subsection{被験者と実験の割り当て}
 
@@ -36,13 +41,13 @@
     \hline
     \textbf{被験者} & \textbf{BMP画像分割アプリ} & \textbf{クラウド型電子契約サービス} \\
     \hline\hline
-    A & 手法A（手動） & 手法C（提案するプロンプト） \\
+    A & 手法A(手動) & 手法C(提案するプロンプト) \\
     \hline
-    B & 手法C（提案するプロンプト） & 手法A（手動） \\
+    B & 手法C(提案するプロンプト) & 手法A(手動) \\
     \hline
-    C & 手法B（LLMのみ） & 手法C（提案するプロンプト） \\
+    C & 手法B(自由プロンプト) & 手法C(提案するプロンプト) \\
     \hline
-    D & 手法C（提案するプロンプト） & 手法B（LLMのみ） \\
+    D & 手法C(提案するプロンプト) & 手法B(自由プロンプト) \\
     \hline
   \end{tabular}
 \end{table}
@@ -50,25 +55,28 @@
 なお、被験者CとDの手法Bにおいて、プロンプトの指定はないものとする。
 
 \subsection{評価方法}
-作成した章立ては、株式会社スカイコムにて5年以上のシステム仕様書作成経験を持つ専門家によって評価された。
-評価は以下の9項目について行い、それぞれ5段階のリッカート尺度\cite{likert}(5:非常に良い, 4:良い, 3:普通, 2:悪い, 1:非常に悪い)で採点された。
+作成した章立ては、株式会社スカイコムにて5年以上のシステム仕様書作成経験を持つ専門家が評価した。
+評価は以下の9項目について行い、それぞれ5段階のリッカート尺度\cite{likert}(5:非常に良い, 4:良い, 3:普通, 2:悪い, 1:非常に悪い)で採点した。
 
 \begin{enumerate}
-  \item 最低限含むべき章を含んでいるか（網羅性）
-  \item 章の順序は適切か（論理性）
-  \item 章タイトルは適切か（命名の適切さ）
-  \item 章立て全体として理解しやすいか（可読性）
-  \item 章の粒度は適切か（詳細度）
-  \item 想定読者に適した章立てか（適合性）
-  \item 将来的な拡張に対応しやすい章立てか（拡張性）
-  \item 章、節、項の包含関係は適切か（構造的整合性）
-  \item 章立てがシステム独自の章立てになっているか（独自性）
+  \item 最低限含むべき章を含んでいるか(網羅性)
+  \item 章の順序は適切か(論理性)
+  \item 章タイトルは適切か(命名の適切さ)
+  \item 章立て全体として理解しやすいか(可読性)
+  \item 章の粒度は適切か(粒度の適切さ)
+  \item 想定読者に適した章立てか(適合性)
+  \item 将来的な拡張に対応しやすい章立てか(拡張性)
+  \item 章、節、項の包含関係は適切か(構造的整合性)
+  \item 章立てがシステム独自の章立てになっているか(独自性)
 \end{enumerate}
+
+また、これら9項目の定量的な評価に加え、各対象システムに対して、評価者から全体的な所感や各手法に対する改善点を自由記述形式のコメントとして収集した。
+そのため、すべての章立てに対して個別のコメントが得られているわけではないが、得られたコメントについてはそれぞれの手法の評価結果の節において示す。
 
 
 
 % \begin{enumerate}
-%     \item 最低限含むべき章を含んでいるか（網羅性）
+%     \item 最低限含むべき章を含んでいるか(網羅性)
 %     \begin{itemize}
 %         \item 5: すべて含まれている
 %         \item 4: 軽微な不足がある
@@ -76,7 +84,7 @@
 %         \item 2: 多くの重要な章が不足している
 %         \item 1: 最低限必要な章が1つも含まれていない
 %     \end{itemize}
-%     \item 章の順序は適切か（論理性）
+%     \item 章の順序は適切か(論理性)
 %     \begin{itemize}
 %         \item 5: 非常に適切
 %         \item 4: 概ね適切
@@ -84,7 +92,7 @@
 %         \item 2: 不適切な章順序が多い
 %         \item 1: 全体的に不適切
 %     \end{itemize}
-%     \item 章タイトルは適切か（命名の適切さ）
+%     \item 章タイトルは適切か(命名の適切さ)
 %     \begin{itemize}
 %         \item 5: 非常に適切
 %         \item 4: 概ね適切
@@ -92,7 +100,7 @@
 %         \item 2: 不適切な章タイトルが多い
 %         \item 1: 全体的に不適切
 %     \end{itemize}
-%     \item 章立て全体として理解しやすいか（可読性）
+%     \item 章立て全体として理解しやすいか(可読性)
 %     \begin{itemize}
 %         \item 5: 非常に理解しやすい
 %         \item 4: 理解しやすい
@@ -100,7 +108,7 @@
 %         \item 2: 理解しにくい
 %         \item 1: 非常に理解しにくい
 %     \end{itemize}
-%     \item 章の粒度は適切か（詳細度）
+%     \item 章の粒度は適切か(粒度の適切さ)
 %     \begin{itemize}
 %         \item 5: 非常に適切
 %         \item 4: 概ね適切
@@ -108,7 +116,7 @@
 %         \item 2: 過不足が多い
 %         \item 1: 非常に過不足が多い
 %     \end{itemize}
-%     \item 想定読者に適した章立てか（適合性）
+%     \item 想定読者に適した章立てか(適合性)
 %     \begin{itemize}
 %         \item 5: 非常に適切
 %         \item 4: 概ね適切
@@ -116,7 +124,7 @@
 %         \item 2: 不適切な章が多い
 %         \item 1: 全体的に不適切
 %     \end{itemize}
-%     \item 将来的な拡張に対応しやすい章立てか（拡張性）
+%     \item 将来的な拡張に対応しやすい章立てか(拡張性)
 %     \begin{itemize}
 %         \item 5: 非常に拡張しやすい
 %         \item 4: 拡張しやすい
@@ -124,7 +132,7 @@
 %         \item 2: 拡張しにくい
 %         \item 1: 非常に拡張しにくい
 %     \end{itemize}
-%     \item 章、節、項の包含関係は適切か（構造的整合性）
+%     \item 章、節、項の包含関係は適切か(構造的整合性)
 %     \begin{itemize}
 %         \item 5: 非常に適切
 %         \item 4: 概ね適切
@@ -132,7 +140,7 @@
 %         \item 2: 不適切な包含関係が多い
 %         \item 1: 全体的に不適切
 %     \end{itemize}
-%     \item 章立てがシステム独自の章立てになっているか（独自性）
+%     \item 章立てがシステム独自の章立てになっているか(独自性)
 %     \begin{itemize}
 %         \item 5: システム固有の機能や特性が章立てに十分に反映されており、独自性が高い
 %         \item 4: システム固有の要素が概ね反映されている
@@ -143,255 +151,34 @@
 % \end{enumerate}
 
 \section{評価結果}
-\subsection{概要}
-%評価結果のまとめを書く。
-%BMPの平均の表(行が評価項目、列が手法)、クラウドの平均の表(行が評価項目、列が手法)
-
-
-
-% \begin{table}[H]
-%   \caption{BMP画像分割アプリの評価結果}
-%   \label{tb:bmp}
-%   \centering
-%   \begin{tabular}{|l|c|c|c|}
-%     \hline
-%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
-%     \hline\hline
-%     1. 網羅性 & 3.6 & 4.8 & 4.3 \\
-%     \hline
-%     2. 論理性 & 4 & 3.8 & 4.0 \\
-%     \hline
-%     3. 命名の適切さ & 3.6 & 4.2 & 4.1 \\
-%     \hline
-%     4. 可読性 & 3.4 & 3.4 & 4.2 \\
-%     \hline
-%     5. 詳細度 & 3.4 & 3.6 & 4.2 \\
-%     \hline
-%     6. 適合性 & 3.4 & 3.8 & 4.2 \\
-%     \hline
-%     7. 拡張性 & 3.8 & 2.8 & 3.8 \\
-%     \hline
-%     8. 構造的整合性 & 3.8 & 3.6 & 3.8 \\
-%     \hline
-%     9. 独自性 & 3.2 & 4.2 & 3.6 \\
-%     \hline
-%   \end{tabular}
-% \end{table}
-
-% \begin{table}[H]
-%   \caption{クラウド型電子契約サービスの評価結果}
-%   \label{tb:cloud}
-%   \centering
-%   \begin{tabular}{|l|c|c|c|}
-%     \hline
-%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
-%     \hline\hline
-%     1. 網羅性 & 3.4 & 4.6 & 4.1 \\
-%     \hline
-%     2. 論理性 & 3.8 & 4 & 3.7 \\
-%     \hline
-%     3. 命名の適切さ & 3.8 & 4 & 3.9 \\
-%     \hline
-%     4. 可読性 & 3.6 & 4 & 3.8 \\
-%     \hline
-%     5. 詳細度 & 3 & 4.8 & 3.4 \\
-%     \hline
-%     6. 適合性 & 3.6 & 4 & 3.9 \\
-%     \hline
-%     7. 拡張性 & 3.2 & 4 & 3.7 \\
-%     \hline
-%     8. 構造的整合性 & 3.6 & 4 & 3.7 \\
-%     \hline
-%     9. 独自性 & 2.8 & 4.6 & 3.7 \\
-%     \hline
-%   \end{tabular}
-% \end{table}
-
-
-表\ref{tb:bmp}に、BMP画像分割アプリにおける評価結果を示す。表\ref{tb:bmp}内の数値は、評価者5人の平均点である。
-
-表\ref{tb:cloud}に、クラウド型電子契約サービスにおける評価結果を示す。表\ref{tb:cloud}内の数値は、評価者5人の平均点である。
-
-なお、 表\ref{tb:bmp}における手法Cの評価結果は、被験者Bが作成した章立ての評価結果と被験者Dが作成した章立ての評価結果の平均である。
-また、表\ref{tb:cloud}における手法Cの評価結果は、被験者Aが作成した章立ての評価結果と被験者Cが作成した章立ての評価結果の平均である。
-
-BMP画像分割アプリにおいては、手法Cにより作成された章立ての平均点が最も高いという結果になった。
-一方で、クラウド型電子契約サービスにおいては、手法Bにより作成された章立ての平均点が最も高いという結果になった。
-
-\begin{table}[tp]
-  \centering
-  \begin{minipage}{0.48\textwidth}
-    \caption{BMP画像分割アプリの章立ての評価結果}
-    \label{tb:bmp}
-    \centering
-    \begin{tabular}{|l|c|c|c|}
-    \hline
-    \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
-    \hline\hline
-    1. 網羅性 & 3.6 & 4.8 & 4.3 \\
-    \hline
-    2. 論理性 & 4 & 3.8 & 4.0 \\
-    \hline
-    3. 命名の適切さ & 3.6 & 4.2 & 4.1 \\
-    \hline
-    4. 可読性 & 3.4 & 3.4 & 4.2 \\
-    \hline
-    5. 詳細度 & 3.4 & 3.6 & 4.2 \\
-    \hline
-    6. 適合性 & 3.4 & 3.8 & 4.2 \\
-    \hline
-    7. 拡張性 & 3.8 & 2.8 & 3.8 \\
-    \hline
-    8. 構造的整合性 & 3.8 & 3.6 & 3.8 \\
-    \hline
-    9. 独自性 & 3.2 & 4.2 & 3.6 \\
-    \hline
-    合計 & 33.2 & 34.2 & 36.2 \\
-    \hline
-    \end{tabular}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.48\textwidth}
-    \caption{クラウド型電子契約サービスの章立ての評価結果}
-    \label{tb:cloud}
-    \centering
-    \begin{tabular}{|l|c|c|c|}
-    \hline
-    \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
-    \hline\hline
-    1. 網羅性 & 3.4 & 4.6 & 4.1 \\
-    \hline
-    2. 論理性 & 3.8 & 4 & 3.7 \\
-    \hline
-    3. 命名の適切さ & 3.8 & 4 & 3.9 \\
-    \hline
-    4. 可読性 & 3.6 & 4 & 3.8 \\
-    \hline
-    5. 詳細度 & 3 & 4.8 & 3.4 \\
-    \hline
-    6. 適合性 & 3.6 & 4 & 3.9 \\
-    \hline
-    7. 拡張性 & 3.2 & 4 & 3.7 \\
-    \hline
-    8. 構造的整合性 & 3.6 & 4 & 3.7 \\
-    \hline
-    9. 独自性 & 2.8 & 4.6 & 3.7 \\
-    \hline
-    合計 & 31.2 & 38 & 33.9 \\
-    \hline
-    \end{tabular}
-  \end{minipage}
-\end{table}
-
-
-図\ref{fig:bmpchart}にBMP画像分割アプリの評価結果のレーダーチャートを示す。
-
-図\ref{fig:cloudchart}にクラウド型電子契約サービスの評価結果のレーダーチャートを示す。
-
-2つのシステムに共通して、手法Bは、網羅性と独自性が高く、
-手法Cは、可読性、拡張性、構造的整合性が高いという結果になった。
-
-\begin{figure}[tp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{images/BMPレーダーチャート.png}
-  \caption{BMP画像分割アプリの評価結果のレーダーチャート}
-  \label{fig:bmpchart}
-\end{figure}
-
-\begin{figure}[tp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{images/クラウドレーダーチャート.png}
-  \caption{クラウド型電子契約サービスの評価結果のレーダーチャート}
-  \label{fig:cloudchart}
-\end{figure}
-
-
-
-
-
-% \begin{table}[H]
-%   \caption{BMP画像分割アプリの評価結果}
-%   \label{tb:bmp}
-%   \centering
-%   \begin{tabular}{|l|c|c|c|c|}
-%     \hline
-%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{被験者Bによる手法C} & \textbf{被験者Dによる手法C} \\
-%     \hline\hline
-%     1. 網羅性 & 3.6 & 4.8 & 4.4 & 4.2  \\
-%     \hline
-%     2. 論理性 & 4 & 3.8 & 4.2 & 3.8 \\
-%     \hline
-%     3. 命名の適切さ & 3.6 & 4.2 & 4.2 & 4  \\
-%     \hline
-%     4. 可読性 & 3.4 & 3.4 & 4.4 & 4  \\
-%     \hline
-%     5. 詳細度 & 3.4 & 3.6 & 4.2 & 4.2 \\
-%     \hline
-%     6. 適合性 & 3.4 & 3.8 & 4.4 & 4 \\
-%     \hline
-%     7. 拡張性 & 3.8 & 2.8 & 4 & 3.6 \\
-%     \hline
-%     8. 構造的整合性 & 3.8 & 3.6 & 3 & 4 \\
-%     \hline
-%     9. 独自性 & 3.2 & 4.2 & 3.6 & 3.6 \\
-%     \hline
-%   \end{tabular}
-% \end{table}
-
-% \begin{table}[H]
-%   \caption{クラウド型電子契約サービスの評価結果}
-%   \label{tb:cloud}
-%   \centering
-%   \begin{tabular}{|l|c|c|c|c|}
-%     \hline
-%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{被験者Aによる手法C} & \textbf{被験者Cによる手法C} \\
-%     \hline\hline
-%     1. 網羅性 & 3.4 & 4.6 & 4 & 4.2  \\
-%     \hline
-%     2. 論理性 & 3.8 & 4 & 3.6 & 3.8  \\
-%     \hline
-%     3. 命名の適切さ & 3.8 & 4 & 4 & 3.8  \\
-%     \hline
-%     4. 可読性 & 3.6 & 4 & 3.8 & 3.8  \\
-%     \hline
-%     5. 詳細度 & 3 & 4.8 & 2.8 & 4  \\
-%     \hline
-%     6. 適合性 & 3.6 & 4 & 3.8 & 4  \\
-%     \hline
-%     7. 拡張性 & 3.2 & 4 & 4 & 3.4 \\
-%     \hline
-%     8. 構造的整合性 & 3.6 & 4 & 3.8 & 3.6 \\
-%     \hline
-%     9. 独自性 & 2.8 & 4.6 & 3.8 & 3.6 \\
-%     \hline
-%   \end{tabular}
-% \end{table}
 
 \subsection{BMP画像分割アプリ}
-本節では、実験において作成されたBMP画像分割アプリの章立てについて述べる。
-\subsubsection{手法A（手動作成）}
+本節では、実験において被験者が作成したBMP画像分割アプリの章立ての評価結果について述べる。
+
+\subsubsection{手法A(手動作成)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
 
-図\ref{fig:A_chapter_structure_of_bmp_app}に手法Aにより作成されたBMP画像分割アプリの章立てを示す。
-また、表\ref{tb:detailed_evaluation_results_A}に手法Aにより作成されたBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+図\ref{fig:A_chapter_structure_of_bmp_app}に手法Aを用いて作成したBMP画像分割アプリの章立てを示す。
+また、表\ref{tb:detailed_evaluation_results_A}に手法Aを用いて作成したBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+また、以下に評価者のコメントを示す。
 
-% \noindent\textbf{評価者のコメント}\\
-% 評価者A：微妙\\
-% 評価者C：書くべきことが書けていない。\\
-% 評価者E：シンプル\\
+\noindent\textbf{評価者のコメント}\\
+評価者A：微妙\\
+評価者C：書くべきことが書けていない\\
+評価者E：シンプル\\
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=orange,
   fonttitle=\bfseries
 ]
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{9}{10}\selectfont
 \begin{verbatim}
 1. 概要
  1.1.目的
@@ -427,7 +214,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 
 
 \begin{table}[tp]
-  \caption{手法A（手動作成）の評価者別詳細評価結果}
+  \caption{手法A(手動作成)の評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_A}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -442,7 +229,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
     \hline
     4. 可読性 & 4 & 3 & 3 & 3 & 4 & 3.4 \\
     \hline
-    5. 詳細度 & 2 & 5 & 2 & 4 & 4 & 3.4 \\
+    5. 粒度の適切さ & 2 & 5 & 2 & 4 & 4 & 3.4 \\
     \hline
     6. 適合性 & 3 & 4 & 3 & 3 & 4 & 3.4 \\
     \hline
@@ -455,30 +242,31 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
   \end{tabular}
 \end{table}
 
-\subsubsection{手法B（LLMのみ）}
+\subsubsection{手法B(自由プロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
-図\ref{fig:B_chapter_structure_of_bmp_app}に手法Bにより作成されたBMP画像分割アプリの章立てを示す。
-また、表\ref{tb:detailed_evaluation_results_B}に手法Bにより作成されたBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+図\ref{fig:B_chapter_structure_of_bmp_app}に手法Bを用いて作成したBMP画像分割アプリの章立てを示す。
+また、表\ref{tb:detailed_evaluation_results_B}に手法Bを用いて作成したBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+また、以下に評価者のコメントを示す。
 
-% \noindent\textbf{評価者のコメント}\\
-% 評価者A：冗長\\
-% 評価者B：冗長\\
-% 評価者C：書きたいことが網羅されているが、拡張性は低い。\\
-% 評価者D：独自性があるが、独自性があると拡張性や想定読者(初心者)への適切さは下がるので検討の余地あり。\\
-% 評価者E：冗長\\
+\noindent\textbf{評価者のコメント}\\
+評価者A：冗長\\
+評価者B：冗長\\
+評価者C：書きたいことが網羅されているが、拡張性は低い\\
+評価者D：独自性があるが、独自性があると拡張性や想定読者(初心者)への適切さは下がるので検討の余地あり\\
+評価者E：冗長\\
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=orange,
   fonttitle=\bfseries
 ]
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{9}{10}\selectfont
 \begin{verbatim}
 1. 概要
  1.1 目的
@@ -565,7 +353,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 
 
 \begin{table}[tp]
-  \caption{手法B（LLMのみ）の評価者別詳細評価結果}
+  \caption{手法B(自由プロンプト)の評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_B}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -580,7 +368,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
     \hline
     4. 可読性 & 2 & 3 & 5 & 5 & 2 & 3.4 \\
     \hline
-    5. 詳細度 & 4 & 1 & 5 & 5 & 4 & 3.6 \\
+    5. 粒度の適切さ & 4 & 1 & 5 & 5 & 4 & 3.6 \\
     \hline
     6. 適合性 & 4 & 4 & 4 & 4 & 3 & 3.8 \\
     \hline
@@ -593,30 +381,31 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
   \end{tabular}
 \end{table}
 
-\subsubsection{被験者Bによる手法C（提案するプロンプト）}
+\subsubsection{被験者Bによる手法C(提案するプロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
 
-図\ref{fig:C_chapter_structure_of_bmp_app_1}に被験者Bが手法Cで作成したBMP画像分割アプリの章立てを示す。
-また、表\ref{tb:detailed_evaluation_results_C}に被験者Bが手法Cで作成したBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+図\ref{fig:C_chapter_structure_of_bmp_app_1}に被験者Bが手法Cを用いて作成したBMP画像分割アプリの章立てを示す。
+また、表\ref{tb:detailed_evaluation_results_C}に被験者Bが手法Cを用いて作成したBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+また、以下に評価者のコメントを示す。
 
-% \noindent\textbf{評価者のコメント}\\
-% 評価者A：一番バランスが良い\\
-% 評価者B：一番整理されている\\
-% 評価者C：一番拡張性は高く使い勝手は一番よさそう。\\
-% 評価者E：構成が分かりやすくていい\\
+\noindent\textbf{評価者のコメント}\\
+評価者A：一番バランスが良い\\
+評価者B：一番整理されている\\
+評価者C：一番拡張性は高く使い勝手は一番よさそう。\\
+評価者E：構成が分かりやすくていい\\
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=orange,
   fonttitle=\bfseries
 ]
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{9}{10}\selectfont
 \begin{verbatim}
 1. 概要
 　1.1. 目的
@@ -656,7 +445,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 　8.2. 出力データ形式
 　8.3. ファイル命名規則
 9. 運用仕様
-9.1. 通常運用
+  9.1. 通常運用
 　9.2. エラー発生時の対応
 10. テスト観点整理
 　10.1. テスト対象範囲
@@ -664,13 +453,13 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 \end{verbatim}
 \end{multicols}
 \end{tcolorbox}
-\caption{手法CによるBMP画像分割アプリの章立て1}
+\caption{被験者Bが手法C(提案するプロンプト)で作成した章立て}
 \label{fig:C_chapter_structure_of_bmp_app_1}
 \end{figure}
 
 
 \begin{table}[tp]
-  \caption{手法C（提案するプロンプト）の評価者別詳細評価結果}
+  \caption{被験者Bによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_C}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -685,7 +474,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
     \hline
     4. 可読性 & 5 & 3 & 5 & 4 & 5 & 4.4 \\
     \hline
-    5. 詳細度 & 3 & 5 & 4 & 4 & 5 & 4.2 \\
+    5. 粒度の適切さ & 3 & 5 & 4 & 4 & 5 & 4.2 \\
     \hline
     6. 適合性 & 4 & 5 & 4 & 4 & 5 & 4.4 \\
     \hline
@@ -698,29 +487,30 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
   \end{tabular}
 \end{table}
 
-\subsubsection{被験者Dによる手法C（提案するプロンプト）}
+\subsubsection{被験者Dによる手法C(提案するプロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
 
-図\ref{fig:C_chapter_structure_of_bmp_app_2}に被験者Dが手法Cで作成したBMP画像分割アプリの章立てを示す。
-また、表\ref{tb:detailed_evaluation_results_C2}に被験者Dが手法Cで作成したBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+図\ref{fig:C_chapter_structure_of_bmp_app_2}に被験者Dが手法Cを用いて作成したBMP画像分割アプリの章立てを示す。
+また、表\ref{tb:detailed_evaluation_results_C2}に被験者Dが手法Cを用いて作成したBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
+また、以下に評価者のコメントを示す。
 
-% \noindent\textbf{評価者のコメント}\\
-% 評価者A：概ね良い\\
-% 評価者C：書くべきことが網羅されているが、拡張性は低い\\
-% 評価者E：構成が分かりやすくていい\\
+\noindent\textbf{評価者のコメント}\\
+評価者A：概ね良い\\
+評価者C：書くべきことが網羅されているが、拡張性は低い\\
+評価者E：構成が分かりやすくていい\\
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=orange,
   fonttitle=\bfseries
 ]
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{9}{10}\selectfont
 \begin{verbatim}
 1. 概要
  1.1. 目的
@@ -766,13 +556,13 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 \end{verbatim}
 \end{multicols}
 \end{tcolorbox}
-\caption{手法CによるBMP画像分割アプリの章立て2}
+\caption{被験者Dが手法C(提案するプロンプト)で作成した章立て}
 \label{fig:C_chapter_structure_of_bmp_app_2}
 \end{figure}
 
 
 \begin{table}[tp]
-  \caption{手法C（提案するプロンプト）の評価者別詳細評価結果}
+  \caption{被験者Dによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_C2}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -787,7 +577,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
     \hline
     4. 可読性 & 4 & 3 & 5 & 4 & 4 & 4.0 \\
     \hline
-    5. 詳細度 & 2 & 5 & 5 & 4 & 5 & 4.2 \\
+    5. 粒度の適切さ & 2 & 5 & 5 & 4 & 5 & 4.2 \\
     \hline
     6. 適合性 & 4 & 4 & 4 & 3 & 5 & 4.0 \\
     \hline
@@ -802,29 +592,30 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 
 
 \subsection{クラウド型電子契約サービス}
-\subsubsection{手法A（手動作成）}
+\subsubsection{手法A(手動作成)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
 
-図\ref{fig:A_chapter_structure_of_cloud_contract_system}に、手法Aで作成されたクラウド型電子契約サービスの章立てを示す。
-また、表\ref{tb:cloud_detailed_evaluation_results_A}に、手法Aで作成されたクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+図\ref{fig:A_chapter_structure_of_cloud_contract_system}に、手法Aを用いて作成したクラウド型電子契約サービスの章立てを示す。
+また、表\ref{tb:cloud_detailed_evaluation_results_A}に、手法Aを用いて作成したクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+また、以下に評価者のコメントを示す。
 
-% \noindent\textbf{評価者のコメント}\\
-% 評価者C：粒度が荒すぎる上に項目として不足箇所が多い\\
-% 評価者E：章立てが荒く、記載が不足している\\
+\noindent\textbf{評価者のコメント}\\
+評価者C：粒度が荒すぎる上に項目として不足箇所が多い\\
+評価者E：章立てが荒く、記載が不足している\\
 
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=orange,
   fonttitle=\bfseries
 ]
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{9}{10}\selectfont
 \begin{verbatim}
 1. 概要
  1.1.目的
@@ -869,7 +660,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 
 
 \begin{table}[tp]
-  \caption{手法A（手動作成）の評価者別詳細評価結果}
+  \caption{手法A(手動作成)章立ての評価者別詳細評価結果}
   \label{tb:cloud_detailed_evaluation_results_A}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -884,7 +675,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
     \hline
     4. 可読性 & 4 & 3 & 4 & 3 & 4 & 3.6 \\
     \hline
-    5. 詳細度 & 2 & 5 & 2 & 4 & 2 & 3.0 \\
+    5. 粒度の適切さ & 2 & 5 & 2 & 4 & 2 & 3.0 \\
     \hline
     6. 適合性 & 3 & 5 & 3 & 3 & 4 & 3.6 \\
     \hline
@@ -898,30 +689,31 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 \end{table}
 
 
-\subsubsection{手法B（LLMのみ）}
+\subsubsection{手法B(自由プロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
 
-図\ref{fig:B_chapter_structure_of_cloud_contract_system}に、手法Bで作成されたクラウド型電子契約サービスの章立てを示す。
-また、表\ref{tb:cloud_detailed_evaluation_results_B}に、手法Bで作成されたクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+図\ref{fig:B_chapter_structure_of_cloud_contract_system}に、手法Bを用いて作成したクラウド型電子契約サービスの章立てを示す。
+また、表\ref{tb:cloud_detailed_evaluation_results_B}に、手法Bを用いて作成したクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+また、以下に評価者のコメントを示す。
 
-% \noindent\textbf{評価者のコメント}\\
-% 評価者A：冗長に見えるが、必要な章分けがされている。\\
-% 評価者C：冗長で、拡張性が低い\\
-% 評価者D：独自性がある\\
-% 評価者E：良い\\
+\noindent\textbf{評価者のコメント}\\
+評価者A：冗長に見えるが、必要な章分けがされている。\\
+評価者C：冗長で、拡張性が低い\\
+評価者D：独自性がある\\
+評価者E：良い\\
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=orange,
   fonttitle=\bfseries
 ]
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{9}{10}\selectfont
 \begin{verbatim}
 1. 概要
  1.1 目的
@@ -932,7 +724,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 2. システム基本条件
  2.1 稼働環境・前提条件
  2.2 対応ブラウザ・デバイス
- 2.3 他システム連携（外部インターフェース）
+ 2.3 他システム連携(外部インターフェース)
    2.3.1 電子署名・認証基盤
    2.3.2 メール／通知サービス
    2.3.3 外部API連携
@@ -969,7 +761,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
  6.2 データベース設計
  6.3 契約データ仕様
  6.4 ユーザーデータ仕様
- 6.5 ファイル仕様（PDF等）
+ 6.5 ファイル仕様(PDF等)
  6.6 入出力データ定義
 7. セキュリティ設計
  7.1 認証・認可方式
@@ -1006,7 +798,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 
 
 \begin{table}[tp]
-  \caption{手法B（LLMのみ）の評価者別詳細評価結果}
+  \caption{手法B(自由プロンプト)章立ての評価者別詳細評価結果}
   \label{tb:cloud_detailed_evaluation_results_B}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -1021,7 +813,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
     \hline
     4. 可読性 & 4 & 3 & 4 & 5 & 4 & 4.0 \\
     \hline
-    5. 詳細度 & 4 & 5 & 5 & 5 & 5 & 4.8 \\
+    5. 粒度の適切さ & 4 & 5 & 5 & 5 & 5 & 4.8 \\
     \hline
     6. 適合性 & 4 & 4 & 4 & 4 & 4 & 4.0 \\
     \hline
@@ -1035,29 +827,30 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 \end{table}
 
 
-\subsubsection{被験者Aによる手法C（提案するプロンプト）}
+\subsubsection{被験者Aによる手法C(提案するプロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
 
-図\ref{fig:C_chapter_structure_of_cloud_contract_system_1}に、被験者Aが手法Cで作成したクラウド型電子契約サービスの章立てを示す。
-また、表\ref{tb:cloud_detailed_evaluation_results_C}に、被験者Aが手法Cで作成したクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+図\ref{fig:C_chapter_structure_of_cloud_contract_system_1}に、被験者Aが手法Cを用いて作成したクラウド型電子契約サービスの章立てを示す。
+また、表\ref{tb:cloud_detailed_evaluation_results_C}に、被験者Aが手法Cを用いて作成したクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+また、以下に評価者のコメントを示す。
 
-% \noindent\textbf{評価者のコメント}\\
-% 評価者A：バランスよく見える\\
-% 評価者C：必要なことが書かれている上に拡張しやすそう\\
-% 評価者E：良い\\
+\noindent\textbf{評価者のコメント}\\
+評価者A：バランスよく見える\\
+評価者C：必要なことが書かれている上に拡張しやすそう\\
+評価者E：良い\\
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=orange,
   fonttitle=\bfseries
 ]
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{9}{10}\selectfont
 \begin{verbatim}
 1. 概要
  1.1. 目的
@@ -1125,13 +918,13 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 \end{verbatim}
 \end{multicols}
 \end{tcolorbox}
-\caption{被験者Aが手法Cで作成したクラウド型電子契約システムの章立て}
+\caption{被験者Aが手法Cを用いて作成したクラウド型電子契約システムの章立て}
 \label{fig:C_chapter_structure_of_cloud_contract_system_1}
 \end{figure}
 
 
 \begin{table}[tp]
-  \caption{手法C（提案するプロンプト）の評価者別詳細評価結果}
+  \caption{被験者Aによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
   \label{tb:cloud_detailed_evaluation_results_C}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -1146,7 +939,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
     \hline
     4. 可読性 & 4 & 3 & 5 & 3 & 4 & 3.8 \\
     \hline
-    5. 詳細度 & 2 & 1 & 4 & 4 & 4 & 2.8 \\
+    5. 粒度の適切さ & 2 & 1 & 4 & 4 & 4 & 2.8 \\
     \hline
     6. 適合性 & 3 & 4 & 4 & 4 & 4 & 3.8 \\
     \hline
@@ -1160,27 +953,28 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 \end{table}
 
 
-\subsubsection{被験者Cによる手法C（提案するプロンプト）}
+\subsubsection{被験者Cによる手法C(提案するプロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
 
-図\ref{fig:C_chapter_structure_of_cloud_contract_system_2}に、被験者Cが手法Cで作成したクラウド型電子契約サービスの章立てを示す。
-また、表\ref{tb:cloud_detailed_evaluation_results_C2}に、被験者Cが手法Cで作成したクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+図\ref{fig:C_chapter_structure_of_cloud_contract_system_2}に、被験者Cが手法Cを用いて作成したクラウド型電子契約サービスの章立てを示す。
+また、表\ref{tb:cloud_detailed_evaluation_results_C2}に、被験者Cが手法Cを用いて作成したクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
+また、以下に評価者のコメントを示す。
 
-% \noindent\textbf{評価者のコメント}\\
-% 評価者E：良い\\
+\noindent\textbf{評価者のコメント}\\
+評価者E：良い\\
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=orange,
   fonttitle=\bfseries
 ]
 \begin{multicols}{2}
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{9}{10}\selectfont
 \begin{verbatim}
 1. 概要
 　1.1. 目的
@@ -1243,14 +1037,14 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 \end{verbatim}
 \end{multicols}
 \end{tcolorbox}
-\caption{被験者Cが手法Cで作成したクラウド型電子契約システムの章立て}
+\caption{被験者Cが手法Cを用いて作成したクラウド型電子契約システムの章立て}
 \label{fig:C_chapter_structure_of_cloud_contract_system_2}
 \end{figure}
 
 
 
 \begin{table}[tp]
-  \caption{手法C（提案するプロンプト）の評価者別詳細評価結果}
+  \caption{被験者Cによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
   \label{tb:cloud_detailed_evaluation_results_C2}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -1265,7 +1059,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
     \hline
     4. 可読性 & 4 & 3 & 4 & 4 & 4 & 3.8 \\
     \hline
-    5. 詳細度 & 2 & 5 & 5 & 4 & 4 & 4.0 \\
+    5. 粒度の適切さ & 2 & 5 & 5 & 4 & 4 & 4.0 \\
     \hline
     6. 適合性 & 4 & 4 & 4 & 4 & 4 & 4.0 \\
     \hline
@@ -1277,6 +1071,232 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
     \hline
   \end{tabular}
 \end{table}
+
+
+\subsection{まとめ}
+%評価結果のまとめを書く。
+%BMPの平均の表(行が評価項目、列が手法)、クラウドの平均の表(行が評価項目、列が手法)
+
+
+
+% \begin{table}[H]
+%   \caption{BMP画像分割アプリの評価結果}
+%   \label{tb:bmp}
+%   \centering
+%   \begin{tabular}{|l|c|c|c|}
+%     \hline
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
+%     \hline\hline
+%     1. 網羅性 & 3.6 & 4.8 & 4.3 \\
+%     \hline
+%     2. 論理性 & 4 & 3.8 & 4.0 \\
+%     \hline
+%     3. 命名の適切さ & 3.6 & 4.2 & 4.1 \\
+%     \hline
+%     4. 可読性 & 3.4 & 3.4 & 4.2 \\
+%     \hline
+%     5. 粒度の適切さ & 3.4 & 3.6 & 4.2 \\
+%     \hline
+%     6. 適合性 & 3.4 & 3.8 & 4.2 \\
+%     \hline
+%     7. 拡張性 & 3.8 & 2.8 & 3.8 \\
+%     \hline
+%     8. 構造的整合性 & 3.8 & 3.6 & 3.8 \\
+%     \hline
+%     9. 独自性 & 3.2 & 4.2 & 3.6 \\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+% \begin{table}[H]
+%   \caption{クラウド型電子契約サービスの評価結果}
+%   \label{tb:cloud}
+%   \centering
+%   \begin{tabular}{|l|c|c|c|}
+%     \hline
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
+%     \hline\hline
+%     1. 網羅性 & 3.4 & 4.6 & 4.1 \\
+%     \hline
+%     2. 論理性 & 3.8 & 4 & 3.7 \\
+%     \hline
+%     3. 命名の適切さ & 3.8 & 4 & 3.9 \\
+%     \hline
+%     4. 可読性 & 3.6 & 4 & 3.8 \\
+%     \hline
+%     5. 粒度の適切さ & 3 & 4.8 & 3.4 \\
+%     \hline
+%     6. 適合性 & 3.6 & 4 & 3.9 \\
+%     \hline
+%     7. 拡張性 & 3.2 & 4 & 3.7 \\
+%     \hline
+%     8. 構造的整合性 & 3.6 & 4 & 3.7 \\
+%     \hline
+%     9. 独自性 & 2.8 & 4.6 & 3.7 \\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+
+表\ref{tb:bmp}に、BMP画像分割アプリにおける評価結果を示す。表\ref{tb:bmp}内の数値は、評価者5人の平均点である。
+
+表\ref{tb:cloud}に、クラウド型電子契約サービスにおける評価結果を示す。表\ref{tb:cloud}内の数値は、評価者5人の平均点である。
+
+なお、 表\ref{tb:bmp}における手法Cの評価結果は、被験者Bが作成した章立ての評価結果と被験者Dが作成した章立ての評価結果の平均である。
+また、表\ref{tb:cloud}における手法Cの評価結果は、被験者Aが作成した章立ての評価結果と被験者Cが作成した章立ての評価結果の平均である。
+
+BMP画像分割アプリにおいては、手法Cを用いて作成した章立ての平均点が最も高いという結果になった。
+一方で、クラウド型電子契約サービスにおいては、手法Bを用いて作成した章立ての平均点が最も高いという結果になった。
+
+\begin{table}[tp]
+  \centering
+  \begin{minipage}{0.48\textwidth}
+    \caption{BMP画像分割アプリの章立ての評価結果}
+    \label{tb:bmp}
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
+    \hline\hline
+    1. 網羅性 & 3.6 & 4.8 & 4.3 \\
+    \hline
+    2. 論理性 & 4 & 3.8 & 4.0 \\
+    \hline
+    3. 命名の適切さ & 3.6 & 4.2 & 4.1 \\
+    \hline
+    4. 可読性 & 3.4 & 3.4 & 4.2 \\
+    \hline
+    5. 粒度の適切さ & 3.4 & 3.6 & 4.2 \\
+    \hline
+    6. 適合性 & 3.4 & 3.8 & 4.2 \\
+    \hline
+    7. 拡張性 & 3.8 & 2.8 & 3.8 \\
+    \hline
+    8. 構造的整合性 & 3.8 & 3.6 & 3.8 \\
+    \hline
+    9. 独自性 & 3.2 & 4.2 & 3.6 \\
+    \hline
+    合計 & 33.2 & 34.2 & 36.2 \\
+    \hline
+    \end{tabular}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \caption{クラウド型電子契約サービスの章立ての評価結果}
+    \label{tb:cloud}
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C} \\
+    \hline\hline
+    1. 網羅性 & 3.4 & 4.6 & 4.1 \\
+    \hline
+    2. 論理性 & 3.8 & 4 & 3.7 \\
+    \hline
+    3. 命名の適切さ & 3.8 & 4 & 3.9 \\
+    \hline
+    4. 可読性 & 3.6 & 4 & 3.8 \\
+    \hline
+    5. 粒度の適切さ & 3 & 4.8 & 3.4 \\
+    \hline
+    6. 適合性 & 3.6 & 4 & 3.9 \\
+    \hline
+    7. 拡張性 & 3.2 & 4 & 3.7 \\
+    \hline
+    8. 構造的整合性 & 3.6 & 4 & 3.7 \\
+    \hline
+    9. 独自性 & 2.8 & 4.6 & 3.7 \\
+    \hline
+    合計 & 31.2 & 38 & 33.9 \\
+    \hline
+    \end{tabular}
+  \end{minipage}
+\end{table}
+
+
+図\ref{fig:bmpchart}にBMP画像分割アプリの評価結果のレーダーチャートを示す。
+
+図\ref{fig:cloudchart}にクラウド型電子契約サービスの評価結果のレーダーチャートを示す。
+
+2つのシステムに共通して、手法Bは、網羅性と独自性が高く、
+手法Cは、可読性、拡張性、構造的整合性が高いという結果になった。
+
+\begin{figure}[tp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/BMPラベル.png}
+  \caption{BMP画像分割アプリの評価結果のレーダーチャート}
+  \label{fig:bmpchart}
+\end{figure}
+
+\begin{figure}[tp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/クラウドラベル.png}
+  \caption{クラウド型電子契約サービスの評価結果のレーダーチャート}
+  \label{fig:cloudchart}
+\end{figure}
+
+
+
+
+
+% \begin{table}[H]
+%   \caption{BMP画像分割アプリの評価結果}
+%   \label{tb:bmp}
+%   \centering
+%   \begin{tabular}{|l|c|c|c|c|}
+%     \hline
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{被験者Bによる手法C} & \textbf{被験者Dによる手法C} \\
+%     \hline\hline
+%     1. 網羅性 & 3.6 & 4.8 & 4.4 & 4.2  \\
+%     \hline
+%     2. 論理性 & 4 & 3.8 & 4.2 & 3.8 \\
+%     \hline
+%     3. 命名の適切さ & 3.6 & 4.2 & 4.2 & 4  \\
+%     \hline
+%     4. 可読性 & 3.4 & 3.4 & 4.4 & 4  \\
+%     \hline
+%     5. 粒度の適切さ & 3.4 & 3.6 & 4.2 & 4.2 \\
+%     \hline
+%     6. 適合性 & 3.4 & 3.8 & 4.4 & 4 \\
+%     \hline
+%     7. 拡張性 & 3.8 & 2.8 & 4 & 3.6 \\
+%     \hline
+%     8. 構造的整合性 & 3.8 & 3.6 & 3 & 4 \\
+%     \hline
+%     9. 独自性 & 3.2 & 4.2 & 3.6 & 3.6 \\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+% \begin{table}[H]
+%   \caption{クラウド型電子契約サービスの評価結果}
+%   \label{tb:cloud}
+%   \centering
+%   \begin{tabular}{|l|c|c|c|c|}
+%     \hline
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{被験者Aによる手法C} & \textbf{被験者Cによる手法C} \\
+%     \hline\hline
+%     1. 網羅性 & 3.4 & 4.6 & 4 & 4.2  \\
+%     \hline
+%     2. 論理性 & 3.8 & 4 & 3.6 & 3.8  \\
+%     \hline
+%     3. 命名の適切さ & 3.8 & 4 & 4 & 3.8  \\
+%     \hline
+%     4. 可読性 & 3.6 & 4 & 3.8 & 3.8  \\
+%     \hline
+%     5. 粒度の適切さ & 3 & 4.8 & 2.8 & 4  \\
+%     \hline
+%     6. 適合性 & 3.6 & 4 & 3.8 & 4  \\
+%     \hline
+%     7. 拡張性 & 3.2 & 4 & 4 & 3.4 \\
+%     \hline
+%     8. 構造的整合性 & 3.6 & 4 & 3.8 & 3.6 \\
+%     \hline
+%     9. 独自性 & 2.8 & 4.6 & 3.8 & 3.6 \\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
 
 
 
@@ -1298,7 +1318,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 
 
 
-% 上記の表より、手法C（提案するプロンプト）がすべての評価項目において最も高い平均スコアを記録していることが分かる。
+% 上記の表より、手法C(提案するプロンプト)がすべての評価項目において最も高い平均スコアを記録していることが分かる。
 % 特に「構造的整合性」では全評価者が5点を付けており、提案するプロンプトの有効性が明確に示されている。
 % また、評価者間のばらつきも手法Cが最も小さく、安定した品質の章立てが生成されていることが確認できる。
 
@@ -1309,7 +1329,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 % \subsection{BMP画像分割アプリにおける章立ての評価結果}
 
 % \subsubsection{評価結果の概要}
-% BMP画像分割アプリについて、手法A（被験者A）、手法B（被験者C）、手法C（被験者BとD）が作成した章立ての評価結果を表\ref{tb:evaluation_result_bmp}に示す。
+% BMP画像分割アプリについて、手法A(被験者A)、手法B(被験者C)、手法C(被験者BとD)が作成した章立ての評価結果を表\ref{tb:evaluation_result_bmp}に示す。
 
 % \begin{table}[H]
 %   \caption{BMP画像分割アプリの評価結果}
@@ -1317,7 +1337,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 %   \centering
 %   \begin{tabular}{|l|c|c|c|}
 %     \hline
-%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C（平均）} \\
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C(平均)} \\
 %     \hline\hline
 %     1. 網羅性 & 3.5 & 4.0 & \textbf{4.8} \\
 %     \hline
@@ -1327,7 +1347,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 %     \hline
 %     4. 可読性 & 3.2 & 3.8 & \textbf{4.6} \\
 %     \hline
-%     5. 詳細度 & 3.0 & 2.5 & \textbf{4.0} \\
+%     5. 粒度の適切さ & 3.0 & 2.5 & \textbf{4.0} \\
 %     \hline
 %     6. 適合性 & 3.5 & 3.5 & \textbf{4.7} \\
 %     \hline
@@ -1340,30 +1360,30 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 %   \end{tabular}
 % \end{table}
 
-% 表\ref{tb:evaluation_result_bmp}より、提案するプロンプトを用いた手法（手法C）がすべての評価項目において最も高いスコアを記録した。
-% 特に「網羅性」（4.8）、「可読性」（4.6）、「適合性」（4.7）、「構造的整合性」（4.9）において顕著な高評価を得ており、提案するプロンプトの有効性が確認出来た。
-% 手法Aは「論理性」（4.0）において比較的高いスコアを示したが、「詳細度」（3.0）や「拡張性」（3.0）では低い評価となった。
-% 手法Bは全体的に中程度の評価であり、特に「詳細度」（2.5）と「構造的整合性」（3.2）において改善の余地が見られた。
+% 表\ref{tb:evaluation_result_bmp}より、提案するプロンプトを用いた手法(手法C)がすべての評価項目において最も高いスコアを記録した。
+% 特に「網羅性」(4.8)、「可読性」(4.6)、「適合性」(4.7)、「構造的整合性」(4.9)において顕著な高評価を得ており、提案するプロンプトの有効性が確認出来た。
+% 手法Aは「論理性」(4.0)において比較的高いスコアを示したが、「粒度の適切さ」(3.0)や「拡張性」(3.0)では低い評価となった。
+% 手法Bは全体的に中程度の評価であり、特に「粒度の適切さ」(2.5)と「構造的整合性」(3.2)において改善の余地が見られた。
 
 % \clearpage
 % % \begin{minipage}{\textwidth}
 % \subsubsection{作成した章立ての詳細}
 % 各手法で作成した章立ての詳細を以下に示す。
 
-% \paragraph{手法A（手動作成）による章立て}
+% \paragraph{手法A(手動作成)による章立て}
 % 図\ref{fig:A_chapter_structure_of_bmp_app}に、手法Aで作成した章立てを示す。
 % この章立ては、被験者がLLMを使用せず、自身の経験と知識に基づいて作成したものである。
 
 
 
 % 全体として9章で構成され、比較的シンプルな構造となっている。
-% 「概要」「基本条件」「構成」「機能」「運用」「セキュリティ」「安全設計」「データ仕様」「付帯事項」という基本的な項目は網羅されているが、階層構造が浅く、詳細度に欠ける部分が見られる。
-% 特に、第3章「構成」において節番号の付け方に不整合があり（3.1, 3.2ではなく1., 2.となっている）、構造的整合性の評価が低くなった要因と考えられる。
+% 「概要」「基本条件」「構成」「機能」「運用」「セキュリティ」「安全設計」「データ仕様」「付帯事項」という基本的な項目は網羅されているが、階層構造が浅く、粒度の適切さに欠ける部分が見られる。
+% 特に、第3章「構成」において節番号の付け方に不整合があり(3.1, 3.2ではなく1., 2.となっている)、構造的整合性の評価が低くなった要因と考えられる。
 % また、第6章「セキュリティ」と第7章「安全設計」が節レベルの詳細を持たず、拡張性に課題がある。
 % % \end{minipage}
 % % \clearpage
 % \begin{minipage}{\textwidth}
-% \paragraph{手法B（LLMのみ）による章立て}
+% \paragraph{手法B(自由プロンプト)による章立て}
 % 図\ref{fig:B_chapter_structure_of_bmp_app}に、手法Bで作成した章立てを示す。
 % この章立ては、被験者がLLMを使用したが、本研究のプロンプトは使用せず、自由な指示で作成したものである。
 
@@ -1373,12 +1393,12 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 % 「用語・略語定義」や「画像分割処理仕様」など、手法Aにはない独自の章が含んでおり、網羅性が向上している。
 % また、各章が適切に節・項に分割されており、可読性が高い。
 % しかし、第5章「画像分割処理仕様」が独立した章として存在する一方で、第4章「機能仕様」との関係が不明瞭であり、論理性の評価が低くなった。
-% また、詳細度については、項レベルまで細分化されているものの、内容の粒度が不均一であり、改善の余地がある。
+% また、粒度の適切さについては、項レベルまで細分化されているものの、内容の粒度が不均一であり、改善の余地がある。
 
 % \clearpage
 % \begin{minipage}{\textwidth}
-% \paragraph{手法C（提案するプロンプト）による章立て}
-% 図\ref{fig:C_chapter_structure_of_bmp_app_1}と図\ref{fig:C_chapter_structure_of_bmp_app_2}に、手法Cで作成した2つの章立てを示す。
+% \paragraph{手法C(提案するプロンプト)による章立て}
+% 図\ref{fig:C_chapter_structure_of_bmp_app_1}と図\ref{fig:C_chapter_structure_of_bmp_app_2}に、手法Cを用いて作成した2つの章立てを示す。
 % これらは、被験者BとDがそれぞれ本研究のテンプレートプロンプトを用いて作成したものである。
 
 
@@ -1386,9 +1406,9 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 
 % 両者とも10〜11章で構成され、体系的かつ詳細な階層構造を持つ。
 % 共通して「概要」「動作環境・前提条件」「システム全体像/仕様」「画面仕様」「機能仕様」「エラー仕様」「非機能要件」「データ仕様」「運用仕様」「テスト観点」という項目が含まれており、高い網羅性を示している。
-% 特に、「ユースケース」「画面仕様」「非機能要件」「テスト観点整理」など、手法AやBにはない項目が含まれており、新人プログラマにとって理解しやすい構成となっている（適合性の高評価）。
+% 特に、「ユースケース」「画面仕様」「非機能要件」「テスト観点整理」など、手法AやBにはない項目が含まれており、新人プログラマにとって理解しやすい構成となっている(適合性の高評価)。
 % また、章・節・項の階層構造が一貫しており、構造的整合性が非常に高い。
-% 2つの章立ての違いとしては、章の順序（「システム全体像」と「動作環境」の順番）や、「ユースケース」の独立性などが挙げられるが、いずれも論理的な構成となっている。
+% 2つの章立ての違いとしては、章の順序(「システム全体像」と「動作環境」の順番)や、「ユースケース」の独立性などが挙げられるが、いずれも論理的な構成となっている。
 
 % \clearpage
 % \begin{minipage}{\textwidth}
@@ -1396,11 +1416,11 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 % BMP画像分割アプリの評価結果から、以下の知見が得られた。
 
 % \begin{itemize}
-%     \item \textbf{提案するプロンプトの優位性}: 提案するプロンプトを用いた手法（手法C）は、すべての評価項目において最も高いスコアを記録し、特に「網羅性」「適合性」「構造的整合性」において顕著な優位性を示した。これは、テンプレートプロンプトが「ベース章立て」と「出力指示」を明示的に提供することで、体系的かつ一貫性のある章立てを生成できることを示している。
+%     \item \textbf{提案するプロンプトの優位性}: 提案するプロンプトを用いた手法(手法C)は、すべての評価項目において最も高いスコアを記録し、特に「網羅性」「適合性」「構造的整合性」において顕著な優位性を示した。これは、テンプレートプロンプトが「ベース章立て」と「出力指示」を明示的に提供することで、体系的かつ一貫性のある章立てを生成できることを示している。
     
-%     \item \textbf{手動作成の課題}: 手法Aは、経験に基づいた論理的な構成を示したものの、詳細度や拡張性において課題が見られた。特に、階層構造の不整合（第3章の節番号）は、手動作成における見落としの可能性を示唆している。
+%     \item \textbf{手動作成の課題}: 手法Aは、経験に基づいた論理的な構成を示したものの、粒度の適切さや拡張性において課題が見られた。特に、階層構造の不整合(第3章の節番号)は、手動作成における見落としの可能性を示唆している。
     
-%     \item \textbf{LLMのみの使用の限界}: 手法Bは、手法Aよりも詳細な章立てを生成したが、章の論理的な関係性や粒度の均一性において改善の余地があった。これは、明確な指示がない場合、LLMが生成する章立ての品質にばらつきが生じることを示している。
+%     \item \textbf{自由プロンプトの使用の限界}: 手法Bは、手法Aよりも詳細な章立てを生成したが、章の論理的な関係性や粒度の均一性において改善の余地があった。これは、明確な指示がない場合、LLMが生成する章立ての品質にばらつきが生じることを示している。
     
 %     \item \textbf{提案するプロンプトの再現性}: 手法Cで作成された2つの章立ては、異なる被験者によって作成されたにもかかわらず、高い類似性と一貫性を示した。これは、テンプレートプロンプトが再現性の高い章立て生成を可能にすることを示している。
 % \end{itemize}
@@ -1409,7 +1429,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 % \subsection{クラウド型電子契約サービスにおける章立ての評価結果}
 
 % \subsubsection{評価結果の概要}
-% クラウド型電子契約サービスについて、手法A（被験者B）、手法B（被験者D）、手法C（被験者AとC）で作成された章立ての評価結果を表\ref{tb:evaluation_result_cloud}に示す。
+% クラウド型電子契約サービスについて、手法A(被験者B)、手法B(被験者D)、手法C(被験者AとC)で作成された章立ての評価結果を表\ref{tb:evaluation_result_cloud}に示す。
 
 % \begin{table}[H]
 %   \caption{クラウド型電子契約サービスの評価結果}
@@ -1417,7 +1437,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 %   \centering
 %   \begin{tabular}{|l|c|c|c|}
 %     \hline
-%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C（提案するプロンプト）} \\
+%     \textbf{評価項目} & \textbf{手法A} & \textbf{手法B} & \textbf{手法C(提案するプロンプト)} \\
 %     \hline\hline
 %     1. 網羅性 & 3.5 & 3.5 & \textbf{4.8} \\
 %     \hline
@@ -1427,7 +1447,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 %     \hline
 %     4. 可読性 & 3.2 & 3.2 & \textbf{4.6} \\
 %     \hline
-%     5. 詳細度 & 3.0 & 2.5 & \textbf{4.0} \\
+%     5. 粒度の適切さ & 3.0 & 2.5 & \textbf{4.0} \\
 %     \hline
 %     6. 適合性 & 3.5 & 3.0 & \textbf{4.7} \\
 %     \hline
@@ -1440,29 +1460,29 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 %   \end{tabular}
 % \end{table}
 
-% 表\ref{tb:evaluation_result_cloud}より、BMP画像分割アプリと同様に、提案するプロンプトを用いた手法（手法C）がすべての評価項目において最も高いスコアを記録した。
-% 特に「網羅性」（4.8）、「可読性」（4.6）、「適合性」（4.7）、「構造的整合性」（4.9）において顕著な高評価を得ており、システムの複雑さに関わらず提案するプロンプトの有効性が確認された。
-% 手法Aは「論理性」（4.0）において比較的高いスコアを示したが、BMP画像分割アプリと同様に「詳細度」（3.0）や「拡張性」（3.0）では低い評価となった。
-% 手法Bは、特に「論理性」（2.5）と「構造的整合性」（2.8）において低い評価を受けており、複雑なシステムにおいてLLMのみでの章立て作成の難しさが示された。
+% 表\ref{tb:evaluation_result_cloud}より、BMP画像分割アプリと同様に、提案するプロンプトを用いた手法(手法C)がすべての評価項目において最も高いスコアを記録した。
+% 特に「網羅性」(4.8)、「可読性」(4.6)、「適合性」(4.7)、「構造的整合性」(4.9)において顕著な高評価を得ており、システムの複雑さに関わらず提案するプロンプトの有効性が確認された。
+% 手法Aは「論理性」(4.0)において比較的高いスコアを示したが、BMP画像分割アプリと同様に「粒度の適切さ」(3.0)や「拡張性」(3.0)では低い評価となった。
+% 手法Bは、特に「論理性」(2.5)と「構造的整合性」(2.8)において低い評価を受けており、複雑なシステムにおいて自由プロンプトでの章立て作成の難しさが示された。
 
 % \clearpage
 % \subsubsection{作成した章立ての詳細}
 % 各手法で作成した章立ての詳細を以下に示す。
 
 % % \begin{minipage}{\textwidth}
-% \paragraph{手法A（手動作成）による章立て}
+% \paragraph{手法A(手動作成)による章立て}
 % 図\ref{fig:A_chapter_structure_of_cloud_contract_system}に、手法Aで作成した章立てを示す。
 
 
 % 全体として9章で構成され、BMP画像分割アプリの手法Aと類似した構造を持つ。
 % 「概要」「システム基本条件」「システム構成」「システムの機能」「システムの運用」「セキュリティ」「安全設計」「データ仕様」「付帯事項」という基本的な項目は網羅されているが、クラウドサービス特有の「画面仕様」や「外部インターフェース」などの項目が不足している。
-% また、第4章「システムの機能」の項レベル（4.2.1〜4.2.4）において、番号の付け方に不整合があり（スペースがない）、構造的整合性に課題がある。
+% また、第4章「システムの機能」の項レベル(4.2.1〜4.2.4)において、番号の付け方に不整合があり(スペースがない)、構造的整合性に課題がある。
 % 第2章「システム基本条件」の2.6「以降環境」は「移行環境」の誤記と思われ、命名の適切さにも問題が見られる。
 % % \end{minipage}
 
 % \clearpage
 % \begin{minipage}{\textwidth}
-% \paragraph{手法B（LLMのみ）による章立て}
+% \paragraph{手法B(自由プロンプト)による章立て}
 % 図\ref{fig:B_chapter_structure_of_cloud_contract_system}に、手法Bで作成した章立てを示す。
 
 
@@ -1476,7 +1496,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 
 % \clearpage
 % \begin{minipage}{\textwidth}
-% \paragraph{手法C（提案するプロンプト）による章立て}
+% \paragraph{手法C(提案するプロンプト)による章立て}
 % 図\ref{fig:C_chapter_structure_of_cloud_contract_system_1}と図\ref{fig:C_chapter_structure_of_cloud_contract_system_2}に、手法Cで作成された2つの章立てを示す。
 
 
@@ -1497,13 +1517,13 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 % クラウド型電子契約サービスの評価結果から、以下の知見が得られた。
 
 % \begin{itemize}
-%     \item \textbf{複雑なシステムにおける提案するプロンプトの有効性}: BMP画像分割アプリと同様に、提案するプロンプトを用いた手法（手法C）はすべての評価項目において最も高いスコアを記録した。特に、クラウド型電子契約サービスのような複雑なシステムにおいても、提案するプロンプトが高品質な章立てを生成できることを確認した。
+%     \item \textbf{複雑なシステムにおける提案するプロンプトの有効性}: BMP画像分割アプリと同様に、提案するプロンプトを用いた手法(手法C)はすべての評価項目において最も高いスコアを記録した。特に、クラウド型電子契約サービスのような複雑なシステムにおいても、提案するプロンプトが高品質な章立てを生成できることを確認した。
     
 %     \item \textbf{システム規模による影響}: クラウド型電子契約サービスは、BMP画像分割アプリと比較してシステム規模が大きく、必要な章立ての項目も多い。手法Bは、BMP画像分割アプリでは比較的良好な評価を得たが、クラウド型電子契約サービスでは論理性と構造的整合性において低い評価を受けた。これは、システムの複雑さが増すほど、明確な指示がない場合のLLMの章立て生成の品質が低下することを示唆している。
     
 %     \item \textbf{ドメイン知識の重要性}: 手法Aは、BMP画像分割アプリと同様の構造を採用したが、クラウド型電子契約サービス特有の「画面仕様」や「外部インターフェース」などの項目が不足していた。これは、手動作成においてドメイン知識が重要であることを示している。一方、提案するプロンプトを用いた手法は、テンプレートプロンプトによってドメイン知識を補完し、高品質な章立てを生成できることを確認した。
     
-%     \item \textbf{提案するプロンプトの柔軟性}: 手法Cで作成した2つの章立ては、章の順序や項目の配置に若干の違いがあるものの、いずれも高い評価を得た。これは、テンプレートプロンプトが一定の柔軟性を持ちながらも、品質を保証できることを示している。
+%     \item \textbf{提案するプロンプトの柔軟性}: 手法Cを用いて作成した2つの章立ては、章の順序や項目の配置に若干の違いがあるものの、いずれも高い評価を得た。これは、テンプレートプロンプトが一定の柔軟性を持ちながらも、品質を保証できることを示している。
 % \end{itemize}
 
 % \subsection{実験結果の分析}
@@ -1527,7 +1547,7 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 %     \hline
 %     4. 可読性 & 3.2 & 3.5 & \textbf{4.6} \\
 %     \hline
-%     5. 詳細度 & 3.0 & 2.5 & \textbf{4.0} \\
+%     5. 粒度の適切さ & 3.0 & 2.5 & \textbf{4.0} \\
 %     \hline
 %     6. 適合性 & 3.5 & 3.2 & \textbf{4.7} \\
 %     \hline
@@ -1544,13 +1564,13 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 %   \centering
 %   % TODO: ここにExcel等で作成したレーダーチャートの画像を差し替える (images/result_chart.pdf)
 %   \includegraphics[width=0.8\linewidth]{images/syokuji_computer.png} % 仮の画像
-%   \caption{実験結果の比較（レーダーチャート）}
+%   \caption{実験結果の比較(レーダーチャート)}
 %   \label{fig:result_chart}
 % \end{figure}
 
 % \subsubsection{提案するプロンプトの有効性}
-% 実験の結果、提案するプロンプトを用いた手法（手法C）は、すべての評価項目において手法Aおよび手法Bを上回るスコアを記録した。
-% 特に「網羅性」（4.8）、「可読性」（4.6）、「適合性」（4.7）、「構造的整合性」（4.9）において顕著な高さを示しており、これはプロンプトで与えた「ベース章立て」と「出力指示」の有効性を示唆している。
+% 実験の結果、提案するプロンプトを用いた手法(手法C)は、すべての評価項目において手法Aおよび手法Bを上回るスコアを記録した。
+% 特に「網羅性」(4.8)、「可読性」(4.6)、「適合性」(4.7)、「構造的整合性」(4.9)において顕著な高さを示しており、これはプロンプトで与えた「ベース章立て」と「出力指示」の有効性を示唆している。
 
 % 提案するプロンプトの優位性は、以下の要因によるものと考えられる：
 
@@ -1565,10 +1585,10 @@ BMP画像分割アプリにおいては、手法Cにより作成された章立�
 % \end{enumerate}
 
 % \subsubsection{手法間の比較}
-% 手法A（手動作成）は、「論理性」において比較的高いスコアを示したが、「詳細度」や「拡張性」では低い評価となった。
+% 手法A(手動作成)は、「論理性」において比較的高いスコアを示したが、「粒度の適切さ」や「拡張性」では低い評価となった。
 % これは、経験に基づいた論理的な構成は可能であるものの、詳細な階層構造の設計や将来の拡張を考慮した設計には課題があることを示している。
 
-% 手法B（LLMのみ）は、全体的に中程度の評価であり、特に「詳細度」と「構造的整合性」において改善の余地が見られた。
+% 手法B(自由プロンプト)は、全体的に中程度の評価であり、特に「粒度の適切さ」と「構造的整合性」において改善の余地が見られた。
 % また、システムの複雑さが増すほど、論理性の評価が低下する傾向が見られた。
 % これは、明確な指示がない場合、LLMが生成する章立ての品質にばらつきが生じることを示している。
 

@@ -9,14 +9,29 @@
 %   misc         : その他（Web サイトなど、howpublished を使用）
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-article{kimura-docker,
-  author  = {Zhu, Taohong and Cordeiro, Lucas C. and Sun, Youcheng},
-  title   = {ReqInOne: A Large Language Model-Based Agent for Software Requirements Specification Generation},
-  journal = {2025 IEEE 33rd International Requirements Engineering Conference (RE)},
-  volume  = {64},
-  number  = {11},
-  pages   = {1850-1862},
-  year    = {2023}
+@misc{rasinban,
+  author = {J\&C Company},
+  title  = {システム開発 仕様書の書き方完全ガイド},
+  howpublished = {\url{https://www.jcc-ltd.com/column/column_1317/}},
+  note = {Accessed: 2026-02-03}
+}
+
+misc{outline,
+  author = {Krüger, Gerhard},
+  title  = {How to Write a Software Requirements Specification (SRS) Document},
+  howpublished = {\url{https://www.perforce.com/blog/alm/how-write-software-requirements-specification-srs-document}},
+  note = {Accessed: 2026-02-04}
+}
+
+
+@INPROCEEDINGS{quality,
+  author={Mund, Jakob and Mendez Fernandez, Daniel and Femmer, Henning and Eckhardt, Jonas},
+  booktitle={2015 ACM/IEEE International Symposium on Empirical Software Engineering and Measurement (ESEM)}, 
+  title={Does Quality of Requirements Specifications Matter? Combined Results of Two Empirical Studies}, 
+  year={2015},
+  volume={},
+  number={},
+  pages={1-10}
 }
 
 @INPROCEEDINGS{reference,
@@ -31,26 +46,21 @@ article{kimura-docker,
 }
 
 
-
-
-@book{software_engineering,
-  author = {Sommerville, Ian and 佐野 美知夫 and 佐藤 匡正 (監訳)},
-  title     = {ソフトウェアエンジニアリング},
-  note = {翻訳版},
-  publisher = {フジ・テクノシステム},
-  year      = {1993},
-  edition   = {第4版}
+@InProceedings{knowledge,
+author={Dehghani, Razieh and Wnuk, Krzysztof and Mendez, Daniel and Gorschek, Tony and Ramsin, Raman},
+editor={Dalpiaz, Fabiano and Spoletini, Paola},
+title={On Understanding the Relation of Knowledge and Confidence to Requirements Quality},
+booktitle={Requirements Engineering:  Foundation  for Software Quality},
+year={2021},
+publisher={Springer International Publishing},
+pages={208--224}
 }
 
-
-%プロンプトパターンサーベイ
-@article{prompt-patternss,
-  author  = {White, Jules and Fu, Quchen and Hays, Sam and Sandborn, Michael
-             and Olea, Carlos and Gilbert, Henry and Elnashar, Ashraf
-             and Spencer-Smith, Jesse and Schmidt, Douglas C.},
-  title   = {A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT},
-  journal = {arXiv preprint arXiv:2302.11382},
-  year    = {2023}
+@book{software_engineering,
+  author = {Sommerville, Ian  and 美知夫, 佐野  and 匡正, 佐藤},
+  title     = {翻訳版 ソフトウェアエンジニアリング 第4版},
+  publisher = {フジ・テクノシステム},
+  year      = {1993}
 }
 
 @inproceedings{prompt-patterns,
@@ -76,7 +86,7 @@ article{kimura-docker,
 }
 
 %大規模言語モデルの説明文に使ってる
-@article{llm_survey,
+article{llm_survey,
   author = {Wayne Xin Zhao and Kun Zhou and Junyi Li and Tianyi Tang and Xiaolei Wang and Yupeng Hou and Yingqian Min and Beichen Zhang and Junjie Zhang and Zican Dong and Yifan Du and Chen Yang and Yushuo Chen and Zhipeng Chen and Jinhao Jiang and Ruiyang Ren and Yifan Li and Xinyu Tang and Zikang Liu and Peiyu Liu and Jian-Yun Nie and Ji-Rong Wen},
   title   = {A Survey of Large Language Models},
   journal = {arXiv preprint arXiv:2303.18223},
@@ -84,28 +94,13 @@ article{kimura-docker,
 }
 
 %fewshotの方が精度が良いことをいうための論文
-@article{fewwin,
+article{fewwin,
   author = {Sivarajkumar, Sonish and Kelley, Mark and Samolyk-Mazzanti, Alyssa and Visweswaran, Shyam and Wang, Yanshan},
   title   = {An Empirical Evaluation of Prompting Strategies for Large Language Models in Zero-Shot Clinical Natural Language Processing: Algorithm Development and Validation Study},
   journal = {JMIR Med Inform},
   volume = {12},
   pages = {e55318},
   year    = {2024}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LLM関連の基礎文献 (TODO: 引用する際に中身を確認すること)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% TODO: 後で調べる: GPT-3（Few-shot学習の能力）について言及する場合の引用元
-% "Language Models are Few-Shot Learners" (2020)
-article{zeroonefew,
-  title={Language models are few-shot learners},
-  author={Brown, Tom and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared D and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and others},
-  journal={Advances in neural information processing systems},
-  volume={33},
-  pages={1877--1901},
-  year={2020}
 }
 
 @inproceedings{zeroonefew,
@@ -120,19 +115,8 @@ article{zeroonefew,
  year = {2020}
 }
 
-% TODO: 後で調べる: ChatGPT（指示に従う能力・RLHF）について言及する場合の引用元
-% "Training language models to follow instructions with human feedback" (2022)
-article{ouyang2022training,
-  title={Training language models to follow instructions with human feedback},
-  author={Ouyang, Long and Wu, Jeffrey and Jiang, Xu and Almeida, Diogo and Wainwright, Carroll and Mishkin, Pamela and Zhang, Chong and Agarwal, Sandhini and Slama, Katarina and Ray, Alex and others},
-  journal={Advances in neural information processing systems},
-  volume={35},
-  pages={27730--27744},
-  year={2022}
-}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 標準規格の例（後で調べる）
+% 標準規格の例
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @manual{ieee830,
   title = {IEEE Recommended Practice for Software Requirements Specifications},
@@ -145,6 +129,12 @@ article{ouyang2022training,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Webサイト
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@misc{vmodel,
+  title = {V字型モデルとは? 開発とテストの流れ},
+  author = {SHIFT サービス},
+  howpublished = {\url{https://service.shiftinc.jp/column/10905/}},
+  note = {Accessed: 2026-02-04}
+}
 
 @misc{whatllm,
   title = {LLM(大規模言語モデルとは?)},
@@ -195,7 +185,7 @@ article{ouyang2022training,
 }
 
 
-misc{chainofthought,
+@misc{chainofthought,
   title = {思考の連鎖(CoT)プロンプティングとは},
   author = {Gadesha, Vrunda and Kavlakoglu, Eda and Winland, Vanna},
   howpublished = {\url{https://www.ibm.com/jp-ja/think/topics/chain-of-thoughts}},
@@ -203,7 +193,7 @@ misc{chainofthought,
 }
 
 @misc{skycom,
- title = {スカイコム},
+ title = {株式会社スカイコム},
  howpublished = {\url{https://www.skycom.jp/}},
  note = {Accessed: 2026-01-22}
 }
@@ -213,6 +203,40 @@ misc{chainofthought,
   author = {竜太郎, 西野},
   howpublished = {\url{https://nishinos.com/articles/2023/prompt-patterns/}},
   note = {Accessed: 2026-01-23}
+}
+
+@misc{likert,
+  title = {リッカート尺度とは? メリットと設問作成時の注意点を解説},
+  author = {GMOリサーチ\&AI株式会社},
+  howpublished = {\url{https://gmo-research.ai/research-column/likert-scale}},
+  note = {Accessed: 2026-01-26}
+}
+
+misc{harusi,
+  title = {ハルシネーション},
+  author = {NRI},
+  howpublished = {\url{https://www.nri.com/jp/knowledge/glossary/hallucination.html}},
+  note = {Accessed: 2026-02-03}
+}
+
+inproceedings{llm_se,
+  author={Fan, A. and Gokkaya, B. and Harman, M. and Lyubarskiy, M. and Sengupta, S. and Yoo, S. and Zhang, J. M.},
+  booktitle={2023 IEEE/ACM International Conference on Software Engineering: Future of Software Engineering (ICSE-FoSE)},
+  title={Large language models for software engineering: Survey and open problems},
+  year={2023},
+  pages={31--53},
+  organization={IEEE}
+}
+
+
+article{kimura-docker,
+  author  = {Zhu, Taohong and Cordeiro, Lucas C. and Sun, Youcheng},
+  title   = {ReqInOne: A Large Language Model-Based Agent for Software Requirements Specification Generation},
+  journal = {2025 IEEE 33rd International Requirements Engineering Conference (RE)},
+  volume  = {64},
+  number  = {11},
+  pages   = {1850-1862},
+  year    = {2023}
 }
 
 misc{sisutemukaihatu,
@@ -229,9 +253,51 @@ misc{kihonsyousaisekkei,
   note = {Accessed: 2026-01-26}
 }
 
-@misc{likert,
-  title = {リッカート尺度とは? メリットと設問作成時の注意点を解説},
-  author = {GMOリサーチ＆AI株式会社},
-  howpublished = {\url{https://gmo-research.ai/research-column/likert-scale}},
-  note = {Accessed: 2026-01-26}
+% TODO: 後で調べる: ChatGPT（指示に従う能力・RLHF）について言及する場合の引用元
+% "Training language models to follow instructions with human feedback" (2022)
+article{ouyang2022training,
+  title={Training language models to follow instructions with human feedback},
+  author={Ouyang, Long and Wu, Jeffrey and Jiang, Xu and Almeida, Diogo and Wainwright, Carroll and Mishkin, Pamela and Zhang, Chong and Agarwal, Sandhini and Slama, Katarina and Ray, Alex and others},
+  journal={Advances in neural information processing systems},
+  volume={35},
+  pages={27730--27744},
+  year={2022}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LLM関連の基礎文献 (TODO: 引用する際に中身を確認すること)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TODO: 後で調べる: GPT-3（Few-shot学習の能力）について言及する場合の引用元
+% "Language Models are Few-Shot Learners" (2020)
+article{zeroonefew,
+  title={Language models are few-shot learners},
+  author={Brown, Tom and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared D and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and others},
+  journal={Advances in neural information processing systems},
+  volume={33},
+  pages={1877--1901},
+  year={2020}
+}
+
+%プロンプトパターンサーベイ
+article{prompt-patternss,
+  author  = {White, Jules and Fu, Quchen and Hays, Sam and Sandborn, Michael
+             and Olea, Carlos and Gilbert, Henry and Elnashar, Ashraf
+             and Spencer-Smith, Jesse and Schmidt, Douglas C.},
+  title   = {A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT},
+  journal = {arXiv preprint arXiv:2302.11382},
+  year    = {2023}
+}
+
+
+article{mokuji,
+  title={大規模言語モデルを用いたマニュアル向け文章の分類および順序付け手法の提案},
+  author={上前 諒輔 and 横山 想一郎 and 山下 倫央 and 川村 秀憲 and 永田 功},
+  journal={人工知能学会全国大会論文集},
+  volume={JSAI2025},
+  number={ },
+  pages={4A1GS1004-4A1GS1004},
+  year={2025},
+  doi={10.11517/pjsai.JSAI2025.0_4A1GS1004}
 }

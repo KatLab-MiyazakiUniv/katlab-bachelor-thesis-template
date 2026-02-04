@@ -21,7 +21,7 @@
 % 図\ref{fig:system_development_process}に、一般的なシステム開発の流れと本研究でモデルケースとする株式会社スカイコム\cite{skycom}のシステム開発の流れを示す。
 % 一般に、システム開発では、顧客の要望をまとめた要件定義書の作成から始まり、設計、実装へと進むプロセスが標準的である\cite{sisutemukaihatu}。
 % 一方、本研究でモデルケースとする株式会社スカイコム\cite{skycom}のシステム開発プロセスにおいては、要件定義書は作成せず、システム仕様書がシステム開発における最初の成果物となる。
-本研究でモデルケースとするシステム開発の流れを、図\ref{fig:system_development_process}に示す。
+本研究でモデルケースとするシステム開発の流れを、図\ref{fig:system_development_process}に示す\cite{vmodel}。
 
 \begin{figure}[tp]
   \centering
@@ -32,7 +32,7 @@
   \label{fig:system_development_process}
 \end{figure}
 
-本研究におけるシステム仕様書は、顧客の要望や口頭での指示といった曖昧な情報を、初めて具体的な要件および設計情報として文書化する役割を担い、システム開発における最初の成果物として位置付けている。
+本研究におけるシステム仕様書は、顧客の要求や口頭での指示といった曖昧な情報を、初めて具体的な要件および設計情報として文書化する役割を担い、システム開発における最初の成果物として位置付けている。
 
 
 
@@ -57,9 +57,9 @@
 システム仕様書は、以下の2つの目的を達成するための成果物と定義する。
 \begin{itemize}
   \item \textbf{実装者への指針}:
-  システム開発の経験の少ない実装者であっても、システム仕様書を読むことでシステムの挙動を正しく理解し、迷いなく実装に着手できること。
+  システム開発の経験の少ない実装者であっても、システム仕様書を読むことでシステムの挙動を正しく理解し、実装に着手できること。
   \item \textbf{テスト担当者への基準}:
-  システムの内部構造(ソースコード)を知らないテスト担当者が、システム仕様書に記載された正常系、および異常系の条件に従って、ブラックボックステストの項目を作成できること。
+  システムの内部構造(ソースコード)を知らないテスト担当者が、システム仕様書に記載された正常系、および異常系のエラー条件に従って、ブラックボックステストの項目を作成できること。
 \end{itemize}
 
 % したがって、システム仕様書の記述スタイルとしては、新人の実装者であっても仕様書を理解できるように、専門用語や初出単語の丁寧な説明が求められ、特にシステムの概要や振る舞いについては、テキストだけでなく図(ユースケース図や簡易図)を用いて視覚的に説明することが不可欠である。
@@ -67,12 +67,12 @@
 \subsection{本研究におけるシステム仕様書の記述内容}
 \label{subsec:system_spec_content}
 
-本研究におけるシステム仕様書の記述内容としては、画面レイアウトや操作フローといった「外部仕様(ユーザーから見える振る舞い)」に焦点を当て、データ型や制約条件は網羅するものの、クラス図や具体的なアルゴリズムといった「内部仕様」は含まないこととする。
+本研究におけるシステム仕様書の記述内容としては、画面レイアウトや操作フローといった外部仕様\cite{rasinban}を記し、内部仕様\cite{rasinban}は含まない。
 
 \subsection{システム仕様書の章立て}
 \label{subsec:general_spec}
 
-本研究では、以下の要素を持つものを章立てと定義する。
+本研究では、章立ては以下の6つの要素からなる。
 \begin{itemize}
     \item 章番号(1. 2. 3. ...)
     \item 章タイトル
@@ -109,7 +109,7 @@ IEEE 830\cite{ieee830}によると、システム仕様書には主に以下の�
     \begin{itemize}
         \item システムの目的
         \item 背景
-        \item 全体像(コンテキスト図など)
+        \item 全体像
     \end{itemize}
     \item \textbf{機能要件}
     \begin{itemize}
@@ -214,11 +214,11 @@ IEEE 830\cite{ieee830}によると、システム仕様書には主に以下の�
 \section{Large Language Models (LLM)}
 \label{sec:llm}
 
-Large Language Models (大規模言語モデル)は、膨大なテキストデータと高度なディープラーニング技術を用いて構築された、自然言語処理(NLP：Natural Language Processing)と呼ばれる分野における技術である\cite{whatllm}。
-LLMは、Transformerと呼ばれるニューラルネットワークアーキテクチャを基盤としており、文脈理解、文章要約、翻訳、およびコード生成など、多岐にわたるタスクを高い精度で実行可能である\cite{llm_survey}。
+Large Language Models (大規模言語モデル)\cite{whatllm}は、膨大なテキストデータと高度なディープラーニング技術を用いて構築された、自然言語処理分野における技術である。
+% LLMは、Transformerと呼ばれるニューラルネットワークアーキテクチャを基盤としており、文脈理解、文章要約、翻訳、およびコード生成など、多岐にわたるタスクを高い精度で実行可能である\cite{llm_survey}。
 % 従来の自然言語処理を用いたドキュメント自動生成手法と比較して、
 % また、LLMは明示的な学習データを与えなくても、プロンプト(指示文)による制御のみで多様なタスクに対応できるFew-shot Prompting\cite{fewshot}やOne-shot Prompting\cite{oneshot}、Zero-shot Prompting\cite{zeroshot}の能力に優れている。
-また、LLMにタスクの実行を命令する際のプロンプトエンジニアリングの手法として、Few-shot Prompting\cite{fewshot}、One-shot Prompting\cite{oneshot}、Zero-shot Prompting\cite{zeroshot} (\ref{sec:prompt_engineering}節で後述)が存在する。
+% また、LLMにタスクの実行を命令する際のプロンプトエンジニアリングの手法として、Few-shot Prompting\cite{fewshot}、One-shot Prompting\cite{oneshot}、Zero-shot Prompting\cite{zeroshot} (\ref{sec:prompt_engineering}節で後述)が存在する。
 
 本研究では、OpenAI\cite{openai}社が提供する対話型AIサービスのLLMであるGPT-5.2\cite{gpt52}をシステム仕様書章立ての作成に用いる。
 % 何でGPT-5.2を選んだのか説明するのがベスト。
@@ -232,7 +232,7 @@ LLMの性能を最大限に引き出すためには、モデルの特性を理�
 \subsection{Few-shot Prompting}
 \label{subsec:few_shot}
 
-Few-shot Promptingは、いくつかの入力例と出力例のペアを提示することで、LLMがタスクの意図を汲み取り、望ましい形式、内容で出力を生成できるよう誘導する手法である\cite{fewshot}。
+Few-shot Prompting\cite{fewshot}は、いくつかの入力例と出力例のペアを提示することで、LLMにタスクの意図を理解させて、、望ましい形式や、内容で出力を生成できるよう誘導する手法である\cite{fewshot}。
 図\ref{fig:few}に、Few-shot Promptingの具体例を示す。
 % 図\ref{fig:few}のプロンプト例における、入力例と出力例を表\ref{tb:inoutexample}に示す。
 図\ref{fig:few}のプロンプト例における、入力例は、「フランスの首都」、「日本の首都」、「アメリカの首都」、「イギリスの首都」であり、出力例は、「パリ」、「東京」、「ワシントンD.C」、「ロンドン」である。
@@ -240,12 +240,12 @@ Few-shot Promptingは、いくつかの入力例と出力例のペアを提示�
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{10}{11}\selectfont
 \begin{verbatim}
 フランスの首都：パリ
 日本の首都：東京
@@ -283,18 +283,18 @@ Few-shot Promptingは、いくつかの入力例と出力例のペアを提示�
 \subsection{One-shot Prompting}
 \label{subsec:one_shot}
 
-One-shot Promptingは、1つの入力例と出力例のペアを提示することで、LLMがタスクの意図を汲み取り、望ましい形式、内容で出力を生成できるよう誘導する手法である\cite{oneshot}。
+One-shot Prompting\cite{oneshot}は、1つの入力例と出力例のペアを提示することで、LLMにタスクの意図を理解させて、望ましい形式や、内容で出力を生成できるよう誘導する手法である\cite{oneshot}。
 また、図\ref{fig:one}に、One-shot Promptingの具体例を示す。この例では、「日本の首都」が入力例、「東京」が出力例となる。
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{10}{11}\selectfont
 \begin{verbatim}
 日本の首都：東京。
 では、ブラジルの首都は？
@@ -307,19 +307,19 @@ One-shot Promptingは、1つの入力例と出力例のペアを提示するこ�
 \subsection{Zero-shot Prompting}
 \label{subsec:zero_shot}
 
-Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与えずに、指示のみでタスクを実行させる手法である\cite{zeroshot}。
-また、図\ref{fig:zero}に、Zero-shot Promptingの具体例を示す。
+Zero-shot Prompting\cite{zeroshot}は、LLMに対してタスクの具体的な回答例を与えずに、指示のみでタスクを実行させる手法である\cite{zeroshot}。
+図\ref{fig:zero}に、Zero-shot Promptingの具体例を示す。
 
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{10}{11}\selectfont
 \begin{verbatim}
 ブラジルの首都は？
 \end{verbatim}
@@ -351,7 +351,8 @@ Zero-shot Promptingは、LLMに対してタスクの具体的な回答例を与�
 
 \forceindent Tom Brownらの研究によると、Few-shot、One-shot PromptingはZero-shot Promptingと比較して、出力の精度が高いとされる\cite{zeroonefew}。一方で、入力例と出力例のペアの作成が困難な場合はZero-shot Prompting\cite{zeroshot}が用いられる。
 
-\forceindent 本研究では、作成するシステム仕様書章立て生成プロンプトに、多様なシステムに対応できる汎用性を持たせる必要があるため、特定のシステムに依存した入力例と出力例(正解の章立て例)のペアを作成することは目的に沿わない。
+% \forceindent 本研究では、作成するシステム仕様書章立て生成プロンプトに、多様なシステムに対応できる汎用性を持たせるため、特定のシステムに依存した入力例と出力例(正解の章立て例)のペアを作成することは目的に沿わない。
+本研究でLLMの生成の対象としている章立ては、正解がなく、入力例と出力例を作成することが困難である。
 そのため、本研究で提案するシステム仕様書章立て生成プロンプトは、Zero-shot Promptingの手法をベースとする。
 ただし、LLMが生成する章立てが意図する章立ての構造とかけ離れたものにならないように、出力例として実際の開発現場で用いられている章立てのテンプレートをLLMに与える(詳細は第\ref{cha:Proposal}章で後述)。
 したがって、本研究で提案するシステム仕様書章立て生成プロンプトは、具体的な入力例は与えていないが、出力例は与えているため、One-shot Promptingを部分的に取り入れたプロンプトになっていると言える。
@@ -406,7 +407,7 @@ Aobo Kongらの研究により、LLMに適切な役割を与えることで、�
 \subsection{Context Manager Pattern}
 \label{subsec:context_manager_pattern}
 
-\forceindent Context Manager Pattern (コンテキストマネージャパターン)は、LLMが、タスクの実行時に対話の履歴や曖昧な指示に含まれる無関係な情報に影響され、意図しない回答を生成する場合があるため、LLMに対して考慮すべき情報の範囲(コンテキスト)を明示的に指定、あるいは除外することで、回答内容の焦点や関連性を制御するパターンである\cite{prompt-patterns}。
+\forceindent Context Manager Pattern (コンテキストマネージャパターン)は、LLMが、タスクの実行時に対話の履歴や曖昧な指示に含まれる無関係な情報に影響され、意図しない回答を生成する場合があるため、LLMに対して考慮すべき情報の範囲を明示的に指定、あるいは除外することで、回答内容の焦点や関連性を制御するパターンである\cite{prompt-patterns}。
 
 % LLMは、対話の履歴や曖昧な指示に含まれる無関係な情報に影響され、意図しない回答を生成する場合がある。
 % これに対し、本パターンでは、以下のような明示的な指示を与えることで、LLMの出力を制御する。

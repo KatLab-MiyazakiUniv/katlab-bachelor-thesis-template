@@ -21,7 +21,7 @@
     % また必要に応じて「システム仕様書の定義」の微調整を行う。
 
     \item \textbf{章立ての生成}:
-    章立て生成の対象とするシステムの情報を入力したプロンプトをLLM(GPT-5.2)に入力し、システム仕様書の章立てを生成させる。出力結果として、章立て(章・節・項の構造)を得る。
+    章立て生成の対象とするシステムの情報を入力したプロンプトをLLM(GPT-5.2)に入力し、システム仕様書の章立てを生成する。出力結果として、章立て(章・節・項の構造)を得る。
 \end{enumerate}
 
 
@@ -42,8 +42,7 @@
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
-  % title=本研究で作成したプロンプト,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
@@ -52,7 +51,7 @@
 \begin{verbatim}
 あなたはシステム仕様書作成の専門アシスタントです。
 
-【ベース章立てテンプレート（参考）】
+【ベース章立てテンプレート(参考)】
 1. 概要
  1.1.目的
  1.2.システム概要
@@ -104,7 +103,7 @@
  ・図はユースケース図または独自の簡易図を使用し、必ずテキストで補足説明 
  ・用語や機能名は文書内で統一 
  ・データ型や制約が必要な場合は表形式で記載 
- ・外部仕様のみ記載（内部構造は書かない）
+ ・外部仕様のみ記載(内部構造は書かない)
 - システム要件：
  ・動作環境：OS、ハードウェア、ネットワーク 
  ・非機能要件：パフォーマンス、セキュリティ 
@@ -116,7 +115,7 @@
 ・ここでいう章立ては、以下の内容を含みます。
 　・章と節、章タイトル、節タイトル、項、項タイトル 
 ・出力形式は**マークダウンの番号付きリスト**としてください。 
-・章名以外（目的・記述のポイントなど）は一切書かないでください。 
+・章名以外(目的・記述のポイントなど)は一切書かないでください。 
 ・章の追加や削除、順序の変更は自由に行って構いません。
 ・人間が考慮し忘れるような章立ても考えるのがあなたの役目です。考慮漏れが無いように、網羅性を高めてください。
 \end{verbatim}
@@ -129,7 +128,7 @@
 \subsection{プロンプト構成要素}
 
 本節では、提案するプロンプトを構成する5つの要素について説明する。
-表\ref{tb:prompt_elements_summary}に、各要素の役割と関連するプロンプトエンジニアリング技術(\ref{sec:prompt_engineering}参照)の対応を示す。
+表\ref{tb:prompt_elements_summary}に、各要素の役割と関連するプロンプトエンジニアリング技術(\ref{sec:prompt_engineering}節参照)の対応を示す。
 
 % \begin{minipage}{\textwidth}
 \begin{table}[tp]
@@ -144,11 +143,11 @@
     \hline
     ベースの章立て & 構造の欠落防止、標準的な形式の担保 & One-shot Prompting \\
     \hline
-    開発するシステム情報 & 生成内容の具体化（ハルシネーション抑制） & Context Manager Pattern \\
+    開発するシステム情報 & 生成内容の具体化 & Context Manager Pattern \\
     \hline
     仕様書の定義 & 記述粒度の制御、不必要な内部情報の排除 & Context Manager Pattern \\
     \hline
-    章立て出力指示 & 論理的整合性の確保、機械可読性の担保 & Template Pattern \\
+    章立て出力指示 & 論理的整合性の確保、出力結果の視認性の確保 & Template Pattern \\
     \hline
   \end{tabular}
 \end{table}
@@ -160,12 +159,12 @@
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{10}{11}\selectfont
 \begin{verbatim}
 あなたはシステム仕様書作成の専門アシスタントです。
 \end{verbatim}
@@ -191,14 +190,14 @@
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{10}{11}\selectfont
+\fontsize{9}{10}\selectfont
 \begin{verbatim}
-【ベース章立てテンプレート（参考）】
+【ベース章立てテンプレート(参考)】
 1. 概要
  1.1.目的
  1.2.システム概要
@@ -239,25 +238,25 @@
 \end{figure}
 
 
- LLMにテンプレートを与えず、ゼロから章立てを生成させると、章の順序が不自然になる、重要な章(例：セキュリティや運用)が抜け落ちるといった「構造的な欠陥」が生じるリスクがある。
+LLMにテンプレートを与えず、ゼロから章立てを生成させると、章の順序が不自然になる、重要な章(例：セキュリティや運用)が抜け落ちるといった「構造的な欠陥」が生じるリスクがある。
 実際の開発現場で用いられている章立てのテンプレートを初期値(ベース)として与えることで、LLMは「何を書くべきか」の探索範囲を絞り込むことができる。
 ベースの章立てテンプレートの提示により、章立ての標準的な構成を維持する。
 
 \subsubsection{開発するシステム情報}
 
  図\ref{fig:prompt_full_text}における「開発するシステム情報」部分のプロンプトテンプレートを、図\ref{fig:development_system_info_template}に示す。
-これは、開発対象となるシステム名と概要を記述する箇所であり、プロンプトへの入力値となる。
+これは、本プロンプトの入力であるシステム名とシステム概要文を記述する箇所である。
 
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{10}{11}\selectfont
 \begin{verbatim}
 【開発するシステム情報】
 - システム名：
@@ -269,32 +268,118 @@
 \label{fig:development_system_info_template}
 \end{figure}
 
- 図\ref{fig:development_system_info_template}に例として、BMP画像分割アプリというシステムの情報を入力したものを示す。
+ 図\ref{fig:development_system_info_template}に例として、BMP画像分割アプリというシステムの情報を入力したプロンプトの例を示す。
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{7}{7}\selectfont
 \begin{verbatim}
+あなたはシステム仕様書作成の専門アシスタントです。
+
+【ベース章立てテンプレート(参考)】
+1. 概要
+ 1.1.目的
+ 1.2.システム概要
+ 1.3.適用範囲
+2. システム基本条件
+ 2.1.稼働条件
+ 2.2.他システムインターフェース
+ 2.3.性能条件
+ 2.4.拡張条件
+ 2.5.継承条件
+ 2.6.以降環境
+3. システム構成
+ 3.1.ハードウェア構成及びネットワーク構成
+ 3.2.ソフトウェア構成
+4. システムの機能
+ 4.1.機能構成
+ 4.2.個別機能概要
+5. システムの運用
+ 5.1.運用方法
+ 5.2.各業務(機能)の運用
+ 5.3.障害時の運用
+6.セキュリティ
+7.安全設計
+8.データ仕様
+ 8.1.コード体系
+ 8.2.データベース
+ 8.3.ファイル
+ 8.4.入出力データ
+ 8.5.メッセージ
+9.付帯事項
+
+※ベース章立てはあくまで参考です。必要に応じて章の追加・削除・順序変更を行って、漏れなく体系的な章立てを作成してください。
+
 【開発するシステム情報】
 - システム名：BMP画像分割アプリ
 - 概要：指定されたBMP画像ファイルを指定された数に分割する。
+
+【システム仕様書の定義】
+- 目的：
+ ・プログラム作成者がシステムの仕様を理解し、設計・実装するための文書 
+ ・システムテスト担当者がテスト項目を作るために参照する文書
+- 対象読者:
+ ・プログラム作成者：新人想定 
+ ・テスト担当者：内部構造は知らず、仕様書に記載されたエラー条件に従ってテストを実施
+- 記述スタイル：
+ ・専門用語は必ず説明 
+ ・初出の単語は必ず説明 
+ ・システム概要は図を使って視覚的に理解できるようにする 
+ ・図はユースケース図または独自の簡易図を使用し、必ずテキストで補足説明 
+ ・用語や機能名は文書内で統一 
+ ・データ型や制約が必要な場合は表形式で記載 
+ ・外部仕様のみ記載(内部構造は書かない)
+- システム要件：
+ ・動作環境：OS、ハードウェア、ネットワーク 
+ ・非機能要件：パフォーマンス、セキュリティ 
+- 記述の粒度：
+ ・画面レイアウトと操作フローのみ含める
+
+【出力指示】
+・上記情報に基づき、開発するシステムのシステム仕様書に必要な章立てを出力してください。
+・ここでいう章立ては、以下の内容を含みます。
+　・章と節、章タイトル、節タイトル、項、項タイトル 
+・出力形式は**マークダウンの番号付きリスト**としてください。 
+・章名以外(目的・記述のポイントなど)は一切書かないでください。 
+・章の追加や削除、順序の変更は自由に行って構いません。
+・人間が考慮し忘れるような章立ても考えるのがあなたの役目です。考慮漏れが無いように、網羅性を高めてください。
 \end{verbatim}
 \end{tcolorbox}
 \par\vspace{-20pt}
-\captionof{figure}{「開発するシステム情報」部分の記入例}
+\captionof{figure}{「開発するシステム情報」を記入したプロンプトの例}
 \label{fig:development_system_info}
 \end{figure}
+
+% \begin{figure}[tp]
+% \begin{tcolorbox}[
+%   colback=white,
+%   colframe=blue,
+%   fonttitle=\bfseries,
+% ]
+% \footnotesize
+% \ttfamily
+% \fontsize{11}{12}\selectfont
+% \begin{verbatim}
+% 【開発するシステム情報】
+% - システム名：BMP画像分割アプリ
+% - 概要：指定されたBMP画像ファイルを指定された数に分割する。
+% \end{verbatim}
+% \end{tcolorbox}
+% \par\vspace{-20pt}
+% \captionof{figure}{「開発するシステム情報」部分の記入例}
+% \label{fig:development_system_info}
+% \end{figure}
 
 
 また、これは、\ref{subsec:context_manager_pattern}節で述べたContext Manager Patternにおける「考慮事項の指定」に相当する。
 
- 対象とするシステムの情報をLLMに与えないまま章立てを行わせると、どのシステムにも当てはまるような抽象的な記述を生成するリスクがある。
+対象とするシステムの情報をLLMに与えないまま章立てを行わせると、どのシステムにも当てはまるような抽象的な記述を生成するリスクがある。
 そこで、対象システムの具体的なコンテキスト(考慮すべき事実)を提供することで、LLMがシステム固有の情報に基づいた章立てを出力するように誘導する。
 図\ref{fig:development_system_info}に例として示した「BMP画像分割アプリ」のようなシステム情報に関する入力があることで、LLMに「画像処理に関連する機能要件が必要ではないか？」「ファイル入出力の章が必要ではないか？」といった推論を促す。
 
@@ -305,23 +390,23 @@
 本要素では、システム仕様書がどういう役割の文書であるかをLLMに説明する。
 具体的には、以下を定義する。
 \begin{itemize}
-  \item システム仕様書の目的
-  \item 対象読者
-  \item 記述スタイル
-  \item システム要件
-  \item 記述の粒度
+  \item \textbf{目的}: 仕様書がプロジェクトにおいて果たすべき役割や、作成のねらいを定義する。
+  \item \textbf{対象読者}: 仕様書を参照する人物のスキルレベルや立場を指定する。
+  \item \textbf{記述スタイル}: 図解の活用や用語の統一など、仕様書としての具体的な表現の指針を規定する。
+  \item \textbf{システム要件}: 動作環境や非機能要件で、考慮すべき制約条件を定める。
+  \item \textbf{記述の粒度}: 章立てに含める情報の詳細さや、記述を限定する範囲を指定する。
 \end{itemize}
 
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{10}{11}\selectfont
 \begin{verbatim}
 【システム仕様書の定義】
 - 目的：
@@ -337,7 +422,7 @@
  ・図はユースケース図または独自の簡易図を使用し、必ずテキストで補足説明 
  ・用語や機能名は文書内で統一 
  ・データ型や制約が必要な場合は表形式で記載 
- ・外部仕様のみ記載（内部構造は書かない）
+ ・外部仕様のみ記載(内部構造は書かない)
 - システム要件：
  ・動作環境：OS、ハードウェア、ネットワーク 
  ・非機能要件：パフォーマンス、セキュリティ 
@@ -352,11 +437,11 @@
 
  これは、Context Manager Patternにおける「範囲の指定」および「除外事項の指定」に相当する。
 
- 「システム仕様書」という言葉の定義は曖昧であり、要件定義レベルの粗い内容を含む場合や、内部設計レベルの詳細な内容までを含む場合もある\cite{software_engineering}。
+「システム仕様書」という言葉の定義は曖昧であり、要件定義レベルの粗い内容を含む場合や、内部設計レベルの詳細な内容までを含む場合もある\cite{software_engineering}。
 % したがって、LLMへの指示が曖昧な場合、内部アルゴリズム(クラス設計など)を含んでしまったり、逆にユーザー操作フローを省略したりと、粒度の不一致が発生する。
-したがって、LLMへの指示が曖昧な場合、本研究で想定するシステム仕様書には含むべきでない内容(内部構造)を含んでしまったり、逆に含むべき内容(外部仕様)を省略したりと、粒度の不一致が発生する。
+したがって、LLMへの指示が曖昧な場合、本研究で想定するシステム仕様書には含むべきでない内部構造の情報を含んでしまったり、逆に含むべき外部仕様の情報を省略したりと、粒度の不一致が発生する。
 そこで、「外部仕様のみ記載する」「内部構造は書かない」と明示的な範囲指定と除外指定を行うことで、\ref{subsec:system_spec_position}節で定義した本研究におけるシステム仕様書の範囲に内容を限定する。
-また、対象読者を新人想定のプログラム作成者、およびシステムテスト担当者と設定することで、細部まで明文化した丁寧な記述を促す効果を狙っている。
+また、対象読者を新人想定のプログラム作成者とすることで細部まで明文化した丁寧な記述を促す効果を狙う。さらに、対象読者をシステムテスト担当者とすることで、テストに関する章、節、項の網羅性を高める効果を狙う。
 
 
 % \clearpage
@@ -365,7 +450,7 @@
 %   \fbox{
 %   \includegraphics[width=0.8\textwidth]{images/正しい出力.png}
 %   }
-%   \captionof{figure}{フォーマット指定ありの出力指示での出力例の一部}
+%   \captionof{figure}{出力形式指定ありの出力指示での出力例の一部}
 %   \label{fig:output_instruction_correct}
 % \end{figure}
 
@@ -374,7 +459,7 @@
 %   \fbox{
 %   \includegraphics[width=0.8\textwidth]{images/出力指示不適切な例.pdf}
 %   }
-%   \captionof{figure}{フォーマット指定なしの出力指示での出力例の一部}
+%   \captionof{figure}{出力形式指定なしの出力指示での出力例の一部}
 %   \label{fig:output_instruction_no_format}
 % \end{figure}
 
@@ -382,10 +467,10 @@
 \subsubsection{出力指示}
 
 図\ref{fig:prompt_full_text}における「出力指示」部分のプロンプトを、図\ref{fig:output_instruction}に示す。
-本要素では、システム仕様書の章立てを生成する際の出力形式をLLMに指示する。
+本要素では、システム仕様書の章立てを生成する際のLLMに対する出力指示を行う。
 出力指示には以下の内容を含める。
 \begin{itemize}
-  \item 章立てを生成させる指示
+  \item 章立て生成指示
   \item 章立ての定義
   \item 章立ての出力形式を「マークダウンの番号付きリスト」に制限する指示
   \item 章立てに関係のない内容は出力しないよう促す指示
@@ -397,19 +482,19 @@
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{10}{11}\selectfont
 \begin{verbatim}
 【出力指示】
 ・上記情報に基づき、開発するシステムのシステム仕様書に必要な章立てを出力してください。
 ・ここでいう章立ては、以下の内容を含みます。
 　・章と節、章タイトル、節タイトル、項、項タイトル 
 ・出力形式は**マークダウンの番号付きリスト**としてください。 
-・章名以外（目的・記述のポイントなど）は一切書かないでください。 
+・章名以外(目的・記述のポイントなど)は一切書かないでください。 
 ・章の追加や削除、順序の変更は自由に行って構いません。
 ・人間が考慮し忘れるような章立ても考えるのがあなたの役目です。考慮漏れが無いように、網羅性を高めてください。
 \end{verbatim}
@@ -420,17 +505,18 @@
 \end{figure}
 
 
-
-出力形式を「マークダウンの番号付きリスト」に制限する指示と章立てに関係のない内容は出力しないよう促す指示により、出力結果の可読性を高めることを目的とする。
-また、「マークダウンの番号付きリスト」に制限する指示は、\ref{subsec:template_pattern}節で述べたTemplate Patternの適用である。
+章立て生成指示と章立ての定義により、何を出力すべきかをLLMに理解させる。
+また、出力形式を「マークダウンの番号付きリスト」に制限する指示と章立てに関係のない内容は出力しないよう促す指示により、出力結果の視認性を高めることを目的とする。
+ここで、「マークダウンの番号付きリスト」に制限する指示は、\ref{subsec:template_pattern}節で述べたTemplate Patternの適用である。
+そして、自由な章立てを促す指示と章立ての網羅性を高める指示により、LLMの膨大な学習データを活かし、より網羅的な章立てを生成することを目指す。
 
 
 図\ref{fig:output_instruction}の出力指示における出力例を、図\ref{fig:output_instruction_correct}に示す。\\
-また、図\ref{fig:no_format}に示すフォーマット指定なしの出力指示での出力を、図\ref{fig:output_instruction_no_format}に示す。
+また、図\ref{fig:no_format}に示す出力形式指定なしの出力指示での出力を、図\ref{fig:output_instruction_no_format}に示す。
 
-図\ref{fig:output_instruction_no_format}の赤枠で囲った部分を見てわかるように、フォーマット指定のない出力指示では、LLMは章立てそのものだけでなく、章立てに関係のないものまで出力してしまうことが分かる。
-しかし、図\ref{fig:output_instruction_correct}のようにフォーマット指定をすることで、LLMは階層化された章立てのみを出力する。
-したがって、フォーマット指定をすることで、LLMの出力を構造化し、可読性を向上させ、人間が目視で章立てを確認する際の認知的負荷を軽減できる。
+図\ref{fig:output_instruction_no_format}の赤枠で囲った部分を見てわかるように、出力形式指定のない出力指示では、LLMは章立てそのものだけでなく、章立てに関係のないものまで出力してしまうことが分かる。
+しかし、図\ref{fig:output_instruction_correct}のように出力形式指定をすることで、LLMは階層化された章立てのみを出力する。
+したがって、出力形式指定をすることで、LLMの出力を構造化し、可読性を向上させ、人間が目視で章立てを確認する際の認知的負荷を軽減できる。
 
 
 
@@ -439,7 +525,7 @@
   \fbox{
   \includegraphics[width=0.8\textwidth]{images/正しい出力.png}
   }
-  \captionof{figure}{フォーマット指定ありの出力指示での出力例の一部}
+  \captionof{figure}{出力形式指定ありの出力指示での出力例の一部}
   \label{fig:output_instruction_correct}
 \end{figure}
 
@@ -448,12 +534,12 @@
 \begin{figure}[tp]
 \begin{tcolorbox}[
   colback=white,
-  colframe=black,
+  colframe=blue,
   fonttitle=\bfseries,
 ]
 \footnotesize
 \ttfamily
-\fontsize{11}{12}\selectfont
+\fontsize{10}{11}\selectfont
 \begin{verbatim}
 【出力指示】
 ・上記情報に基づき、開発するシステムのシステム仕様書に必要な章立てを出力してください。
@@ -464,7 +550,7 @@
 \end{verbatim}
 \end{tcolorbox}
 \par\vspace{-20pt}
-\captionof{figure}{フォーマット指定なしの出力指示}
+\captionof{figure}{出力形式指定なしの出力指示}
 \label{fig:no_format}
 \end{figure}
 
@@ -473,7 +559,7 @@
   \fbox{
   \includegraphics[width=0.8\textwidth]{images/出力指示不適切な例.pdf}
   }
-  \captionof{figure}{フォーマット指定なしの出力指示での出力例の一部}
+  \captionof{figure}{出力形式指定なしの出力指示での出力例の一部}
   \label{fig:output_instruction_no_format}
 \end{figure}
 
