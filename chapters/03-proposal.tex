@@ -20,7 +20,7 @@
     ユーザー(仕様書作成者)は、図\ref{fig:prompt_structure}の「開発するシステム情報」部分に、対象システムのシステム名とシステム概要を記述する。
 
     \item \textbf{章立ての生成}:
-    章立て生成の対象とするシステムの情報を入力したプロンプトをLLM(GPT-5.2)に入力し、システム仕様書の章立てを生成する。出力結果として、章立て(章・節・項の構造)を得る。
+    章立て生成の対象とする「開発するシステムの情報」を入力したプロンプトをLLM(GPT-5.2)に入力し、システム仕様書の章立てを生成する。出力結果として、章立て(章・節・項の構造)を得る。
 \end{enumerate}
 
 
@@ -173,7 +173,7 @@
 \label{fig:role_assignment}
 \end{figure}
 
-プロンプトの文頭で「あなたはシステム仕様書作成の専門アシスタントです」と書くことで、LLMに特定の役割を与えている。
+プロンプトの文頭で「あなたはシステム仕様書作成の専門アシスタントです」と書くことで、LLMに特定の役割を与える。
 これは、\ref{subsec:persona_pattern}節で述べたPersona Pattern(ペルソナパターン)の適用である。
 提案するプロンプトでは、「システム仕様書作成の専門アシスタント」という役割をLLMに与えることで、LLMの出力をシステム仕様書作成に適したものにする。
 
@@ -266,7 +266,7 @@ LLMにテンプレートを与えず、ゼロから章立てを生成させる�
 \label{fig:development_system_info_template}
 \end{figure}
 
- 図\ref{fig:development_system_info}に例として、BMP画像分割アプリというシステムの情報を入力したプロンプトの例を示す。
+ 図\ref{fig:development_system_info}に例として、BMP画像分割アプリのシステム情報を入力したプロンプトの例を示す。
 
 \begin{figure}[tp]
 \begin{tcolorbox}[
@@ -290,9 +290,9 @@ LLMにテンプレートを与えず、ゼロから章立てを生成させる�
 
 また、これは、\ref{subsec:context_manager_pattern}節で述べたContext Manager Patternにおける「考慮事項の指定」に相当する。
 
-対象とするシステムの情報をLLMに与えないまま章立てを行わせると、どのシステムにも当てはまるような抽象的な記述を生成するリスクがある。
+対象とするシステム情報をLLMに与えないまま章立てを行わせると、どのシステムにも当てはまるような抽象的な記述を生成するリスクがある。
 そこで、対象システムの具体的なコンテキスト(考慮すべき事実)を提供することで、LLMがシステム固有の情報に基づいた章立てを出力するように誘導する。
-図\ref{fig:development_system_info}に例として示した「BMP画像分割アプリ」のようなシステム情報に関する入力があることで、LLMに「画像処理に関連する機能要件が必要ではないか？」「ファイル入出力の章が必要ではないか？」といった推論を促す。
+システム情報として、図\ref{fig:development_system_info}に例として示した「BMP画像分割アプリ」に関する入力があることで、LLMに「画像処理に関連する機能要件が必要ではないか？」「ファイル入出力の章が必要ではないか？」といった推論を促す。
 
 
 \subsubsection{システム仕様書の定義}
@@ -395,16 +395,16 @@ LLMにテンプレートを与えず、ゼロから章立てを生成させる�
 
 
 章立て生成指示と章立ての定義により、何を出力すべきかをLLMに理解させる。
-また、出力形式を「マークダウンの番号付きリスト」に制限する指示と章立てに関係のない内容は出力しないよう促す指示により、出力結果の視認性を高めることを目的とする。
+また、出力形式を「マークダウンの番号付きリスト」に制限する指示と章立てに関係のない内容は出力しないよう促す2つの出力形式指定により、出力結果の視認性を高めることを目的とする。
 ここで、「マークダウンの番号付きリスト」に制限する指示は、\ref{subsec:template_pattern}節で述べたTemplate Patternの適用である。
 そして、自由な章立てを促す指示と章立ての網羅性を高める指示により、LLMの膨大な学習データを活かし、より網羅性の高い章立てを生成することを目指す。
 
 
-図\ref{fig:output_instruction}の出力指示における出力例を、図\ref{fig:output_instruction_correct}に示す。\\
-また、図\ref{fig:no_format}に示す出力形式指定なしの出力指示での出力を、図\ref{fig:output_instruction_no_format}に示す。
+図\ref{fig:output_instruction}の出力指示におけるLLMの出力例を、図\ref{fig:output_instruction_correct}に示す。
+出力形式指定をすることで、LLMは階層化された章立てのみを出力する。
+一方、図\ref{fig:output_instruction}の出力指示から2つの出力形式指定を削除した出力指示を図\ref{fig:no_format}に示す。また、図\ref{fig:no_format}の出力指示におけるLLMの出力例を、図\ref{fig:output_instruction_no_format}に示す。
 
-図\ref{fig:output_instruction_no_format}の赤枠で囲った部分を見てわかるように、出力形式指定のない出力指示では、LLMは章立てそのものだけでなく、章立てに関係のないものまで出力してしまうことが分かる。
-しかし、図\ref{fig:output_instruction_correct}のように出力形式指定をすることで、LLMは階層化された章立てのみを出力する。
+図\ref{fig:output_instruction_no_format}の赤枠で囲んだ部分を見てわかるように、出力形式指定のない出力指示では、LLMは章立てそのものだけでなく、章立てに関係のないものまで出力してしまうことが分かる。
 したがって、出力形式指定をすることで、LLMの出力を構造化し、可読性を向上させ、人間が目視で章立てを確認する際の認知的負荷を軽減できる。
 
 
@@ -439,7 +439,7 @@ LLMにテンプレートを与えず、ゼロから章立てを生成させる�
 \end{verbatim}
 \end{tcolorbox}
 \par\vspace{-20pt}
-\captionof{figure}{出力形式指定なしの出力指示}
+\captionof{figure}{図\ref{fig:output_instruction}から出力形式指定を削除した出力指示}
 \label{fig:no_format}
 \end{figure}
 
@@ -448,7 +448,7 @@ LLMにテンプレートを与えず、ゼロから章立てを生成させる�
   \fbox{
   \includegraphics[width=0.8\textwidth]{images/出力指示不適切な例.pdf}
   }
-  \captionof{figure}{出力形式指定なしの出力指示での出力例の一部}
+  \captionof{figure}{図\ref{fig:no_format}のプロンプトでの出力例の一部}
   \label{fig:output_instruction_no_format}
 \end{figure}
 
