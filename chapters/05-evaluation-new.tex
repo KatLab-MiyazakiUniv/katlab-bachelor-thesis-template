@@ -1,8 +1,8 @@
 \chapter{評価実験}\label{cha:Evaluation}
 
 本研究で提案するプロンプトの有用性を検証するため、実験を行った。本実験の被験者は、システム仕様書作成経験のない学生4人である。
-実験では、実際のシステム開発を想定した題材を用い、提案するプロンプトを用いた手法とその他の手法で、被験者が章立てを作成し、その章立ての品質を、
-株式会社スカイコム\cite{skycom}にて5年以上のシステム仕様書作成経験を持つ専門家5人が評価した。
+実験では、実際のシステム開発を想定した題材を用い、提案するプロンプトを用いた手法とその他の手法で、被験者が章立てを作成する。作成した章立ての品質を、
+株式会社スカイコム\cite{skycom}にて5年以上のシステム仕様書作成経験を持つ専門家5人が評価者となり、評価した。
 
 
 \section{実験設定}
@@ -22,9 +22,9 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 
 システム仕様書章立ての作成手法として、以下の3パターンを設定した。
 \begin{itemize}
-    \item \textbf{手法A(手動作成)}: 被験者はLLMを用いず、章立てを作成する。この際、被験者には、対象システムの情報(\ref{sec:target_system}節参照)と、ベースの章立て(図\ref{fig:base_outline}参照)を与える。
-    \item \textbf{手法B(自由プロンプト)}: 被験者はLLM(GPT-5.2)を使用して、章立てを作成する。この際、被験者には、対象とするシステムの情報(\ref{sec:target_system}節参照)と、ベースの章立て(図\ref{fig:base_outline}参照)を与える。ただし、提案するプロンプトは与えず、被験者自身による自由なプロンプトをLLM(GPT-5.2)に与える。
-    \item \textbf{手法C(提案するプロンプト)}: 被験者はLLM(GPT-5.2)を使用し、提案するプロンプトを用いて章立てを作成する。
+    \item \textbf{手法A(手動作成)}: 被験者はLLMを用いず、章立てを作成する。この際、被験者には、対象システムの情報(\ref{sec:target_system}節を参照)と、ベースの章立て(図\ref{fig:base_outline}を参照)を与える。
+    \item \textbf{手法B(自由プロンプト)}: 被験者はLLM(GPT-5.2)を使用して、章立てを作成する。この際、被験者には、対象とするシステムの情報(\ref{sec:target_system}節を参照)と、ベースの章立て(図\ref{fig:base_outline}を参照)を与える。ただし、提案するプロンプトは与えずに、被験者自身による自由なプロンプトをLLM(GPT-5.2)に与える。
+    \item \textbf{手法C(提案プロンプト)}: 被験者はLLM(GPT-5.2)を使用し、提案プロンプトを用いて章立てを作成する。
 \end{itemize}
 
 図\ref{fig:bmp}にBMP画像分割アプリを対象とした手法Cで用いるプロンプトの「開発するシステム情報」部分を示す。
@@ -81,19 +81,19 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
     \hline
     \textbf{被験者} & \textbf{BMP画像分割アプリ} & \textbf{クラウド型電子契約サービス} \\
     \hline\hline
-    A & 手法A(手動) & 手法C(提案するプロンプト) \\
+    A & 手法A(手動) & 手法C(提案プロンプト) \\
     \hline
-    B & 手法C(提案するプロンプト) & 手法A(手動) \\
+    B & 手法C(提案プロンプト) & 手法A(手動) \\
     \hline
-    C & 手法B(自由プロンプト) & 手法C(提案するプロンプト) \\
+    C & 手法B(自由プロンプト) & 手法C(提案プロンプト) \\
     \hline
-    D & 手法C(提案するプロンプト) & 手法B(自由プロンプト) \\
+    D & 手法C(提案プロンプト) & 手法B(自由プロンプト) \\
     \hline
   \end{tabular}
 \end{table}
 
 \subsection{評価方法}
-作成した章立ては、株式会社スカイコムにて5年以上のシステム仕様書作成経験を持つ専門家が評価した。
+作成した章立ては、株式会社スカイコムにて5年以上のシステム仕様書作成経験を持つ専門家が評価者となり、評価した。
 評価は以下の9項目について行い、それぞれ5段階のリッカート尺度\cite{likert}(5:非常に良い, 4:良い, 3:普通, 2:悪い, 1:非常に悪い)で採点した。
 
 \begin{enumerate}
@@ -199,7 +199,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 %章立て
 %傾向の分析
 
-図\ref{fig:A_chapter_structure_of_bmp_app}に手法Aを用いて作成したBMP画像分割アプリの章立てを示す。
+図\ref{fig:A_chapter_structure_of_bmp_app}に、手法Aを用いて作成したBMP画像分割アプリの章立てを示す。
 また、以下に評価者のコメントを示す。
 
 \noindent\textbf{評価者のコメント}\\
@@ -429,7 +429,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 
 
 
-\subsubsection{被験者Bによる手法C(提案するプロンプト)}
+\subsubsection{被験者Bによる手法C(提案プロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
@@ -491,7 +491,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 \end{verbatim}
 \end{multicols}
 \end{tcolorbox}
-\caption{被験者Bが手法C(提案するプロンプト)で作成した章立て}
+\caption{被験者Bが手法C(提案プロンプト)で作成した章立て}
 \label{fig:C_chapter_structure_of_bmp_app_1}
 \end{figure}
 
@@ -501,13 +501,13 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 \noindent\textbf{評価者のコメント}\\
 評価者A：一番バランスが良い\\
 評価者B：一番整理されている\\
-評価者C：一番拡張性は高く使い勝手は一番よさそう。\\
+評価者C：一番拡張性は高く使い勝手は一番よさそう\\
 評価者E：構成が分かりやすくていい\\
 
 表\ref{tb:detailed_evaluation_results_C}に、被験者Bが手法Cを用いて作成したBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
 
 \begin{table}[tp]
-  \caption{被験者Bによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
+  \caption{被験者Bによる手法C(提案プロンプト)章立ての評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_C}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -538,7 +538,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 
 
 
-\subsubsection{被験者Dによる手法C(提案するプロンプト)}
+\subsubsection{被験者Dによる手法C(提案プロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
@@ -598,7 +598,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 \end{verbatim}
 \end{multicols}
 \end{tcolorbox}
-\caption{被験者Dが手法C(提案するプロンプト)で作成した章立て}
+\caption{被験者Dが手法C(提案プロンプト)で作成した章立て}
 \label{fig:C_chapter_structure_of_bmp_app_2}
 \end{figure}
 
@@ -613,7 +613,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 表\ref{tb:detailed_evaluation_results_C2}に、被験者Dが手法Cを用いて作成したBMP画像分割アプリシステム仕様書の章立ての評価結果を示す。
 
 \begin{table}[tp]
-  \caption{被験者Dによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
+  \caption{被験者Dによる手法C(提案プロンプト)章立ての評価者別詳細評価結果}
   \label{tb:detailed_evaluation_results_C2}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -883,7 +883,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 
 
 
-\subsubsection{被験者Aによる手法C(提案するプロンプト)}
+\subsubsection{被験者Aによる手法C(提案プロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
@@ -980,7 +980,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 表\ref{tb:cloud_detailed_evaluation_results_C}に、被験者Aが手法Cを用いて作成したクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
 
 \begin{table}[tp]
-  \caption{被験者Aによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
+  \caption{被験者Aによる手法C(提案プロンプト)章立ての評価者別詳細評価結果}
   \label{tb:cloud_detailed_evaluation_results_C}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -1012,7 +1012,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 
 
 
-\subsubsection{被験者Cによる手法C(提案するプロンプト)}
+\subsubsection{被験者Cによる手法C(提案プロンプト)}
 %評価結果の表(行が評価項目、列が評価者)
 %章立て
 %傾向の分析
@@ -1103,7 +1103,7 @@ BMP画像分割アプリは機能が少ない単純なシステムとして、�
 表\ref{tb:cloud_detailed_evaluation_results_C2}に、被験者Cが手法Cを用いて作成したクラウド型電子契約サービスシステム仕様書の章立ての評価結果を示す。
 
 \begin{table}[tp]
-  \caption{被験者Cによる手法C(提案するプロンプト)章立ての評価者別詳細評価結果}
+  \caption{被験者Cによる手法C(提案プロンプト)章立ての評価者別詳細評価結果}
   \label{tb:cloud_detailed_evaluation_results_C2}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|}
