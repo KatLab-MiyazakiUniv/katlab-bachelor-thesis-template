@@ -627,12 +627,22 @@ LaTeX の詳細な文法については、文献\cite{kimura-latex}に詳しい�
 \verb|enumerate| 環境を使用する：
 
 \begin{enumerate}
-  \item 最初の項目
+  \item 最初の項目 \label{enum:first}
   \item 2番目の項目
-  \item 3番目の項目
+    \begin{enumerate}
+      \item サブ項目A \label{enum:sub-a}
+      \item サブ項目B \label{enum:sub-b}
+    \end{enumerate}
+  \item 3番目の項目 \label{enum:third}
 \end{enumerate}
 
 % \section{強調表示}
+リスト項目にもラベルを付けて参照できる。
+例えば、\verb|\ref{enum:first}| で\ref{enum:first}を参照でき、
+サブ項目は\verb|\ref{enum:sub-a}| で\ref{enum:sub-a}のように参照できる。
+\verb|\cref| を使えば、\cref{enum:first}や\cref{enum:sub-a}のように参照できる。
+
+\section{強調表示}
 
 以下のようなフォントスタイルが使用できる：
 
