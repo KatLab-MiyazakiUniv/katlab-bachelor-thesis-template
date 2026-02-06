@@ -69,9 +69,9 @@
 \label{subsec:general_outline}
 
 システム仕様書の章立ては、対象とするシステムの特性や組織の標準により異なるが、システム仕様書として作成される文書には、システムが提供する機能や振る舞いを網羅的に記述することが求められる。
-国際的な標準としては、IEEE 830 (Recommended Practice for Software Requirements Specifications)\cite{ieee830} が広く知られており、機能要件、外部インターフェース、パフォーマンスなどの非機能要件を記述することが推奨されている。
+国際的な標準としては、IEEE830 (Recommended Practice for Software Requirements Specifications)\cite{ieee830} が広く知られており、機能要件、外部インターフェース、パフォーマンスなどの非機能要件を記述することが推奨されている。
 
-図\ref{fig:ieee830}に、IEEE830が推奨するシステム仕様書の章立てに含むべき項目を示す。
+図\ref{fig:ieee830}に、IEEE830に基づくシステム仕様書の章立てに含むべき項目を示す。
 
 % \begin{enumerate}
 %     \item \textbf{システム概要}
@@ -232,13 +232,13 @@
 
 Large Language Models (大規模言語モデル)\cite{whatllm}は、膨大なテキストデータと高度なディープラーニング技術を用いて構築された、自然言語処理分野における技術である。
 
-本研究では、OpenAI\cite{openai}社が提供するLLMであるGPT-5.2\cite{gpt52}を搭載したChatGPT\cite{chatgpt}をシステム仕様書章立ての生成に用いる。
+本研究では、OpenAI\cite{openai}社が提供するLLMであるGPT-5.2\cite{gpt52}を搭載したChatGPT\cite{chatgpt}を、システム仕様書章立ての生成に用いる。
 
 \section{プロンプトエンジニアリング}
 \label{sec:prompt_engineering}
 
 プロンプトエンジニアリングとは、LLMにタスクの実行を命令する際、LLMから望ましい出力を得るために、入力するプロンプトを設計、および最適化する技術のことである\cite{prompt_engineering}。
-LLMの性能を最大限に引き出すためには、モデルの特性を理解し、適切なプロンプトを構築し、入力する必要がある。以降、本研究で用いるプロンプトエンジニアリングに関連する主要な手法について述べる。
+LLMの性能を最大限に引き出すためには、モデルの特性を理解して、適切なプロンプトを構築し、入力する必要がある。以降、本研究で用いるプロンプトエンジニアリングに関連する主要な手法について述べる。
 
 \subsection{Few-shot Prompting}
 \label{subsec:few_shot}
