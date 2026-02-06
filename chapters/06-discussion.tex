@@ -74,32 +74,76 @@ BMP画像分割アプリにおいて、手法B(自由プロンプト)(被験者C
 一方で、手法C(提案プロンプト)の合計点数はそれぞれ36.2点、33.9点であり、その差は2.3点であった。
 これは、手法B(自由プロンプト)は対象とするシステムに応じて、品質のばらつきが大きく、手法C(提案プロンプト)は品質のばらつきが少ないことを示している。
 
-% 図\ref{fig:acomparison}は手法A(手動作成)のBMP画像分割アプリとクラウド型電子契約サービスの評価結果の比較を示す。
-% \begin{figure}[tp]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/手法Aばらつき.png}
-%     \caption{手法A(手動作成)の評価結果のばらつき}
-%     \label{fig:acomparison}
-% \end{figure}
 
-% 図\ref{fig:bcomparison}は手法B(自由プロンプト)のBMP画像分割アプリとクラウド型電子契約サービスの評価結果の比較を示す。
-% \begin{figure}[tp]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/手法Bばらつき.png}
-%     \caption{手法B(自由プロンプト)の評価結果のばらつき}
-%     \label{fig:bcomparison}
-% \end{figure}
+表\ref{tb:ieeee}は、IEEE830がシステム仕様書の章立てに含むことを推奨する項目(図\ref{fig:ieee830}参照)と評価実験で作成した章立て(\ref{sec:evaluation_results}節を参照)を比較し、各章立てがIEEE830がシステム仕様書の章立てに含むことを推奨する項目をどれだけ満たしているかを示した表である。
+この表から、BMP画像分割アプリを対象として手法Aで作成した章立て(図\ref{fig:A_chapter_structure_of_bmp_app}参照)は、IEEE830がシステム仕様書の章立てに含むことを推奨する項目を36項目中11項目(30.6\%)満たしていることが分かる。
+また、BMP画像分割アプリを対象として手法Bで作成した章立て(図\ref{fig:B_chapter_structure_of_bmp_app}参照)は、36項目中13項目(36.1\%)満たしていることが分かる。
+また、BMP画像分割アプリを対象として被験者Bが手法Cで作成した章立て(図\ref{fig:C_chapter_structure_of_bmp_app_1})は、36項目中16項目(44.4\%)満たしていることが分かる。
+また、BMP画像分割アプリを対象として被験者Dが手法Cで作成した章立て(図\ref{fig:C_chapter_structure_of_bmp_app_2})は、36項目中16項目(44.4\%)満たしていることが分かる。
+また、クラウド型電子契約サービスを対象として手法Aで作成した章立て(図\ref{fig:A_chapter_structure_of_cloud_contract_system}参照)は、IEEE830がシステム仕様書の章立てに含むことを推奨する項目を36項目中14項目(38.9\%)満たしていることが分かる。
+また、クラウド型電子契約サービスを対象として手法Bで作成した章立て(図\ref{fig:B_chapter_structure_of_cloud_contract_system}参照)は、36項目中26項目(72.2\%)満たしていることが分かる。
+また、クラウド型電子契約サービスを対象として被験者Aが手法Cで作成した章立て(図\ref{fig:C_chapter_structure_of_cloud_contract_system_1})は、36項目中24項目(66.7\%)満たしていることが分かる。
+また、クラウド型電子契約サービスを対象として被験者Cが手法Cで作成した章立て(図\ref{fig:C_chapter_structure_of_cloud_contract_system_2})は、36項目中22項目(61.1\%)満たしていることが分かる。
 
-% 図\ref{fig:ccomparison}は手法C(提案プロンプト)のBMP画像分割アプリとクラウド型電子契約サービスの評価結果の比較を示す。
-% \begin{figure}[tp]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/手法Cばらつき.png}
-%     \caption{手法C(提案プロンプト)の評価結果のばらつき}
-%     \label{fig:ccomparison}
-% \end{figure}
+この結果から、手法C(提案プロンプト)は、手法A(手動作成)と比較して、IEEE830がシステム仕様書の章立てに含むことを推奨する項目を多く満たしていることが分かる。
+また、手法C(提案プロンプト)のBMP画像分割アプリとクラウド型電子契約サービスの差は、8項目であるのに対し、手法B(自由プロンプト)の差は13項目である。
+したがって、手法C(提案プロンプト)は、手法B(自由プロンプト)と比較して、対象システムの違いによる章立ての品質のばらつきが少ないことが分かる。
 
-% この結果は、自由プロンプトが高い品質の章立てを出す可能性がある一方で、BMP画像分割アプリのような単純なシステムに対しては、冗長な構成が拡張性、可読性の低下といったリスクがあることを示している。
-% 提案するプロンプトは、独自性や粒度の適切さでは自由プロンプトの最良ケースに劣るものの、作成者のスキルに依存せず、章立ての品質のばらつきを抑えることができる点に特長があると言える。
+また、手法C(提案プロンプト)は、BMP画像分割アプリにおいて、平均の網羅率が44.4\%であり、クラウド型電子契約サービスにおいては、平均の網羅率が63.9\%である。
+これは、テスト設計の網羅性という観点において、不十分な数値である。
+したがって、提案プロンプトは、テスト設計の網羅性を向上させるためには、「システム仕様書の定義」の記述を改善する必要があると考察する。
+
+\begin{table}[tp]
+  \centering
+  \caption{IEEE830の章立てに含むことが推奨される項目と評価実験で作成した章立ての比較}
+  \label{tb:ieeee}
+%   \footnotesize
+%   \renewcommand{\arraystretch}{1.2}
+  \scriptsize
+  \renewcommand{\arraystretch}{0.7}
+  \setlength{\tabcolsep}{2pt}
+  \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{仕様書の章立て項目} &\begin{tabular}{c} \textbf{手法A}\\\textbf{(BMP)} \\ \end{tabular}& \begin{tabular}{c} \textbf{手法B}\\\textbf{(BMP)} \\ \end{tabular}& \begin{tabular}{c} \textbf{手法C}\\\textbf{(BMP,}\\\textbf{被験者B)} \\ \end{tabular}& \begin{tabular}{c} \textbf{手法C}\\\textbf{(BMP,}\\\textbf{被験者D)} \\ \end{tabular}& \begin{tabular}{c} \textbf{手法A}\\\textbf{(電子契約)} \\ \end{tabular}& \begin{tabular}{c} \textbf{手法B}\\\textbf{(電子契約)} \\ \end{tabular}& \begin{tabular}{c} \textbf{手法C}\\\textbf{(電子契約,}\\\textbf{被験者A)} \\ \end{tabular}& \begin{tabular}{c} \textbf{手法C}\\\textbf{(電子契約,}\\\textbf{被験者C)} \\ \end{tabular}\\ \hline
+    1. はじめに & 〇& 〇& 〇& 〇& 〇& 〇& 〇& 〇 \\ \hline
+    \forceindent1.1 本書の目的 & 〇& 〇& 〇& 〇& 〇& 〇& 〇& 〇 \\ \hline
+    \forceindent1.2 対象範囲 & & & 〇& 〇& 〇& 〇& 〇& 〇 \\ \hline
+    \forceindent1.3 用語定義・略語 &〇 & 〇& 〇& 〇&〇 & & & \\ \hline
+    \forceindent1.4 本書の構成 & &〇 &〇 &〇 & &〇 & 〇&〇 \\ \hline
+    2. システム概要 &〇 & 〇& 〇& 〇&〇 & 〇& 〇& 〇\\ \hline
+    \forceindent2.1 システムの全体像 & & 〇& 〇& 〇& &〇 &〇 & 〇\\ \hline
+    \forceindent\forceindent2.1.1 システム間インターフェース & & & & & & & & \\ \hline
+    \forceindent\forceindent2.1.2 画面インターフェース & & & & & & & & \\ \hline
+    \forceindent\forceindent2.1.3 ハードウェア構成 & & & & & 〇& &〇 & \\ \hline
+    \forceindent\forceindent2.1.4 ソフトウェア構成 &〇 & & & & 〇& 〇& 〇&〇 \\ \hline
+    \forceindent\forceindent2.1.5 ネットワーク構成 &〇 & & & & 〇& 〇& 〇&〇 \\ \hline
+    \forceindent\forceindent2.1.6 リソース制約 & & & & & & & & \\ \hline
+    \forceindent\forceindent2.1.7 運用環境 &〇 & 〇&〇 &〇 & & 〇& 〇&〇 \\ \hline
+    \forceindent\forceindent2.1.8 設置条件 & & & & & & & & \\ \hline
+    \forceindent2.2 システムの主な機能 &〇 &〇 &〇 &〇 &〇 & 〇& 〇& 〇\\ \hline
+    \forceindent2.3 想定利用者 & & & 〇& 〇& & 〇& 〇&〇 \\ \hline
+    \forceindent2.4 制約事項 & &〇 &〇 &〇 & &〇 & 〇& 〇\\ \hline
+    \forceindent2.5 前提条件および依存関係 & & &〇 & 〇& & 〇& 〇& 〇\\ \hline
+    \forceindent2.6 将来対応事項 & & 〇& & & & & 〇& \\ \hline
+    3. 詳細要件 & & &〇 & 〇&〇 & & 〇& 〇\\ \hline
+    \forceindent3.1 外部インターフェース仕様 & & & & & &〇 &〇 & \\ \hline
+    \forceindent3.2 機能要件 &〇 &〇 &〇 &〇 &〇 &〇 &〇 &〇 \\ \hline
+    \forceindent3.3 性能要件 & &〇 &〇 &〇 & &〇 &〇 &〇 \\ \hline
+    \forceindent3.4 データベース要件 &〇 & & & & &〇 &〇 & 〇\\ \hline
+    \forceindent3.5 設計上の制約事項 & & & & &〇 & & & \\ \hline
+    \forceindent3.6 システム品質特性 & & & & & &〇 & & \\ \hline
+    \forceindent\forceindent3.6.1 信頼性 & & & & & & 〇& & \\ \hline
+    \forceindent\forceindent3.6.2 可用性 & &  & & & & 〇& 〇&〇 \\ \hline
+    \forceindent\forceindent3.6.3 セキュリティ &〇 &〇 &〇 &〇 &〇 &〇 & 〇& 〇\\ \hline
+    \forceindent\forceindent3.6.4 保守性 & & & & & & 〇&〇 & \\ \hline
+    \forceindent\forceindent3.6.5 移植性 & & & & &〇 &〇 & & \\ \hline
+    \forceindent3.7 その他の要件 & & &〇 & 〇&〇 &〇 & 〇& 〇\\ \hline
+    4. 参考資料 & & & & & &〇 & &〇 \\ \hline
+    \forceindent4.1 索引 & & & & & & & & \\ \hline
+    \forceindent4.2 付録 &〇 &〇 & & &〇 & &〇 & 〇\\ \hline
+    \textbf{合計} & \textbf{11}& \textbf{13}& \textbf{16}& \textbf{16}& \textbf{14}& \textbf{26}& \textbf{24}& \textbf{22}\\ \hline
+  \end{tabular}
+\end{table}
 
 \section{プロンプトに対する分析}
 \subsection{提案プロンプトの構成要素の寄与}
@@ -367,7 +411,36 @@ BMP画像分割アプリにおいて、手法B(自由プロンプト)(被験者C
 \fontsize{8}{9}\selectfont
 \begin{verbatim}
 【ベース章立てテンプレート(参考)】
-(中略:ベースの章立てテンプレート)
+1. 概要
+ 1.1.目的
+ 1.2.システム概要
+ 1.3.適用範囲
+2. システム基本条件
+ 2.1.稼働条件
+ 2.2.他システムインターフェース
+ 2.3.性能条件
+ 2.4.拡張条件
+ 2.5.継承条件
+ 2.6.以降環境
+3. システム構成
+ 3.1.ハードウェア構成及びネットワーク構成
+ 3.2.ソフトウェア構成
+4. システムの機能
+ 4.1.機能構成
+ 4.2.個別機能概要
+5. システムの運用
+ 5.1.運用方法
+ 5.2.各業務(機能)の運用
+ 5.3.障害時の運用
+6.セキュリティ
+7.安全設計
+8.データ仕様
+ 8.1.コード体系
+ 8.2.データベース
+ 8.3.ファイル
+ 8.4.入出力データ
+ 8.5.メッセージ
+9.付帯事項
 
 ※ベース章立てはあくまで参考です。必要に応じて章の追加・削除・順序変更を行って、漏れなく体系的な章立てを作成してください。
 
